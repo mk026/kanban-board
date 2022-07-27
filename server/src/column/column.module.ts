@@ -1,4 +1,9 @@
 import { Module } from '@nestjs/common';
+import { ColumnController } from './column.controller';
+import { ColumnService } from './column.service';
 
-@Module({})
+@Module({
+  controllers: [ColumnController],
+  providers: [ColumnService],
+})
 export class ColumnModule {}
