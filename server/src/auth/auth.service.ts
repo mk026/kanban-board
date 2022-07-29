@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { SigninCredentialsDto } from './dto/signin-credentials.dto';
+import { SignupCredentialsDto } from './dto/signup-credentials.dto';
 
 @Injectable()
 export class AuthService {
-  signup() {
-    return 'Signup...';
+  signup(signupCredentialsDto: SignupCredentialsDto) {
+    return signupCredentialsDto;
   }
 
-  signin() {
-    return 'Signin...';
+  signin(signinCredentialsDto: SigninCredentialsDto) {
+    return signinCredentialsDto;
   }
 }
