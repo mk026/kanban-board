@@ -6,6 +6,10 @@ export class UserService {
     return 'Users...';
   }
 
+  getOne(id: string): string {
+    return 'User with id ' + id;
+  }
+
   addUser(): string {
     return 'Adding new user...';
   }
