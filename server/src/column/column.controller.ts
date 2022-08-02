@@ -1,5 +1,7 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { ColumnService } from './column.service';
+import { CreateColumnDto } from './dto/create-column.dto';
+import { UpdateColumnDto } from './dto/update-column.dto';
 
 @Controller('columns')
 export class ColumnController {
@@ -11,13 +13,13 @@ export class ColumnController {
   }
 
   @Post()
-  addColumn(): string {
-    return this.columnService.addColumn();
+  addColumn(@Body() createColumnDto: CreateColumnDto) {
+    return this.columnService.addColumn(createColumnDto);
   }
 
   @Put()
-  updateColumn(): string {
-    return this.columnService.updateColumn();
+  updateColumn(@Body() updateColumnDto: UpdateColumnDto) {
+    return this.columnService.updateColumn(updateColumnDto);
   }
 
   @Delete()

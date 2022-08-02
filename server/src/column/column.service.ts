@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { CreateColumnDto } from './dto/create-column.dto';
+import { UpdateColumnDto } from './dto/update-column.dto';
 
 @Injectable()
 export class ColumnService {
@@ -6,12 +8,12 @@ export class ColumnService {
     return 'Columns...';
   }
 
-  addColumn(): string {
-    return 'Adding new column...';
+  addColumn(createColumnDto: CreateColumnDto) {
+    return createColumnDto;
   }
 
-  updateColumn(): string {
-    return 'Updating column...';
+  updateColumn(updateColumnDto: UpdateColumnDto) {
+    return updateColumnDto;
   }
 
   deleteColumn(): string {
