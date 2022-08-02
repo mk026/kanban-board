@@ -1,5 +1,7 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { BoardService } from './board.service';
+import { CreateBoardDto } from './dto/create-board.dto';
+import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Controller('boards')
 export class BoardController {
@@ -11,13 +13,13 @@ export class BoardController {
   }
 
   @Post()
-  addBoard(): string {
-    return this.boardService.addBoard();
+  addBoard(@Body() createBoardDto: CreateBoardDto) {
+    return this.boardService.addBoard(createBoardDto);
   }
 
   @Put()
-  updateBoard(): string {
-    return this.boardService.updateBoard();
+  updateBoard(@Body() updateBoardDto: UpdateBoardDto) {
+    return this.boardService.updateBoard(updateBoardDto);
   }
 
   @Delete()
