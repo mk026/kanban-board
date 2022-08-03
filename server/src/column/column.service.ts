@@ -16,7 +16,7 @@ export class ColumnService {
     return updateColumnDto;
   }
 
-  deleteColumn(): string {
-    return 'Deleting column...';
+  deleteColumn(id: string): string {
+    return `Deleting column with id ${id}...`;
   }
 }
