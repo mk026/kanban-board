@@ -16,7 +16,7 @@ export class BoardService {
     return updateBoardDto;
   }
 
-  deleteBoard(): string {
-    return 'Deleting board...';
+  deleteBoard(id: string): string {
+    return `Deleting board with id ${id}...`;
   }
 }
