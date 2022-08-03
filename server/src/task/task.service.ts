@@ -16,7 +16,7 @@ export class TaskService {
     return updateTaskDto;
   }
 
-  deleteTask(): string {
-    return 'Deleting task...';
+  deleteTask(id: string): string {
+    return `Deleting task with id ${id}...`;
   }
 }
