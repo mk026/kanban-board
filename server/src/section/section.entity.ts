@@ -1,4 +1,4 @@
-export class Column {
+export class Section {
   id: number;
   title: string;
 }

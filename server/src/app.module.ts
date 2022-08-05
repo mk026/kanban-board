@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardModule } from './board/board.module';
 import { TaskModule } from './task/task.module';
 import { AuthModule } from './auth/auth.module';
-import { ColumnModule } from './column/column.module';
+import { SectionModule } from './section/section.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -21,7 +21,7 @@ import { UserModule } from './user/user.module';
       synchronize: true,
     }),
     BoardModule,
-    ColumnModule,
+    SectionModule,
     TaskModule,
     AuthModule,
     UserModule,

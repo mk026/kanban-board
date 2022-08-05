@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateColumnDto {
+export class CreateSectionDto {
   @IsNotEmpty()
   readonly title: string;
 }
