@@ -17,6 +17,7 @@ import { UserModule } from './user/user.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      autoLoadEntities: true,
       synchronize: true,
     }),
     BoardModule,
