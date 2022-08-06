@@ -16,7 +16,7 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Get()
-  getBoards(): string {
+  getBoards() {
     return this.boardService.getBoards();
   }
 
