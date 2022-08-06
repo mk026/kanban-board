@@ -24,7 +24,7 @@ export class BoardService {
     return updateBoardDto;
   }
 
-  deleteBoard(id: string): string {
+  deleteBoard(id: number): string {
     return `Deleting board with id ${id}...`;
   }
 }
