@@ -16,7 +16,7 @@ export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
   @Get()
-  getSections(): string {
+  getSections() {
     return this.sectionService.getSections();
   }
 
