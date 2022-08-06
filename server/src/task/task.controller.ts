@@ -16,7 +16,7 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  getTasks(): string {
+  getTasks() {
     return this.taskService.getTasks();
   }
 
