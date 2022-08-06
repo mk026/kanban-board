@@ -1,4 +1,12 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -21,7 +29,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: string): string {
+  deleteUser(@Param('id', ParseIntPipe) id: number): string {
     return this.userService.deleteUser(id);
   }
 }
