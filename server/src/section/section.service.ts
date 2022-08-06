@@ -24,7 +24,7 @@ export class SectionService {
     return updateSectionDto;
   }
 
-  deleteSection(id: string): string {
+  deleteSection(id: number): string {
     return `Deleting section with id ${id}...`;
   }
 }

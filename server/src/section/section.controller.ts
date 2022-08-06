@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -31,7 +32,7 @@ export class SectionController {
   }
 
   @Delete(':id')
-  deleteSection(@Param('id') id: string): string {
+  deleteSection(@Param('id', ParseIntPipe) id: number): string {
     return this.sectionService.deleteSection(id);
   }
 }
