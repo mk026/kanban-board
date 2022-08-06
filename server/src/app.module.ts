@@ -6,20 +6,12 @@ import { TaskModule } from './task/task.module';
 import { AuthModule } from './auth/auth.module';
 import { SectionModule } from './section/section.module';
 import { UserModule } from './user/user.module';
+import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: +process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(typeOrmConfig),
     BoardModule,
     SectionModule,
     TaskModule,
