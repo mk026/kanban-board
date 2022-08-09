@@ -8,7 +8,7 @@ export class AuthService {
   constructor(private readonly userService: UserService) {}
 
   signup(signupCredentialsDto: SignupCredentialsDto) {
-    return signupCredentialsDto;
+    return this.userService.addUser(signupCredentialsDto);
   }
 
   signin(signinCredentialsDto: SigninCredentialsDto) {

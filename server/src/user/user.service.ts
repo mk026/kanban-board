@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { SignupCredentialsDto } from 'src/auth/dto/signup-credentials.dto';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 
@@ -18,8 +19,8 @@ export class UserService {
     return 'User with id ' + id;
   }
 
-  addUser(): string {
-    return 'Adding new user...';
+  addUser(signupCredentialsDto: SignupCredentialsDto) {
+    return signupCredentialsDto;
   }
 
   updateUser(): string {
