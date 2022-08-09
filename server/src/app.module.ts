@@ -6,12 +6,12 @@ import { TaskModule } from './task/task.module';
 import { AuthModule } from './auth/auth.module';
 import { SectionModule } from './section/section.module';
 import { UserModule } from './user/user.module';
-import { typeOrmConfig } from './config/typeorm.config';
+import typeOrmConfig from './config/typeorm.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRootAsync({ useFactory: typeOrmConfig }),
     BoardModule,
     SectionModule,
     TaskModule,
