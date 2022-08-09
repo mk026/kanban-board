@@ -4,7 +4,6 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Post,
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -16,11 +15,6 @@ export class UserController {
   @Get()
   getUsers() {
     return this.userService.getUsers();
-  }
-
-  @Post()
-  addUser(): string {
-    return this.userService.addUser();
   }
 
   @Put()
