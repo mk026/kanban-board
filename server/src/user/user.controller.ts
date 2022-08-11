@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -6,6 +7,7 @@ import {
   ParseIntPipe,
   Put,
 } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -18,8 +20,8 @@ export class UserController {
   }
 
   @Put()
-  updateUser(): string {
-    return this.userService.updateUser();
+  updateUser(@Body() updateUserDto: UpdateUserDto) {
+    return this.userService.updateUser(updateUserDto);
   }
 
   @Delete(':id')

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignupCredentialsDto } from 'src/auth/dto/signup-credentials.dto';
 import { Repository } from 'typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 
 @Injectable()
@@ -23,8 +24,8 @@ export class UserService {
     return signupCredentialsDto;
   }
 
-  updateUser(): string {
-    return 'Updating user...';
+  updateUser(updateUserDto: UpdateUserDto) {
+    return updateUserDto;
   }
 
   deleteUser(id: number): string {
