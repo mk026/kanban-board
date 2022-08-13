@@ -6,4 +6,7 @@ export class CreateTaskDto {
 
   @IsNotEmpty()
   readonly description: string;
+
+  @IsNotEmpty()
+  readonly sectionId: number;
 }
