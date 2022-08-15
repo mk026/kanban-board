@@ -16,8 +16,8 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  getOne(id: string): string {
-    return 'User with id ' + id;
+  async getUser(id: number) {
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   addUser(signupCredentialsDto: SignupCredentialsDto) {
