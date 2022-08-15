@@ -29,8 +29,11 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  updateUser(updateUserDto: UpdateUserDto) {
-    return updateUserDto;
+  async updateUser(id: number, updateUserDto: UpdateUserDto) {
+    const result = await this.userRepository.update(id, updateUserDto);
+    if (result.affected === 0) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
   }
 
   async deleteUser(id: number) {
