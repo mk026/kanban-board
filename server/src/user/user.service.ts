@@ -24,8 +24,9 @@ export class UserService {
     return found;
   }
 
-  addUser(signupCredentialsDto: SignupCredentialsDto) {
-    return signupCredentialsDto;
+  async addUser(signupCredentialsDto: SignupCredentialsDto) {
+    const user = this.userRepository.create(signupCredentialsDto);
+    await this.userRepository.save(user);
   }
 
   updateUser(updateUserDto: UpdateUserDto) {
