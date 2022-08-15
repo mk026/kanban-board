@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignupCredentialsDto } from 'src/auth/dto/signup-credentials.dto';
 import { Repository } from 'typeorm';
@@ -17,7 +17,11 @@ export class UserService {
   }
 
   async getUser(id: number) {
-    return await this.userRepository.findOne({ where: { id } });
+    const found = await this.userRepository.findOne({ where: { id } });
+    if (!found) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return found;
   }
 
   addUser(signupCredentialsDto: SignupCredentialsDto) {
