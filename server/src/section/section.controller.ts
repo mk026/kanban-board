@@ -26,9 +26,12 @@ export class SectionController {
     return this.sectionService.addSection(createSectionDto);
   }
 
-  @Put()
-  updateSection(@Body() updateSectionDto: UpdateSectionDto) {
-    return this.sectionService.updateSection(updateSectionDto);
+  @Put(':id')
+  updateSection(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateSectionDto: UpdateSectionDto,
+  ) {
+    return this.sectionService.updateSection(id, updateSectionDto);
   }
 
   @Delete(':id')
