@@ -16,8 +16,9 @@ export class SectionService {
     return this.sectionRepository.find();
   }
 
-  addSection(createSectionDto: CreateSectionDto) {
-    return createSectionDto;
+  async addSection(createSectionDto: CreateSectionDto) {
+    const section = this.sectionRepository.create(createSectionDto);
+    await this.sectionRepository.save(section);
   }
 
   updateSection(updateSectionDto: UpdateSectionDto) {
