@@ -16,8 +16,9 @@ export class TaskService {
     return this.taskRepository.find();
   }
 
-  addTask(createTaskDto: CreateTaskDto) {
-    return createTaskDto;
+  async addTask(createTaskDto: CreateTaskDto) {
+    const task = this.taskRepository.create(createTaskDto);
+    await this.taskRepository.save(task);
   }
 
   updateTask(updateTaskDto: UpdateTaskDto) {
