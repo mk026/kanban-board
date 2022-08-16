@@ -35,7 +35,7 @@ export class SectionController {
   }
 
   @Delete(':id')
-  deleteSection(@Param('id', ParseIntPipe) id: number): string {
+  deleteSection(@Param('id', ParseIntPipe) id: number) {
     return this.sectionService.deleteSection(id);
   }
 }

@@ -28,7 +28,10 @@ export class SectionService {
     }
   }
 
-  deleteSection(id: number): string {
-    return `Deleting section with id ${id}...`;
+  async deleteSection(id: number) {
+    const result = await this.sectionRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Section with id ${id} not found`);
+    }
   }
 }
