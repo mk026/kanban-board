@@ -26,9 +26,12 @@ export class TaskController {
     return this.taskService.addTask(createTaskDto);
   }
 
-  @Put()
-  updateTask(@Body() updateTaskDto: UpdateTaskDto) {
-    return this.taskService.updateTask(updateTaskDto);
+  @Put(':id')
+  updateTask(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    return this.taskService.updateTask(id, updateTaskDto);
   }
 
   @Delete(':id')
