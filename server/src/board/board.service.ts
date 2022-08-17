@@ -16,8 +16,9 @@ export class BoardService {
     return this.boardRepository.find();
   }
 
-  addBoard(createBoardDto: CreateBoardDto) {
-    return createBoardDto;
+  async addBoard(createBoardDto: CreateBoardDto) {
+    const board = this.boardRepository.create(createBoardDto);
+    await this.boardRepository.save(board);
   }
 
   updateBoard(updateBoardDto: UpdateBoardDto) {
