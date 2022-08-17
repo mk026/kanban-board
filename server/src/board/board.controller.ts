@@ -26,9 +26,12 @@ export class BoardController {
     return this.boardService.addBoard(createBoardDto);
   }
 
-  @Put()
-  updateBoard(@Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardService.updateBoard(updateBoardDto);
+  @Put(':id')
+  updateBoard(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateBoardDto: UpdateBoardDto,
+  ) {
+    return this.boardService.updateBoard(id, updateBoardDto);
   }
 
   @Delete(':id')
