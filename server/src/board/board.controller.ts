@@ -35,7 +35,7 @@ export class BoardController {
   }
 
   @Delete(':id')
-  deleteBoard(@Param('id', ParseIntPipe) id: number): string {
+  deleteBoard(@Param('id', ParseIntPipe) id: number) {
     return this.boardService.deleteBoard(id);
   }
 }
