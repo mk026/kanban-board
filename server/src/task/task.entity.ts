@@ -10,4 +10,7 @@ export class Task {
 
   @Column()
   description: string;
+
+  @Column()
+  sectionId: number;
 }
