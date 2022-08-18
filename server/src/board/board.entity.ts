@@ -7,4 +7,7 @@ export class Board {
 
   @Column()
   title: string;
+
+  @Column()
+  userId: number;
 }
