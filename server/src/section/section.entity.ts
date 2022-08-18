@@ -7,4 +7,7 @@ export class Section {
 
   @Column()
   title: string;
+
+  @Column()
+  boardId: number;
 }
