@@ -10,4 +10,7 @@ export class Section {
 
   @Column()
   boardId: number;
+
+  @Column()
+  userId: number;
 }
