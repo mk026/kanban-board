@@ -1,7 +1,7 @@
-import "./App.css";
+import { Typography } from "@mui/material";
 
 function App() {
-  return <div>Kanban board</div>;
+  return <Typography variant="h1">Kanban board</Typography>;
 }
 
 export default App;
