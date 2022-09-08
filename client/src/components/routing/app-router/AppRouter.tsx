@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { authRoutes, publicRoutes } from "../../../routes";
 import AuthWrapper from "../auth-wrapper/AuthWrapper";
+import NotFoundPage from "../../../pages/not-found-page/NotFoundPage";
+import { authRoutes, publicRoutes } from "../../../routes";
 
 const AppRouter: FC = () => {
   return (
@@ -15,6 +16,7 @@ const AppRouter: FC = () => {
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} />
       ))}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
