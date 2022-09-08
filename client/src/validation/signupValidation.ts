@@ -1,5 +1,12 @@
 import * as yup from "yup";
 
+export interface SignupFormValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export const signupValidationSchema = yup.object({
   name: yup.string().required(),
   email: yup.string().email().required(),

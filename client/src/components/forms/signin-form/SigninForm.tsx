@@ -1,15 +1,16 @@
 import { Button } from "@mui/material";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { SigninFormValues } from "../../../validation/signinValidation";
 
 const SigninForm: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<SigninFormValues>();
 
-  const signinHandler = (values: any) => {
+  const signinHandler = (values: SigninFormValues) => {
     console.log(values);
   };
 
