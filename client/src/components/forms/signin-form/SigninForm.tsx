@@ -1,14 +1,22 @@
-import { Button } from "@mui/material";
 import { FC } from "react";
+import { Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { SigninFormValues } from "../../../validation/signinValidation";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import {
+  SigninFormValues,
+  signinValidationSchema,
+} from "../../../validation/signinValidation";
 
 const SigninForm: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SigninFormValues>();
+  } = useForm<SigninFormValues>({
+    mode: "onBlur",
+    resolver: yupResolver(signinValidationSchema),
+  });
 
   const signinHandler = (values: SigninFormValues) => {
     console.log(values);
@@ -18,12 +26,12 @@ const SigninForm: FC = () => {
     <form onSubmit={handleSubmit(signinHandler)}>
       <label>
         Email
-        <input type="text" {...register("email", { required: true })} />
+        <input type="text" {...register("email")} />
       </label>
       {errors.email && <p>Email is a required field</p>}
       <label>
         Password
-        <input type="password" {...register("password", { required: true })} />
+        <input type="password" {...register("password")} />
       </label>
       {errors.password && <p>Password is a required field</p>}
       <Button type="submit">Submit</Button>
