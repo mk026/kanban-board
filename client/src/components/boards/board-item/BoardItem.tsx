@@ -1,8 +1,10 @@
-import { Button, Card, Typography } from "@mui/material";
 import { FC } from "react";
+import { Button, Card, Typography } from "@mui/material";
+
+import { IBoard } from "../../../models/IBoard";
 
 export interface BoardItemProps {
-  board: { id: number; title: string; description: string };
+  board: IBoard;
 }
 
 const BoardItem: FC<BoardItemProps> = ({ board }) => {

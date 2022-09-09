@@ -1,9 +1,11 @@
-import { List } from "@mui/material";
 import { FC } from "react";
+import { List } from "@mui/material";
+
+import { IBoard } from "../../../models/IBoard";
 import BoardItem from "../board-item/BoardItem";
 
 const BoardsList: FC = () => {
-  const boards = [
+  const dummyBoards: IBoard[] = [
     {
       id: 1,
       title: "Dummy board 1",
@@ -23,7 +25,7 @@ const BoardsList: FC = () => {
 
   return (
     <List>
-      {boards.map((board) => (
+      {dummyBoards.map((board) => (
         <BoardItem key={board.id} board={board} />
       ))}
     </List>
