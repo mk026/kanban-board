@@ -28,22 +28,22 @@ const SignupForm: FC = () => {
         Name
         <input type="text" {...register("name")} />
       </label>
-      {errors.name && <p>Name is a required field</p>}
+      {errors.name && <p>{errors.name.message}</p>}
       <label>
         Email
         <input type="text" {...register("email")} />
       </label>
-      {errors.email && <p>Email is a required field</p>}
+      {errors.email && <p>{errors.email.message}</p>}
       <label>
         Password
         <input type="password" {...register("password")} />
       </label>
-      {errors.password && <p>Password is a required field</p>}
+      {errors.password && <p>{errors.password.message}</p>}
       <label>
         Confirm password
         <input type="password" {...register("confirmPassword")} />
       </label>
-      {errors.confirmPassword && <p>Please confirm your password</p>}
+      {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
       <Button type="submit">Submit</Button>
     </form>
   );

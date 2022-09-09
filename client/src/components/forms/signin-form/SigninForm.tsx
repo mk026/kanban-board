@@ -28,12 +28,12 @@ const SigninForm: FC = () => {
         Email
         <input type="text" {...register("email")} />
       </label>
-      {errors.email && <p>Email is a required field</p>}
+      {errors.email && <p>{errors.email.message}</p>}
       <label>
         Password
         <input type="password" {...register("password")} />
       </label>
-      {errors.password && <p>Password is a required field</p>}
+      {errors.password && <p>{errors.password.message}</p>}
       <Button type="submit">Submit</Button>
     </form>
   );
