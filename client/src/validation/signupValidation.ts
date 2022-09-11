@@ -8,9 +8,9 @@ export interface SignupFormValues {
 }
 
 export const signupValidationSchema = yup.object({
-  name: yup.string().required(),
+  name: yup.string().min(1).max(100).required(),
   email: yup.string().email().required(),
-  password: yup.string().required(),
+  password: yup.string().min(8).max(100).required(),
   confirmPassword: yup
     .string()
     .required()
