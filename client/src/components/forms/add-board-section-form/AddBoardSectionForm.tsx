@@ -1,13 +1,24 @@
 import { FC } from "react";
 import { Button } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import {
+  BoardSectionFormValues,
+  boardSectionValidationSchema,
+} from "../../../validation/boardSectionValidation";
 
 const AddBoardSectionForm: FC = () => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BoardSectionFormValues>({
     mode: "onBlur",
+    resolver: yupResolver(boardSectionValidationSchema),
   });
 
-  const addBoardSectionHandler = (values: any) => {
+  const addBoardSectionHandler = (values: BoardSectionFormValues) => {
     console.log(values);
   };
 
@@ -17,6 +28,7 @@ const AddBoardSectionForm: FC = () => {
         Section title
         <input type="text" {...register("title")} />
       </label>
+      {errors.title && <p>{errors.title.message}</p>}
       <Button type="submit">Submit</Button>
     </form>
   );
