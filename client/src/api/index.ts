@@ -7,6 +7,7 @@ export enum ApiEndpoints {
   SIGNIN = "/signin",
   BOARDS = "/boards",
   BOARD_SECTIONS = "/sections",
+  TASKS = "/tasks",
 }
 
 export const api = axios.create({ baseURL: BASE_URL });
