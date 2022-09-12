@@ -6,6 +6,6 @@ export interface TaskFormValues {
 }
 
 export const taskValidationSchema = yup.object({
-  title: yup.string().required(),
-  description: yup.string().required(),
+  title: yup.string().min(1).max(50).required(),
+  description: yup.string().min(1).max(500).required(),
 });
