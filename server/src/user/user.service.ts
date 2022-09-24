@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignupCredentialsDto } from 'src/auth/dto/signup-credentials.dto';
 import { Repository } from 'typeorm';
+import bcryptjs from 'bcryptjs';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 
@@ -35,7 +36,11 @@ export class UserService {
     if (foundUser) {
       throw new ConflictException('Email already in use');
     }
-    const user = this.userRepository.create(signupCredentialsDto);
+    const passwordHash = bcryptjs.hashSync(signupCredentialsDto.password);
+    const user = this.userRepository.create({
+      ...signupCredentialsDto,
+      password: passwordHash,
+    });
     await this.userRepository.save(user);
   }
 
