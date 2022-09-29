@@ -1,5 +1,11 @@
+import { makeAutoObservable } from "mobx";
+import { TaskModel } from "./models/TaskModel";
 import { RootStore } from "./RootStore";
 
 export class TaskStore {
-  constructor(private readonly rootStore: RootStore) {}
+  tasks: TaskModel[] = [];
+
+  constructor(private readonly rootStore: RootStore) {
+    makeAutoObservable(this);
+  }
 }

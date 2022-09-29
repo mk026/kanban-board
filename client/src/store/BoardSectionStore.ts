@@ -1,5 +1,11 @@
+import { makeAutoObservable } from "mobx";
+import { BoardSectionModel } from "./models/BoardSectionModel";
 import { RootStore } from "./RootStore";
 
 export class BoardSectionStore {
-  constructor(private readonly rootStore: RootStore) {}
+  boardSections: BoardSectionModel[] = [];
+
+  constructor(private readonly rootStore: RootStore) {
+    makeAutoObservable(this);
+  }
 }
