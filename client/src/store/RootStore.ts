@@ -10,3 +10,5 @@ export class RootStore {
     this.boardStore = new BoardStore(this);
   }
 }
+
+export const store = new RootStore();
