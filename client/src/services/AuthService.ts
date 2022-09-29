@@ -17,4 +17,8 @@ export default class AuthService {
   static signin(data: SigninFormValues): Promise<AxiosResponse<AuthResponse>> {
     return api.post(ApiEndpoints.SIGNIN, data);
   }
+
+  static getStoredToken() {
+    return localStorage.getItem("token");
+  }
 }
