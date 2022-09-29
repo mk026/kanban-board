@@ -8,4 +8,10 @@ export class BoardStore {
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);
   }
+
+  createBoard(title: string, description: string) {
+    const board = new BoardModel(this, title, description);
+    this.boards.push(board);
+    return board;
+  }
 }

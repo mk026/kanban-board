@@ -8,4 +8,10 @@ export class BoardSectionStore {
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);
   }
+
+  createBoardSection(title: string) {
+    const boardSection = new BoardSectionModel(this, title);
+    this.boardSections.push(boardSection);
+    return boardSection;
+  }
 }

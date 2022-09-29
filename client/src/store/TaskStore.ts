@@ -8,4 +8,10 @@ export class TaskStore {
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);
   }
+
+  createTask(title: string, description: string) {
+    const task = new TaskModel(this, title, description);
+    this.tasks.push(task);
+    return task;
+  }
 }
