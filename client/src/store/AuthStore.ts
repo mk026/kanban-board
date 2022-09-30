@@ -1,4 +1,7 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
+import AuthService from "../services/AuthService";
+import { SigninFormValues } from "../validation/signinValidation";
+import { SignupFormValues } from "../validation/signupValidation";
 import { RootStore } from "./RootStore";
 
 export class AuthStore {
@@ -8,7 +11,35 @@ export class AuthStore {
     makeAutoObservable(this);
   }
 
-  signup(name: string, email: string, password: string) {}
+  async signup(data: SignupFormValues) {
+    try {
+      const {
+        data: { user },
+      } = await AuthService.signup(data);
+      runInAction(() => {
+        this.rootStore.userStore.setUser(user);
+        this.isAuth = true;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+      });
+    }
+  }
 
-  signin(email: string, password: string) {}
+  async signin(data: SigninFormValues) {
+    try {
+      const {
+        data: { user },
+      } = await AuthService.signin(data);
+      runInAction(() => {
+        this.rootStore.userStore.setUser(user);
+        this.isAuth = true;
+      });
+    } catch (error) {
+      runInAction(() => {
+        console.log(error);
+      });
+    }
+  }
 }
