@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { BoardStore } from "../BoardStore";
 
-export class BoardModel {
+export class Board {
   id: number = 0;
   title: string;
   description: string;
@@ -14,3 +14,5 @@ export class BoardModel {
     this.description = description;
   }
 }
+
+export interface IBoard extends Pick<Board, "id" | "title" | "description"> {}

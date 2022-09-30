@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { BoardSectionStore } from "../BoardSectionStore";
 
-export class BoardSectionModel {
+export class BoardSection {
   id: number = 0;
   title: string;
   store: BoardSectionStore;
@@ -12,3 +12,5 @@ export class BoardSectionModel {
     this.title = title;
   }
 }
+
+export interface IBoardSection extends Pick<BoardSection, "id" | "title"> {}

@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { ITask } from "../models/ITask";
+import { ITask } from "../store/models/Task";
 
 export default class TaskService {
   static getTasks(): Promise<AxiosResponse<ITask[]>> {

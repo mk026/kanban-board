@@ -2,8 +2,8 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Typography } from "@mui/material";
 
-import { IBoard } from "../../../models/IBoard";
 import { Paths } from "../../../routes";
+import { IBoard } from "../../../store/models/Board";
 
 export interface BoardItemProps {
   board: IBoard;

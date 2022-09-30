@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import { UserModel } from "./models/UserModel";
+import { User } from "./models/User";
 import { RootStore } from "./RootStore";
 
 export class UserStore {
-  user: UserModel | null = null;
+  user: User | null = null;
 
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);

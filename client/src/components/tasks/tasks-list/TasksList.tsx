@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { List } from "@mui/material";
 
-import { ITask } from "../../../models/ITask";
+import { ITask } from "../../../store/models/Task";
 import TaskItem from "../task-item/TaskItem";
 
 const TasksList: FC = () => {

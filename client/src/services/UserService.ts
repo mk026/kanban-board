@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { IUser } from "../models/IUser";
+import { IUser } from "../store/models/User";
 
 export default class UserService {
   static updateUser(data: IUser): Promise<AxiosResponse<IUser>> {

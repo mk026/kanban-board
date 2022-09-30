@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { List } from "@mui/material";
 
-import { IBoard } from "../../../models/IBoard";
 import BoardItem from "../board-item/BoardItem";
+import { IBoard } from "../../../store/models/Board";
 
 const BoardsList: FC = () => {
   const dummyBoards: IBoard[] = [

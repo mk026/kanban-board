@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { IUser } from "../models/IUser";
+import { IUser } from "../store/models/User";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
 

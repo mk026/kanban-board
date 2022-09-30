@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { IBoard } from "../models/IBoard";
+import { IBoard } from "../store/models/Board";
 
 export default class BoardService {
   static getBoards(): Promise<AxiosResponse<IBoard[]>> {

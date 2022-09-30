@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { TaskStore } from "../TaskStore";
 
-export class TaskModel {
+export class Task {
   id: number = 0;
   title: string;
   description: string;
@@ -14,3 +14,5 @@ export class TaskModel {
     this.description = description;
   }
 }
+
+export interface ITask extends Pick<Task, "id" | "title" | "description"> {}

@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { IBoardSection } from "../models/IBoardSection";
+import { IBoardSection } from "../store/models/BoardSection";
 
 export default class BoardSectionService {
   static getBoardSections(): Promise<AxiosResponse<IBoardSection[]>> {

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { UserStore } from "../UserStore";
 
-export class UserModel {
+export class User {
   id: number = 0;
   name: string;
   email: string;
@@ -14,3 +14,5 @@ export class UserModel {
     this.email = email;
   }
 }
+
+export interface IUser extends Pick<User, "id" | "name" | "email"> {}
