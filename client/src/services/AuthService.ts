@@ -7,9 +7,12 @@ import { SignupFormValues } from "../validation/signupValidation";
 
 export interface AuthResponse {
   user: IUser;
+  token: string;
 }
 
 export default class AuthService {
+  static tokenKey = "token";
+
   static signup(data: SignupFormValues): Promise<AxiosResponse<AuthResponse>> {
     return api.post(ApiEndpoints.SIGNUP, data);
   }
@@ -19,6 +22,10 @@ export default class AuthService {
   }
 
   static getStoredToken() {
-    return localStorage.getItem("token");
+    return localStorage.getItem(AuthService.tokenKey);
+  }
+
+  static storeToken(token: string) {
+    localStorage.setItem(AuthService.tokenKey, token);
   }
 }

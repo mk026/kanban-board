@@ -14,9 +14,10 @@ export class AuthStore {
   async signup(data: SignupFormValues) {
     try {
       const {
-        data: { user },
+        data: { user, token },
       } = await AuthService.signup(data);
       runInAction(() => {
+        AuthService.storeToken(token);
         this.rootStore.userStore.setUser(user);
         this.isAuth = true;
       });
@@ -30,9 +31,10 @@ export class AuthStore {
   async signin(data: SigninFormValues) {
     try {
       const {
-        data: { user },
+        data: { user, token },
       } = await AuthService.signin(data);
       runInAction(() => {
+        AuthService.storeToken(token);
         this.rootStore.userStore.setUser(user);
         this.isAuth = true;
       });
