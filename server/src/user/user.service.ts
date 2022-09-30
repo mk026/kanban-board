@@ -1,12 +1,6 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SignupCredentialsDto } from 'src/auth/dto/signup-credentials.dto';
 import { Repository } from 'typeorm';
-import bcryptjs from 'bcryptjs';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 
@@ -27,21 +21,6 @@ export class UserService {
       throw new NotFoundException(`User with id ${id} not found`);
     }
     return found;
-  }
-
-  async addUser(signupCredentialsDto: SignupCredentialsDto) {
-    const foundUser = this.userRepository.findOne({
-      where: { email: signupCredentialsDto.email },
-    });
-    if (foundUser) {
-      throw new ConflictException('Email already in use');
-    }
-    const passwordHash = bcryptjs.hashSync(signupCredentialsDto.password);
-    const user = this.userRepository.create({
-      ...signupCredentialsDto,
-      password: passwordHash,
-    });
-    await this.userRepository.save(user);
   }
 
   async updateUser(id: number, updateUserDto: UpdateUserDto) {

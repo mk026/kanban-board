@@ -1,17 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../user/user.entity';
+import { Repository } from 'typeorm';
+import * as bcryptjs from 'bcryptjs';
 import { SigninCredentialsDto } from './dto/signin-credentials.dto';
 import { SignupCredentialsDto } from './dto/signup-credentials.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+  ) {}
 
-  signup(signupCredentialsDto: SignupCredentialsDto) {
-    return this.userService.addUser(signupCredentialsDto);
+  async signup(signupCredentialsDto: SignupCredentialsDto) {
+    const user = await this.createUser(signupCredentialsDto);
+    return { user };
   }
 
   signin(signinCredentialsDto: SigninCredentialsDto) {
     return signinCredentialsDto;
+  }
+
+  async createUser(signupCredentialsDto: SignupCredentialsDto) {
+    const foundUser = this.userRepository.findOne({
+      where: { email: signupCredentialsDto.email },
+    });
+    if (foundUser) {
+      throw new ConflictException('Email already in use');
+    }
+    const passwordHash = bcryptjs.hashSync(signupCredentialsDto.password);
+    const user = this.userRepository.create({
+      ...signupCredentialsDto,
+      password: passwordHash,
+    });
+    await this.userRepository.save(user);
   }
 }
