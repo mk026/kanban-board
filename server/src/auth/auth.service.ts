@@ -49,5 +49,6 @@ export class AuthService {
       password: passwordHash,
     });
     await this.userRepository.save(user);
+    return user;
   }
 }
