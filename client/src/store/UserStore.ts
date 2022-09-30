@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { User } from "./models/User";
+import { IUser, User } from "./models/User";
 import { RootStore } from "./RootStore";
 
 export class UserStore {
@@ -7,5 +7,9 @@ export class UserStore {
 
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);
+  }
+
+  setUser({ id, name, email }: IUser) {
+    this.user = new User(this, id, name, email);
   }
 }

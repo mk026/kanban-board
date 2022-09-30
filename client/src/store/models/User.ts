@@ -2,13 +2,14 @@ import { makeAutoObservable } from "mobx";
 import { UserStore } from "../UserStore";
 
 export class User {
-  id: number = 0;
+  id: number;
   name: string;
   email: string;
   store: UserStore;
 
-  constructor(store: UserStore, name: string, email: string) {
+  constructor(store: UserStore, id: number, name: string, email: string) {
     makeAutoObservable(this);
+    this.id = id;
     this.store = store;
     this.name = name;
     this.email = email;
