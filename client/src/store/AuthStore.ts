@@ -6,6 +6,8 @@ import { RootStore } from "./RootStore";
 
 export class AuthStore {
   isAuth: boolean = false;
+  isLoading: boolean = false;
+  error: unknown = null;
 
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);
@@ -13,6 +15,7 @@ export class AuthStore {
 
   async signup(data: SignupFormValues) {
     try {
+      this.isLoading = true;
       const {
         data: { user, token },
       } = await AuthService.signup(data);
@@ -23,13 +26,19 @@ export class AuthStore {
       });
     } catch (error) {
       runInAction(() => {
+        this.error = error;
         console.log(error);
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
       });
     }
   }
 
   async signin(data: SigninFormValues) {
     try {
+      this.isLoading = true;
       const {
         data: { user, token },
       } = await AuthService.signin(data);
@@ -40,7 +49,12 @@ export class AuthStore {
       });
     } catch (error) {
       runInAction(() => {
+        this.error = error;
         console.log(error);
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
       });
     }
   }
