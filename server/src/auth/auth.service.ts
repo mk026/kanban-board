@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 import { SigninCredentialsDto } from './dto/signin-credentials.dto';
 import { SignupCredentialsDto } from './dto/signup-credentials.dto';
+import { AuthResponse } from './auth-response.interface';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,9 @@ export class AuthService {
     return { user };
   }
 
-  async signin(signinCredentialsDto: SigninCredentialsDto) {
+  async signin(
+    signinCredentialsDto: SigninCredentialsDto,
+  ): Promise<AuthResponse> {
     const { email, password } = signinCredentialsDto;
     const foundUser = await this.userRepository.findOne({ where: { email } });
     if (!foundUser) {
@@ -36,7 +39,9 @@ export class AuthService {
     };
   }
 
-  async createUser(signupCredentialsDto: SignupCredentialsDto) {
+  async createUser(
+    signupCredentialsDto: SignupCredentialsDto,
+  ): Promise<AuthResponse> {
     const foundUser = this.userRepository.findOne({
       where: { email: signupCredentialsDto.email },
     });
@@ -49,6 +54,6 @@ export class AuthService {
       password: passwordHash,
     });
     await this.userRepository.save(user);
-    return user;
+    return { user: { name: user.name, email: user.email } };
   }
 }
