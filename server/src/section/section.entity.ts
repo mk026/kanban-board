@@ -1,4 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import { Board } from '../board/board.entity';
+import { User } from '../user/user.entity';
+import { Task } from '../task/task.entity';
 
 @Entity()
 export class Section {
@@ -8,9 +18,12 @@ export class Section {
   @Column()
   title: string;
 
-  @Column()
-  boardId: number;
+  @ManyToOne(() => Board, (board) => board.sections)
+  board: Board;
 
-  @Column()
-  userId: number;
+  @ManyToOne(() => User, (user) => user.sections)
+  user: User;
+
+  @OneToMany(() => Task, (task) => task.section)
+  tasks: Task[];
 }
