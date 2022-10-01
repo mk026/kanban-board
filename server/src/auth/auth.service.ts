@@ -4,22 +4,33 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../user/user.entity';
+import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
+
+import { User } from '../user/user.entity';
 import { SigninCredentialsDto } from './dto/signin-credentials.dto';
 import { SignupCredentialsDto } from './dto/signup-credentials.dto';
 import { AuthResponse } from './auth-response.interface';
+import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
-  async signup(signupCredentialsDto: SignupCredentialsDto) {
+  async signup(
+    signupCredentialsDto: SignupCredentialsDto,
+  ): Promise<AuthResponse> {
     const user = await this.createUser(signupCredentialsDto);
-    return { user };
+    const accessToken = this.generateToken(user.id);
+    return {
+      user: { name: user.name, email: user.email },
+      accessToken,
+    };
   }
 
   async signin(
@@ -34,14 +45,14 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Incorrect email or password');
     }
+    const accessToken = this.generateToken(foundUser.id);
     return {
       user: { name: foundUser.name, email: foundUser.email },
+      accessToken,
     };
   }
 
-  async createUser(
-    signupCredentialsDto: SignupCredentialsDto,
-  ): Promise<AuthResponse> {
+  async createUser(signupCredentialsDto: SignupCredentialsDto) {
     const foundUser = this.userRepository.findOne({
       where: { email: signupCredentialsDto.email },
     });
@@ -54,6 +65,11 @@ export class AuthService {
       password: passwordHash,
     });
     await this.userRepository.save(user);
-    return { user: { name: user.name, email: user.email } };
+    return user;
+  }
+
+  generateToken(userId: number) {
+    const payload: JwtPayload = { userId };
+    return this.jwtService.sign(payload);
   }
 }
