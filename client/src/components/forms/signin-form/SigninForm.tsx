@@ -2,13 +2,16 @@ import { FC } from "react";
 import { Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { observer } from "mobx-react-lite";
 
 import {
   SigninFormValues,
   signinValidationSchema,
 } from "../../../validation/signinValidation";
+import { useStore } from "../../../hooks/useStore";
 
 const SigninForm: FC = () => {
+  const { authStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -19,7 +22,7 @@ const SigninForm: FC = () => {
   });
 
   const signinHandler = (values: SigninFormValues) => {
-    console.log(values);
+    authStore.signin(values);
   };
 
   return (
@@ -35,8 +38,9 @@ const SigninForm: FC = () => {
       </label>
       {errors.password && <p>{errors.password.message}</p>}
       <Button type="submit">Submit</Button>
+      {authStore.isLoading && <span>Loading...</span>}
     </form>
   );
 };
 
-export default SigninForm;
+export default observer(SigninForm);
