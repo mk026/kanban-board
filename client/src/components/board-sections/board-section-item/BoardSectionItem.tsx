@@ -2,11 +2,11 @@ import { FC } from "react";
 import { IBoardSection } from "../../../store/models/BoardSection";
 import TasksList from "../../tasks/tasks-list/TasksList";
 
-interface BoardSectionProps {
+interface BoardSectionItemProps {
   boardSection: IBoardSection;
 }
 
-const BoardSection: FC<BoardSectionProps> = ({ boardSection }) => {
+const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   const { title } = boardSection;
 
   return (
@@ -17,4 +17,4 @@ const BoardSection: FC<BoardSectionProps> = ({ boardSection }) => {
   );
 };
 
-export default BoardSection;
+export default BoardSectionItem;
