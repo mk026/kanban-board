@@ -7,9 +7,15 @@ export class Board {
   description: string;
   store: BoardStore;
 
-  constructor(store: BoardStore, title: string, description: string) {
+  constructor(
+    store: BoardStore,
+    id: number,
+    title: string,
+    description: string
+  ) {
     makeAutoObservable(this);
     this.store = store;
+    this.id = id;
     this.title = title;
     this.description = description;
   }
