@@ -14,6 +14,7 @@ export class BoardStore {
 
   async fetchBoards() {
     this.isLoading = true;
+    this.boards = [];
     try {
       const { data } = await BoardService.getBoards();
       runInAction(() => {
