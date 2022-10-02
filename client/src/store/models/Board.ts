@@ -7,12 +7,7 @@ export class Board {
   description: string;
   store: BoardStore;
 
-  constructor(
-    store: BoardStore,
-    id: number,
-    title: string,
-    description: string
-  ) {
+  constructor(store: BoardStore, { id, title, description }: BoardDto) {
     makeAutoObservable(this);
     this.store = store;
     this.id = id;
@@ -22,3 +17,14 @@ export class Board {
 }
 
 export interface IBoard extends Pick<Board, "id" | "title" | "description"> {}
+
+export class BoardDto {
+  public readonly id: number;
+  public readonly title: string;
+  public readonly description: string;
+}
+
+export class CreateBoardDto {
+  public readonly title: string;
+  public readonly description: string;
+}

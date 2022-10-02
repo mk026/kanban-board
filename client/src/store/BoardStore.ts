@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import BoardService from "../services/BoardService";
-import { Board, IBoard } from "./models/Board";
+import { Board, CreateBoardDto } from "./models/Board";
 import { RootStore } from "./RootStore";
 
 export class BoardStore {
@@ -12,10 +12,24 @@ export class BoardStore {
     makeAutoObservable(this);
   }
 
-  createBoard({ id, title, description }: IBoard) {
-    const board = new Board(this, id, title, description);
-    this.boards.push(board);
-    return board;
+  async createBoard(createBoardDto: CreateBoardDto) {
+    this.isLoading = true;
+    try {
+      const { data } = await BoardService.addBoard(createBoardDto);
+      const board = new Board(this, data);
+      runInAction(() => {
+        this.boards.push(board);
+      });
+      return board;
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
   }
 
   async fetchBoards() {
@@ -23,14 +37,18 @@ export class BoardStore {
     try {
       const { data } = await BoardService.getBoards();
       runInAction(() => {
-        this.boards = data.map(this.createBoard);
+        data.forEach((boardDto) => {
+          this.boards.push(new Board(this, boardDto));
+        });
       });
     } catch (error) {
       runInAction(() => {
         this.error = error;
       });
     } finally {
-      this.isLoading = false;
+      runInAction(() => {
+        this.isLoading = false;
+      });
     }
   }
 }
