@@ -70,4 +70,22 @@ export class BoardStore {
       });
     }
   }
+
+  async deleteBoard(id: number) {
+    this.isLoading = true;
+    try {
+      await BoardService.deleteBoard(id);
+      runInAction(() => {
+        this.boards.filter((board) => board.id === id);
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 }

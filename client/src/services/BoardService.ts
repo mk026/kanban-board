@@ -20,7 +20,7 @@ export default class BoardService {
     return authApi.put(ApiEndpoints.BOARDS, data);
   }
 
-  static deleteBoard(id: string): Promise<AxiosResponse<BoardDto>> {
+  static deleteBoard(id: number): Promise<AxiosResponse<BoardDto>> {
     return authApi.delete(`${ApiEndpoints.BOARDS}/${id}`);
   }
 }
