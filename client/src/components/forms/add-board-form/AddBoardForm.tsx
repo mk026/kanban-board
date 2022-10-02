@@ -7,8 +7,11 @@ import {
   BoardFormValues,
   boardValidationSchema,
 } from "../../../validation/boardValidation";
+import { useStore } from "../../../hooks/useStore";
+import { observer } from "mobx-react-lite";
 
 const AddBoardForm: FC = () => {
+  const { boardStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -19,7 +22,7 @@ const AddBoardForm: FC = () => {
   });
 
   const addBoardHandler = (values: BoardFormValues) => {
-    console.log(values);
+    boardStore.createBoard(values);
   };
 
   return (
@@ -35,8 +38,9 @@ const AddBoardForm: FC = () => {
       </label>
       {errors.description && <p>{errors.description.message}</p>}
       <Button type="submit">Submit</Button>
+      {boardStore.isLoading && <span>Loading...</span>}
     </form>
   );
 };
 
-export default AddBoardForm;
+export default observer(AddBoardForm);
