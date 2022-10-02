@@ -1,7 +1,11 @@
 import { AxiosResponse } from "axios";
 
 import { ApiEndpoints, authApi } from "../api";
-import { BoardDto, CreateBoardDto } from "../store/models/Board";
+import {
+  BoardDto,
+  CreateBoardDto,
+  UpdateBoardDto,
+} from "../store/models/Board";
 
 export default class BoardService {
   static getBoards(): Promise<AxiosResponse<BoardDto[]>> {
@@ -12,7 +16,7 @@ export default class BoardService {
     return authApi.post(ApiEndpoints.BOARDS, data);
   }
 
-  static updateBoard(data: BoardDto): Promise<AxiosResponse<BoardDto>> {
+  static updateBoard(data: UpdateBoardDto): Promise<AxiosResponse<BoardDto>> {
     return authApi.put(ApiEndpoints.BOARDS, data);
   }
 

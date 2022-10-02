@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import BoardService from "../services/BoardService";
-import { Board, CreateBoardDto } from "./models/Board";
+import { Board, CreateBoardDto, UpdateBoardDto } from "./models/Board";
 import { RootStore } from "./RootStore";
 
 export class BoardStore {
@@ -10,6 +10,26 @@ export class BoardStore {
 
   constructor(private readonly rootStore: RootStore) {
     makeAutoObservable(this);
+  }
+
+  async fetchBoards() {
+    this.isLoading = true;
+    try {
+      const { data } = await BoardService.getBoards();
+      runInAction(() => {
+        data.forEach((boardDto) => {
+          this.boards.push(new Board(this, boardDto));
+        });
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
   }
 
   async createBoard(createBoardDto: CreateBoardDto) {
@@ -32,15 +52,14 @@ export class BoardStore {
     }
   }
 
-  async fetchBoards() {
+  async updateBoard(updateBoardDto: UpdateBoardDto) {
     this.isLoading = true;
     try {
-      const { data } = await BoardService.getBoards();
+      const { data } = await BoardService.updateBoard(updateBoardDto);
       runInAction(() => {
-        data.forEach((boardDto) => {
-          this.boards.push(new Board(this, boardDto));
-        });
+        this.boards.map((board) => (board.id === data.id ? data : board));
       });
+      return data;
     } catch (error) {
       runInAction(() => {
         this.error = error;
