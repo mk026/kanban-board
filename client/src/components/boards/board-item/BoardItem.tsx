@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Typography } from "@mui/material";
 
 import { Paths } from "../../../routes";
-import { IBoard } from "../../../store/models/Board";
+import { Board } from "../../../store/models/Board";
 
 export interface BoardItemProps {
-  board: IBoard;
+  board: Board;
 }
 
 const BoardItem: FC<BoardItemProps> = ({ board }) => {
