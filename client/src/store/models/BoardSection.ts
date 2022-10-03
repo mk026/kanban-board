@@ -6,11 +6,21 @@ export class BoardSection {
   title: string;
   store: BoardSectionStore;
 
-  constructor(store: BoardSectionStore, title: string) {
+  constructor(store: BoardSectionStore, { id, title }: BoardSectionDto) {
     makeAutoObservable(this);
+    this.id = id;
     this.store = store;
     this.title = title;
   }
 }
 
 export interface IBoardSection extends Pick<BoardSection, "id" | "title"> {}
+
+export class BoardSectionDto {
+  public readonly id: number;
+  public readonly title: string;
+}
+
+export class CreateBoardSectionDto {
+  public readonly title: string;
+}
