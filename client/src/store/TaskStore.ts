@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import TaskService from "../services/TaskService";
-import { CreateTaskDto, Task } from "./models/Task";
+import { CreateTaskDto, Task, UpdateTaskDto } from "./models/Task";
 import { RootStore } from "./RootStore";
 
 export class TaskStore {
@@ -42,6 +42,45 @@ export class TaskStore {
         this.tasks.push(task);
       });
       return task;
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  async updateTask(updateTaskDto: UpdateTaskDto) {
+    this.isLoading = true;
+    try {
+      const { data } = await TaskService.updateTask(updateTaskDto);
+      runInAction(() => {
+        this.tasks = this.tasks.map((task) =>
+          task.id === data.id ? { ...task, ...data } : task
+        );
+      });
+      return data;
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  async deleteTask(id: number) {
+    this.isLoading = true;
+    try {
+      await TaskService.deleteTask(id);
+      runInAction(() => {
+        this.tasks = this.tasks.filter((task) => task.id === id);
+      });
     } catch (error) {
       runInAction(() => {
         this.error = error;
