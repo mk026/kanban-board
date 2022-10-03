@@ -19,7 +19,7 @@ const BoardSectionsList: FC = () => {
   return (
     <List>
       {boardSectionStore.boardSections.map((boardSection) => (
-        <BoardSectionItem boardSection={boardSection} />
+        <BoardSectionItem key={boardSection.id} boardSection={boardSection} />
       ))}
     </List>
   );
