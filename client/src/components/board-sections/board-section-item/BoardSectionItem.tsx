@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { IBoardSection } from "../../../store/models/BoardSection";
+
+import { BoardSection } from "../../../store/models/BoardSection";
 import TasksList from "../../tasks/tasks-list/TasksList";
 
 interface BoardSectionItemProps {
-  boardSection: IBoardSection;
+  boardSection: BoardSection;
 }
 
 const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
