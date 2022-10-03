@@ -1,35 +1,28 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { List } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
-import { ITask } from "../../../store/models/Task";
 import TaskItem from "../task-item/TaskItem";
+import { useStore } from "../../../hooks/useStore";
 
 const TasksList: FC = () => {
-  const dummyTasks: ITask[] = [
-    {
-      id: 1,
-      title: "Dummy task 1",
-      description: "Description of dummy task 1",
-    },
-    {
-      id: 2,
-      title: "Dummy task 2",
-      description: "Description of dummy task 2",
-    },
-    {
-      id: 3,
-      title: "Dummy task 3",
-      description: "Description of dummy task 3",
-    },
-  ];
+  const { taskStore } = useStore();
+
+  useEffect(() => {
+    taskStore.fetchTasks();
+  }, [taskStore]);
+
+  if (taskStore.isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <List>
-      {dummyTasks.map((task) => (
+      {taskStore.tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
     </List>
   );
 };
 
-export default TasksList;
+export default observer(TasksList);

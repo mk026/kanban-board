@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Card, Typography } from "@mui/material";
 
-import { ITask } from "../../../store/models/Task";
+import { Task } from "../../../store/models/Task";
 
 export interface BoardItemProps {
-  task: ITask;
+  task: Task;
 }
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
