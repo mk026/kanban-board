@@ -16,4 +16,14 @@ export class User {
   }
 }
 
-export interface IUser extends Pick<User, "id" | "name" | "email"> {}
+export class UserDto {
+  public readonly id: number;
+  public readonly name: string;
+  public readonly email: string;
+}
+
+export class UpdateUserDto {
+  public readonly id: number;
+  public readonly name?: string;
+  public readonly email?: string;
+}

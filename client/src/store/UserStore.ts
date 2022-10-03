@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { IUser, User } from "./models/User";
+import { User, UserDto } from "./models/User";
 import { RootStore } from "./RootStore";
 
 export class UserStore {
@@ -9,7 +9,7 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  setUser({ id, name, email }: IUser) {
+  setUser({ id, name, email }: UserDto) {
     this.user = new User(this, id, name, email);
   }
 }

@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { IUser } from "../store/models/User";
+import { UserDto } from "../store/models/User";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
 
 export interface AuthResponse {
-  user: IUser;
+  user: UserDto;
   token: string;
 }
 

@@ -16,8 +16,6 @@ export class Board {
   }
 }
 
-export interface IBoard extends Pick<Board, "id" | "title" | "description"> {}
-
 export class BoardDto {
   public readonly id: number;
   public readonly title: string;

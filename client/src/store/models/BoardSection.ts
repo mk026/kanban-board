@@ -14,8 +14,6 @@ export class BoardSection {
   }
 }
 
-export interface IBoardSection extends Pick<BoardSection, "id" | "title"> {}
-
 export class BoardSectionDto {
   public readonly id: number;
   public readonly title: string;

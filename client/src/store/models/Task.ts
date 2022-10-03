@@ -16,8 +16,6 @@ export class Task {
   }
 }
 
-export interface ITask extends Pick<Task, "id" | "title" | "description"> {}
-
 export class TaskDto {
   public readonly id: number;
   public readonly title: string;
