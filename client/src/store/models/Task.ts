@@ -7,8 +7,9 @@ export class Task {
   description: string;
   store: TaskStore;
 
-  constructor(store: TaskStore, title: string, description: string) {
+  constructor(store: TaskStore, { id, title, description }: TaskDto) {
     makeAutoObservable(this);
+    this.id = id;
     this.store = store;
     this.title = title;
     this.description = description;
@@ -16,3 +17,20 @@ export class Task {
 }
 
 export interface ITask extends Pick<Task, "id" | "title" | "description"> {}
+
+export class TaskDto {
+  public readonly id: number;
+  public readonly title: string;
+  public readonly description: string;
+}
+
+export class CreateTaskDto {
+  public readonly title: string;
+  public readonly description: string;
+}
+
+export class UpdateTaskDto {
+  public readonly id: number;
+  public readonly title?: string;
+  public readonly description?: string;
+}
