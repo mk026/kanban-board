@@ -16,11 +16,11 @@ export class BoardSectionStore {
     makeAutoObservable(this);
   }
 
-  async fetchBoardSections() {
+  async fetchBoardSections(boardId: number) {
     this.isLoading = true;
     this.boardSections = [];
     try {
-      const { data } = await BoardSectionService.getBoardSections();
+      const { data } = await BoardSectionService.getBoardSections(boardId);
       runInAction(() => {
         data.forEach((boardSectionDto) => {
           this.boardSections.push(new BoardSection(this, boardSectionDto));

@@ -4,8 +4,8 @@ import { ApiEndpoints, authApi } from "../api";
 import { CreateTaskDto, TaskDto, UpdateTaskDto } from "../store/models/Task";
 
 export default class TaskService {
-  static getTasks(): Promise<AxiosResponse<TaskDto[]>> {
-    return authApi.get(ApiEndpoints.TASKS);
+  static getTasks(boardId: number): Promise<AxiosResponse<TaskDto[]>> {
+    return authApi.get(ApiEndpoints.TASKS, { params: { boardId } });
   }
 
   static addTask(data: CreateTaskDto): Promise<AxiosResponse<TaskDto>> {

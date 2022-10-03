@@ -5,12 +5,16 @@ import { observer } from "mobx-react-lite";
 import TaskItem from "../task-item/TaskItem";
 import { useStore } from "../../../hooks/useStore";
 
-const TasksList: FC = () => {
+interface TasksListProps {
+  boardId: number;
+}
+
+const TasksList: FC<TasksListProps> = ({ boardId }) => {
   const { taskStore } = useStore();
 
   useEffect(() => {
-    taskStore.fetchTasks();
-  }, [taskStore]);
+    taskStore.fetchTasks(boardId);
+  }, [taskStore, boardId]);
 
   if (taskStore.isLoading) {
     return <p>Loading...</p>;

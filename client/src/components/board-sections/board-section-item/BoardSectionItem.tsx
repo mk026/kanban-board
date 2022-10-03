@@ -5,15 +5,19 @@ import TasksList from "../../tasks/tasks-list/TasksList";
 
 interface BoardSectionItemProps {
   boardSection: BoardSection;
+  boardId: number;
 }
 
-const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
+const BoardSectionItem: FC<BoardSectionItemProps> = ({
+  boardSection,
+  boardId,
+}) => {
   const { title } = boardSection;
 
   return (
     <div>
       <p>{title}</p>
-      <TasksList />
+      <TasksList boardId={boardId} />
     </div>
   );
 };

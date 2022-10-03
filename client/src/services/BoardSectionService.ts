@@ -8,8 +8,10 @@ import {
 } from "../store/models/BoardSection";
 
 export default class BoardSectionService {
-  static getBoardSections(): Promise<AxiosResponse<BoardSectionDto[]>> {
-    return authApi.get(ApiEndpoints.BOARD_SECTIONS);
+  static getBoardSections(
+    boardId: number
+  ): Promise<AxiosResponse<BoardSectionDto[]>> {
+    return authApi.get(ApiEndpoints.BOARD_SECTIONS, { params: { boardId } });
   }
 
   static addBoardSection(

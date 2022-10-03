@@ -12,11 +12,11 @@ export class TaskStore {
     makeAutoObservable(this);
   }
 
-  async fetchTasks() {
+  async fetchTasks(boardId: number) {
     this.isLoading = true;
     this.tasks = [];
     try {
-      const { data } = await TaskService.getTasks();
+      const { data } = await TaskService.getTasks(boardId);
       runInAction(() => {
         data.forEach((taskDto) => {
           this.tasks.push(new Task(this, taskDto));
