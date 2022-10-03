@@ -58,7 +58,9 @@ export class BoardStore {
     try {
       const { data } = await BoardService.updateBoard(updateBoardDto);
       runInAction(() => {
-        this.boards.map((board) => (board.id === data.id ? data : board));
+        this.boards = this.boards.map((board) =>
+          board.id === data.id ? { ...board, ...data } : board
+        );
       });
       return data;
     } catch (error) {
@@ -77,7 +79,7 @@ export class BoardStore {
     try {
       await BoardService.deleteBoard(id);
       runInAction(() => {
-        this.boards.filter((board) => board.id === id);
+        this.boards = this.boards.filter((board) => board.id === id);
       });
     } catch (error) {
       runInAction(() => {

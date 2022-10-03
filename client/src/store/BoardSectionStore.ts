@@ -66,8 +66,10 @@ export class BoardSectionStore {
         updateBoardSectionDto
       );
       runInAction(() => {
-        this.boardSections.map((boardSection) =>
-          boardSection.id === data.id ? data : boardSection
+        this.boardSections = this.boardSections.map((boardSection) =>
+          boardSection.id === data.id
+            ? { ...boardSection, ...data }
+            : boardSection
         );
       });
       return data;
@@ -87,7 +89,9 @@ export class BoardSectionStore {
     try {
       await BoardSectionService.deleteBoardSection(id);
       runInAction(() => {
-        this.boardSections.filter((board) => board.id === id);
+        this.boardSections = this.boardSections.filter(
+          (board) => board.id === id
+        );
       });
     } catch (error) {
       runInAction(() => {
