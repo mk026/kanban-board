@@ -4,6 +4,7 @@ import { ApiEndpoints, authApi } from "../api";
 import {
   BoardSectionDto,
   CreateBoardSectionDto,
+  UpdateBoardSectionDto,
 } from "../store/models/BoardSection";
 
 export default class BoardSectionService {
@@ -18,7 +19,7 @@ export default class BoardSectionService {
   }
 
   static updateBoardSection(
-    data: BoardSectionDto
+    data: UpdateBoardSectionDto
   ): Promise<AxiosResponse<BoardSectionDto>> {
     return authApi.put(ApiEndpoints.BOARD_SECTIONS, data);
   }

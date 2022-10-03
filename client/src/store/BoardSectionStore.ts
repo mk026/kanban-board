@@ -1,6 +1,10 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import BoardSectionService from "../services/BoardSectionService";
-import { BoardSection, CreateBoardSectionDto } from "./models/BoardSection";
+import {
+  BoardSection,
+  CreateBoardSectionDto,
+  UpdateBoardSectionDto,
+} from "./models/BoardSection";
 import { RootStore } from "./RootStore";
 
 export class BoardSectionStore {
@@ -18,8 +22,8 @@ export class BoardSectionStore {
     try {
       const { data } = await BoardSectionService.getBoardSections();
       runInAction(() => {
-        data.forEach((boardDto) => {
-          this.boardSections.push(new BoardSection(this, boardDto));
+        data.forEach((boardSectionDto) => {
+          this.boardSections.push(new BoardSection(this, boardSectionDto));
         });
       });
     } catch (error) {
@@ -44,6 +48,29 @@ export class BoardSectionStore {
         this.boardSections.push(boardSection);
       });
       return boardSection;
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  async updateBoardSection(updateBoardSectionDto: UpdateBoardSectionDto) {
+    this.isLoading = true;
+    try {
+      const { data } = await BoardSectionService.updateBoardSection(
+        updateBoardSectionDto
+      );
+      runInAction(() => {
+        this.boardSections.map((boardSection) =>
+          boardSection.id === data.id ? data : boardSection
+        );
+      });
+      return data;
     } catch (error) {
       runInAction(() => {
         this.error = error;

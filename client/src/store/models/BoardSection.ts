@@ -24,3 +24,8 @@ export class BoardSectionDto {
 export class CreateBoardSectionDto {
   public readonly title: string;
 }
+
+export class UpdateBoardSectionDto {
+  public readonly id: number;
+  public readonly title: string;
+}
