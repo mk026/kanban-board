@@ -81,4 +81,22 @@ export class BoardSectionStore {
       });
     }
   }
+
+  async deleteBoardSection(id: number) {
+    this.isLoading = true;
+    try {
+      await BoardSectionService.deleteBoardSection(id);
+      runInAction(() => {
+        this.boardSections.filter((board) => board.id === id);
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 }

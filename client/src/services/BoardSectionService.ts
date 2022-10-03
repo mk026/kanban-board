@@ -25,7 +25,7 @@ export default class BoardSectionService {
   }
 
   static deleteBoardSection(
-    id: string
+    id: number
   ): Promise<AxiosResponse<BoardSectionDto>> {
     return authApi.delete(`${ApiEndpoints.BOARD_SECTIONS}/${id}`);
   }
