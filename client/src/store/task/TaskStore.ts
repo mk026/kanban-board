@@ -96,4 +96,8 @@ export class TaskStore {
       });
     }
   }
+
+  getTasksForSection(sectionId: number) {
+    return this.tasks.filter((task) => task.sectionId === sectionId);
+  }
 }
