@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { BoardSection } from "../../../store/models/BoardSection";
+import { BoardSection } from "../../../store/board-section/BoardSection";
 import TasksList from "../../tasks/tasks-list/TasksList";
 
 interface BoardSectionItemProps {

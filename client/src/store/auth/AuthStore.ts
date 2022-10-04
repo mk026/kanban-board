@@ -1,8 +1,9 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import AuthService from "../services/AuthService";
-import { SigninFormValues } from "../validation/signinValidation";
-import { SignupFormValues } from "../validation/signupValidation";
-import { RootStore } from "./RootStore";
+
+import { RootStore } from "..";
+import { SigninFormValues } from "../../validation/signinValidation";
+import { SignupFormValues } from "../../validation/signupValidation";
+import AuthService from "../../services/AuthService";
 
 export class AuthStore {
   isAuth: boolean = false;

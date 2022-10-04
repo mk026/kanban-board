@@ -1,11 +1,9 @@
 import { AxiosResponse } from "axios";
 
 import { ApiEndpoints, authApi } from "../api";
-import {
-  BoardDto,
-  CreateBoardDto,
-  UpdateBoardDto,
-} from "../store/models/Board";
+import { BoardDto } from "../store/board/dto/BoardDto";
+import { CreateBoardDto } from "../store/board/dto/CreateBoardDto";
+import { UpdateBoardDto } from "../store/board/dto/UpdateBoardDto";
 
 export default class BoardService {
   static getBoards(): Promise<AxiosResponse<BoardDto[]>> {

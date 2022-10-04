@@ -1,12 +1,16 @@
 import { makeAutoObservable } from "mobx";
-import { User, UserDto } from "./models/User";
-import { RootStore } from "./RootStore";
+
+import { RootStore } from "..";
+import { User } from "./User";
+import { UserDto } from "./dto/UserDto";
 
 export class UserStore {
+  rootStore: RootStore;
   user: User | null = null;
 
-  constructor(private readonly rootStore: RootStore) {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   setUser({ id, name, email }: UserDto) {

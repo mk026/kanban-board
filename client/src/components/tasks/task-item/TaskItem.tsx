@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Card, Typography } from "@mui/material";
 
-import { Task } from "../../../store/models/Task";
+import { Task } from "../../../store/task/Task";
 
 export interface BoardItemProps {
   task: Task;

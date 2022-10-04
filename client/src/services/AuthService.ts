@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints } from "../api";
-import { UserDto } from "../store/models/User";
+import { UserDto } from "../store/user/dto/UserDto";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
 

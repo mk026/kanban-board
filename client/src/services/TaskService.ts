@@ -1,7 +1,9 @@
 import { AxiosResponse } from "axios";
 
 import { ApiEndpoints, authApi } from "../api";
-import { CreateTaskDto, TaskDto, UpdateTaskDto } from "../store/models/Task";
+import { CreateTaskDto } from "../store/task/dto/CreateTaskDto";
+import { TaskDto } from "../store/task/dto/TaskDto";
+import { UpdateTaskDto } from "../store/task/dto/UpdateTaskDto";
 
 export default class TaskService {
   static getTasks(boardId: number): Promise<AxiosResponse<TaskDto[]>> {

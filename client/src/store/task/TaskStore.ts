@@ -1,15 +1,20 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import TaskService from "../services/TaskService";
-import { CreateTaskDto, Task, UpdateTaskDto } from "./models/Task";
-import { RootStore } from "./RootStore";
+
+import { RootStore } from "..";
+import { Task } from "./Task";
+import { CreateTaskDto } from "./dto/CreateTaskDto";
+import { UpdateTaskDto } from "./dto/UpdateTaskDto";
+import TaskService from "../../services/TaskService";
 
 export class TaskStore {
+  rootStore: RootStore;
   tasks: Task[] = [];
   isLoading: boolean = false;
   error: unknown = null;
 
-  constructor(private readonly rootStore: RootStore) {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   async fetchTasks(boardId: number) {

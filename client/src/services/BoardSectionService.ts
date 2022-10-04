@@ -1,11 +1,9 @@
 import { AxiosResponse } from "axios";
 
 import { ApiEndpoints, authApi } from "../api";
-import {
-  BoardSectionDto,
-  CreateBoardSectionDto,
-  UpdateBoardSectionDto,
-} from "../store/models/BoardSection";
+import { BoardSectionDto } from "../store/board-section/dto/BoardSectionDto";
+import { CreateBoardSectionDto } from "../store/board-section/dto/CreateBoardSectionDto";
+import { UpdateBoardSectionDto } from "../store/board-section/dto/UpdateBoardSectionDto";
 
 export default class BoardSectionService {
   static getBoardSections(

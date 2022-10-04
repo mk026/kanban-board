@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Typography } from "@mui/material";
 
 import { Paths } from "../../../routes";
-import { Board } from "../../../store/models/Board";
+import { Board } from "../../../store/board/Board";
 
 export interface BoardItemProps {
   board: Board;

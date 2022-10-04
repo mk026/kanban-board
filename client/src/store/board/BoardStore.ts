@@ -1,15 +1,20 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import BoardService from "../services/BoardService";
-import { Board, CreateBoardDto, UpdateBoardDto } from "./models/Board";
-import { RootStore } from "./RootStore";
+
+import { RootStore } from "..";
+import { Board } from "./Board";
+import { CreateBoardDto } from "./dto/CreateBoardDto";
+import { UpdateBoardDto } from "./dto/UpdateBoardDto";
+import BoardService from "../../services/BoardService";
 
 export class BoardStore {
+  rootStore: RootStore;
   boards: Board[] = [];
   isLoading: boolean = false;
   error: unknown = null;
 
-  constructor(private readonly rootStore: RootStore) {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   async fetchBoards() {

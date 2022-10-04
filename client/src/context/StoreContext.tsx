@@ -1,5 +1,5 @@
 import { createContext, FC, PropsWithChildren } from "react";
-import { RootStore, store } from "../store/RootStore";
+import { RootStore, store } from "../store";
 
 export const StoreContext = createContext({} as RootStore);
 

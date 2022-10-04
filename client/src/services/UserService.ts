@@ -1,7 +1,8 @@
 import { AxiosResponse } from "axios";
 
 import { ApiEndpoints, authApi } from "../api";
-import { UpdateUserDto, UserDto } from "../store/models/User";
+import { UpdateUserDto } from "../store/user/dto/UpdateUserDto";
+import { UserDto } from "../store/user/dto/UserDto";
 
 export default class UserService {
   static updateUser(data: UpdateUserDto): Promise<AxiosResponse<UserDto>> {

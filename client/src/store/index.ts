@@ -1,8 +1,8 @@
-import { AuthStore } from "./AuthStore";
-import { BoardSectionStore } from "./BoardSectionStore";
-import { BoardStore } from "./BoardStore";
-import { TaskStore } from "./TaskStore";
-import { UserStore } from "./UserStore";
+import { AuthStore } from "./auth/AuthStore";
+import { BoardSectionStore } from "./board-section/BoardSectionStore";
+import { BoardStore } from "./board/BoardStore";
+import { TaskStore } from "./task/TaskStore";
+import { UserStore } from "./user/UserStore";
 
 export class RootStore {
   authStore: AuthStore;
