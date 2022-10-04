@@ -10,11 +10,12 @@ interface BoardSectionsListProps {
 }
 
 const BoardSectionsList: FC<BoardSectionsListProps> = ({ boardId }) => {
-  const { boardSectionStore } = useStore();
+  const { boardSectionStore, taskStore } = useStore();
 
   useEffect(() => {
     boardSectionStore.fetchBoardSections(boardId);
-  }, [boardSectionStore, boardId]);
+    taskStore.fetchTasks(boardId);
+  }, [boardSectionStore, taskStore, boardId]);
 
   if (boardSectionStore.isLoading) {
     return <p>Loading...</p>;
@@ -23,11 +24,7 @@ const BoardSectionsList: FC<BoardSectionsListProps> = ({ boardId }) => {
   return (
     <List>
       {boardSectionStore.boardSections.map((boardSection) => (
-        <BoardSectionItem
-          key={boardSection.id}
-          boardSection={boardSection}
-          boardId={boardId}
-        />
+        <BoardSectionItem key={boardSection.id} boardSection={boardSection} />
       ))}
     </List>
   );
