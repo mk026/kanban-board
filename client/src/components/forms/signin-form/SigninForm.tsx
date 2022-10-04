@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
@@ -27,16 +27,20 @@ const SigninForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(signinHandler)}>
-      <label>
-        Email
-        <input type="text" {...register("email")} />
-      </label>
-      {errors.email && <p>{errors.email.message}</p>}
-      <label>
-        Password
-        <input type="password" {...register("password")} />
-      </label>
-      {errors.password && <p>{errors.password.message}</p>}
+      <TextField
+        type="email"
+        label="Email"
+        {...register("email")}
+        error={!!errors.email}
+        helperText={errors.email && errors.email.message}
+      />
+      <TextField
+        type="password"
+        label="Password"
+        {...register("password")}
+        error={!!errors.password}
+        helperText={errors.password && errors.password.message}
+      />
       <Button type="submit">Submit</Button>
       {authStore.isLoading && <span>Loading...</span>}
     </form>
