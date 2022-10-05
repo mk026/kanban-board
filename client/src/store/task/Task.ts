@@ -23,4 +23,8 @@ export class Task {
     this.description = description;
     this.store = store;
   }
+
+  remove() {
+    this.store.deleteTask(this.id);
+  }
 }

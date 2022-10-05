@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Card, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { Task } from "../../../store/task/Task";
@@ -9,10 +9,13 @@ export interface BoardItemProps {
 }
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
+  const deleteTaskHandler = () => task.remove();
+
   return (
     <Card variant="outlined">
       <Typography variant="h2">{task.title}</Typography>
       <Typography variant="body1">{task.description}</Typography>
+      <Button onClick={deleteTaskHandler}>Delete</Button>
     </Card>
   );
 };

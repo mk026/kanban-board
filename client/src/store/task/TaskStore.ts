@@ -62,9 +62,10 @@ export class TaskStore {
     this.isLoading = true;
     try {
       const { data } = await TaskService.updateTask(updateTaskDto);
+      const updatedTask = new Task(this, data);
       runInAction(() => {
         this.tasks = this.tasks.map((task) =>
-          task.id === data.id ? { ...task, ...data } : task
+          task.id === data.id ? updatedTask : task
         );
       });
       return data;
