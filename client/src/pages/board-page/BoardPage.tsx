@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 import BoardSectionsList from "../../components/board-sections/board-sections-list/BoardSectionsList";
 import { useStore } from "../../hooks/useStore";
@@ -18,10 +18,10 @@ const BoardPage: FC = () => {
   }, [board]);
 
   return (
-    <>
+    <Container>
       <Typography>BoardPage for board {board?.title}</Typography>
       <BoardSectionsList />
-    </>
+    </Container>
   );
 };
 

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { List } from "@mui/material";
+import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "../../../hooks/useStore";
@@ -13,11 +13,11 @@ const BoardSectionsList: FC = () => {
   }
 
   return (
-    <List>
+    <Stack direction="row" spacing={10}>
       {boardSectionStore.boardSections.map((boardSection) => (
         <BoardSectionItem key={boardSection.id} boardSection={boardSection} />
       ))}
-    </List>
+    </Stack>
   );
 };
 

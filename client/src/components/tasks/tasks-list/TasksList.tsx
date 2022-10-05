@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { List } from "@mui/material";
+import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import TaskItem from "../task-item/TaskItem";
@@ -13,11 +13,11 @@ const TasksList: FC<TasksListProps> = ({ boardSection }) => {
   const tasks = useMemo(() => boardSection.getTasks(), [boardSection]);
 
   return (
-    <List>
+    <Stack>
       {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
-    </List>
+    </Stack>
   );
 };
 

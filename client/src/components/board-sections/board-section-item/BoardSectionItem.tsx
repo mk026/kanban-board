@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { BoardSection } from "../../../store/board-section/BoardSection";
@@ -12,10 +13,10 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   const { title } = boardSection;
 
   return (
-    <div>
-      <p>{title}</p>
+    <Card>
+      <Typography>{title}</Typography>
       <TasksList boardSection={boardSection} />
-    </div>
+    </Card>
   );
 };
 
