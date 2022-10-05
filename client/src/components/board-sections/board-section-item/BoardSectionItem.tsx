@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { observer } from "mobx-react-lite";
 
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import TasksList from "../../tasks/tasks-list/TasksList";
@@ -18,4 +19,4 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   );
 };
 
-export default BoardSectionItem;
+export default observer(BoardSectionItem);

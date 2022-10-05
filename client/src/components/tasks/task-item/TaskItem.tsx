@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Card, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
 import { Task } from "../../../store/task/Task";
 
@@ -16,4 +17,4 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
   );
 };
 
-export default TaskItem;
+export default observer(TaskItem);
