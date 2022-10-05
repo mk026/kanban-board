@@ -4,15 +4,20 @@ import { BoardSectionStore } from "./BoardSectionStore";
 import { BoardSectionDto } from "./dto/BoardSectionDto";
 
 export class BoardSection {
-  id: number = 0;
+  id: number;
+  boardId: number;
   title: string;
   store: BoardSectionStore;
 
-  constructor(store: BoardSectionStore, { id, title }: BoardSectionDto) {
+  constructor(
+    store: BoardSectionStore,
+    { id, boardId, title }: BoardSectionDto
+  ) {
     makeAutoObservable(this);
     this.id = id;
-    this.store = store;
+    this.boardId = boardId;
     this.title = title;
+    this.store = store;
   }
 
   getTasks() {
