@@ -66,11 +66,10 @@ export class BoardSectionStore {
       const { data } = await BoardSectionService.updateBoardSection(
         updateBoardSectionDto
       );
+      const updatedBoardSection = new BoardSection(this, data);
       runInAction(() => {
         this.boardSections = this.boardSections.map((boardSection) =>
-          boardSection.id === data.id
-            ? { ...boardSection, ...data }
-            : boardSection
+          boardSection.id === data.id ? updatedBoardSection : boardSection
         );
       });
       return data;

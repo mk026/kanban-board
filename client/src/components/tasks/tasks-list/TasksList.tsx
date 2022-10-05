@@ -1,24 +1,20 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { List } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import TaskItem from "../task-item/TaskItem";
-import { useStore } from "../../../hooks/useStore";
+import { BoardSection } from "../../../store/board-section/BoardSection";
 
 interface TasksListProps {
-  sectionId: number;
+  boardSection: BoardSection;
 }
 
-const TasksList: FC<TasksListProps> = ({ sectionId }) => {
-  const { taskStore } = useStore();
-
-  if (taskStore.isLoading) {
-    return <p>Loading...</p>;
-  }
+const TasksList: FC<TasksListProps> = ({ boardSection }) => {
+  const tasks = useMemo(() => boardSection.getTasks(), [boardSection]);
 
   return (
     <List>
-      {taskStore.getTasksForSection(sectionId).map((task) => (
+      {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
     </List>

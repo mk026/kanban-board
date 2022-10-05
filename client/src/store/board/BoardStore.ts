@@ -62,9 +62,10 @@ export class BoardStore {
     this.isLoading = true;
     try {
       const { data } = await BoardService.updateBoard(updateBoardDto);
+      const updatedBoard = new Board(this, data);
       runInAction(() => {
         this.boards = this.boards.map((board) =>
-          board.id === data.id ? { ...board, ...data } : board
+          board.id === updatedBoard.id ? updatedBoard : board
         );
       });
       return data;
@@ -95,5 +96,9 @@ export class BoardStore {
         this.isLoading = false;
       });
     }
+  }
+
+  getBoardById(boardId: number) {
+    return this.boards.find((board) => board.id === boardId);
   }
 }

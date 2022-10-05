@@ -14,4 +14,8 @@ export class BoardSection {
     this.store = store;
     this.title = title;
   }
+
+  getTasks() {
+    return this.store.rootStore.taskStore.getTasksForSection(this.id);
+  }
 }

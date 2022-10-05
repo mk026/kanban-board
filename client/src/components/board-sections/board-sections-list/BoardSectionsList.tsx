@@ -1,21 +1,12 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { List } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "../../../hooks/useStore";
 import BoardSectionItem from "../board-section-item/BoardSectionItem";
 
-interface BoardSectionsListProps {
-  boardId: number;
-}
-
-const BoardSectionsList: FC<BoardSectionsListProps> = ({ boardId }) => {
-  const { boardSectionStore, taskStore } = useStore();
-
-  useEffect(() => {
-    boardSectionStore.fetchBoardSections(boardId);
-    taskStore.fetchTasks(boardId);
-  }, [boardSectionStore, taskStore, boardId]);
+const BoardSectionsList: FC = () => {
+  const { boardSectionStore } = useStore();
 
   if (boardSectionStore.isLoading) {
     return <p>Loading...</p>;

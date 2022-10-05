@@ -16,4 +16,9 @@ export class Board {
     this.title = title;
     this.description = description;
   }
+
+  fetchBoardContent() {
+    this.store.rootStore.boardSectionStore.fetchBoardSections(this.id);
+    this.store.rootStore.taskStore.fetchTasks(this.id);
+  }
 }

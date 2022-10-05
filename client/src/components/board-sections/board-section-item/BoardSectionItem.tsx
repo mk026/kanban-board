@@ -8,12 +8,12 @@ interface BoardSectionItemProps {
 }
 
 const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
-  const { id, title } = boardSection;
+  const { title } = boardSection;
 
   return (
     <div>
       <p>{title}</p>
-      <TasksList sectionId={id} />
+      <TasksList boardSection={boardSection} />
     </div>
   );
 };
