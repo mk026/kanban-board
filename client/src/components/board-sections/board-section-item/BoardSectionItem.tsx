@@ -11,11 +11,12 @@ interface BoardSectionItemProps {
 
 const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   const { title } = boardSection;
+  const tasks = boardSection.getTasks();
 
   return (
     <Card>
       <Typography>{title}</Typography>
-      <TasksList boardSection={boardSection} />
+      <TasksList tasks={tasks} />
     </Card>
   );
 };

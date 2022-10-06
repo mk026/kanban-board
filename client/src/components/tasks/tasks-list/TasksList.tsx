@@ -1,17 +1,15 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import TaskItem from "../task-item/TaskItem";
-import { BoardSection } from "../../../store/board-section/BoardSection";
+import { Task } from "../../../store/task/Task";
 
 interface TasksListProps {
-  boardSection: BoardSection;
+  tasks: Task[];
 }
 
-const TasksList: FC<TasksListProps> = ({ boardSection }) => {
-  const tasks = useMemo(() => boardSection.getTasks(), [boardSection]);
-
+const TasksList: FC<TasksListProps> = ({ tasks }) => {
   return (
     <Stack>
       {tasks.map((task) => (
