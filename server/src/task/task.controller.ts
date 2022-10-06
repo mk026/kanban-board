@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -20,8 +21,8 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  getTasks() {
-    return this.taskService.getTasks();
+  getTasks(@Query('boardId', ParseIntPipe) boardId: number) {
+    return this.taskService.getTasks(boardId);
   }
 
   @Post()

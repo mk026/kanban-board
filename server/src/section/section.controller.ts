@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { SectionService } from './section.service';
@@ -20,8 +21,8 @@ export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
   @Get()
-  getSections() {
-    return this.sectionService.getSections();
+  getSections(@Query('boardId', ParseIntPipe) boardId: number) {
+    return this.sectionService.getSections(boardId);
   }
 
   @Post()

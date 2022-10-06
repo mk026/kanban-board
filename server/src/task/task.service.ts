@@ -12,8 +12,8 @@ export class TaskService {
     private readonly taskRepository: Repository<Task>,
   ) {}
 
-  getTasks() {
-    return this.taskRepository.find();
+  getTasks(boardId: number) {
+    return this.taskRepository.find({ where: { board: { id: boardId } } });
   }
 
   async addTask(createTaskDto: CreateTaskDto) {

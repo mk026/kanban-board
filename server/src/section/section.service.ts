@@ -12,8 +12,8 @@ export class SectionService {
     private readonly sectionRepository: Repository<Section>,
   ) {}
 
-  getSections() {
-    return this.sectionRepository.find();
+  getSections(boardId: number) {
+    return this.sectionRepository.find({ where: { board: { id: boardId } } });
   }
 
   async addSection(createSectionDto: CreateSectionDto) {
