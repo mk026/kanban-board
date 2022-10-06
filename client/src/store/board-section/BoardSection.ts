@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 import { BoardSectionStore } from "./BoardSectionStore";
 import { BoardSectionDto } from "./dto/BoardSectionDto";
+import { TaskFormValues } from "../../validation/taskValidation";
 
 export class BoardSection {
   id: number;
@@ -22,5 +23,14 @@ export class BoardSection {
 
   getTasks() {
     return this.store.rootStore.taskStore.getTasksForSection(this.id);
+  }
+
+  addTask({ title, description }: TaskFormValues) {
+    return this.store.rootStore.taskStore.createTask({
+      boardId: this.boardId,
+      sectionId: this.id,
+      title,
+      description,
+    });
   }
 }
