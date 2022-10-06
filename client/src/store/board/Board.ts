@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 import { BoardStore } from "./BoardStore";
 import { BoardDto } from "./dto/BoardDto";
+import { BoardSectionFormValues } from "../../validation/boardSectionValidation";
 
 export class Board {
   id: number = 0;
@@ -20,5 +21,12 @@ export class Board {
   fetchBoardContent() {
     this.store.rootStore.boardSectionStore.fetchBoardSections(this.id);
     this.store.rootStore.taskStore.fetchTasks(this.id);
+  }
+
+  addBoardSection({ title }: BoardSectionFormValues) {
+    return this.store.rootStore.boardSectionStore.createBoardSection({
+      boardId: this.id,
+      title,
+    });
   }
 }
