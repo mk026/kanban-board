@@ -41,8 +41,8 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add new board</DialogTitle>
-      <DialogContent>
-        <Box component="form" onSubmit={handleSubmit(addBoardHandler)}>
+      <Box component="form" onSubmit={handleSubmit(addBoardHandler)}>
+        <DialogContent>
           <TextField
             label="Board title"
             {...register("title")}
@@ -56,14 +56,14 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
             helperText={errors.description && errors.description.message}
           />
           {boardStore.isLoading && <span>Loading...</span>}
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button type="submit">Submit</Button>
-        <Button type="button" onClick={onClose}>
-          Close
-        </Button>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions>
+          <Button type="submit">Submit</Button>
+          <Button type="button" onClick={onClose}>
+            Close
+          </Button>
+        </DialogActions>
+      </Box>
     </Dialog>
   );
 };
