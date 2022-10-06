@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -26,20 +26,25 @@ const AddBoardForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(addBoardHandler)}>
-      <label>
-        Board title
-        <input type="text" {...register("title")} />
-      </label>
-      {errors.title && <p>{errors.title.message}</p>}
-      <label>
-        Board description (optional)
-        <input type="text" {...register("description")} />
-      </label>
-      {errors.description && <p>{errors.description.message}</p>}
-      <Button type="submit">Submit</Button>
-      {boardStore.isLoading && <span>Loading...</span>}
-    </form>
+    <Container>
+      <Typography>Add new board</Typography>
+      <Box component="form" onSubmit={handleSubmit(addBoardHandler)}>
+        <TextField
+          label="Board title"
+          {...register("title")}
+          error={!!errors.title}
+          helperText={errors.title && errors.title.message}
+        />
+        <TextField
+          label="Board description (optional)"
+          {...register("description")}
+          error={!!errors.description}
+          helperText={errors.description && errors.description.message}
+        />
+        <Button type="submit">Submit</Button>
+        {boardStore.isLoading && <span>Loading...</span>}
+      </Box>
+    </Container>
   );
 };
 
