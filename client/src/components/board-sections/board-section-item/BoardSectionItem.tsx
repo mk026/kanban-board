@@ -18,11 +18,13 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
 
   const toggleAddTaskFormHandler = () =>
     setAddTaskFormIsActive((prev) => !prev);
+  const removeBoardSectionHandler = () => boardSection.remove();
 
   return (
     <Card>
       <Typography>{title}</Typography>
       <Button onClick={toggleAddTaskFormHandler}>Add Task</Button>
+      <Button onClick={removeBoardSectionHandler}>Delete Section</Button>
       <AddTaskForm
         open={addTaskFormIsActive}
         onClose={toggleAddTaskFormHandler}
