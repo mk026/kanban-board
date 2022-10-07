@@ -33,4 +33,8 @@ export class BoardSection {
       description,
     });
   }
+
+  remove() {
+    this.store.deleteBoardSection(this.id);
+  }
 }
