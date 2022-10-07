@@ -2,6 +2,7 @@ import { FC } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,6 +17,7 @@ import {
   boardSectionValidationSchema,
 } from "../../../validation/boardSectionValidation";
 import { Board } from "../../../store/board/Board";
+import { useStore } from "../../../hooks/useStore";
 
 interface AddBoardSectionFormProps {
   board: Board;
@@ -28,6 +30,9 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
   open,
   onClose,
 }) => {
+  const {
+    boardSectionStore: { isLoading },
+  } = useStore();
   const {
     register,
     handleSubmit,
@@ -57,7 +62,15 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button type="submit">Submit</Button>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            endIcon={
+              isLoading && <CircularProgress size="1rem" color="inherit" />
+            }
+          >
+            Submit
+          </Button>
           <Button type="button" onClick={onClose}>
             Close
           </Button>

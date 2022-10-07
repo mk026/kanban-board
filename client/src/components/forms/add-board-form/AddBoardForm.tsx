@@ -2,6 +2,7 @@ import { FC } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -41,6 +42,8 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
     onClose();
   };
 
+  const { isLoading } = boardStore;
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add new board</DialogTitle>
@@ -58,10 +61,17 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
           />
-          {boardStore.isLoading && <span>Loading...</span>}
         </DialogContent>
         <DialogActions>
-          <Button type="submit">Submit</Button>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            endIcon={
+              isLoading && <CircularProgress size="1rem" color="inherit" />
+            }
+          >
+            Submit
+          </Button>
           <Button type="button" onClick={onClose}>
             Close
           </Button>

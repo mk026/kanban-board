@@ -2,6 +2,7 @@ import { FC } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,6 +17,7 @@ import {
   taskValidationSchema,
 } from "../../../validation/taskValidation";
 import { BoardSection } from "../../../store/board-section/BoardSection";
+import { useStore } from "../../../hooks/useStore";
 
 interface AddTaskFormProps {
   boardSection: BoardSection;
@@ -24,6 +26,9 @@ interface AddTaskFormProps {
 }
 
 const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
+  const {
+    taskStore: { isLoading },
+  } = useStore();
   const {
     register,
     handleSubmit,
@@ -59,7 +64,15 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button type="submit">Submit</Button>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            endIcon={
+              isLoading && <CircularProgress size="1rem" color="inherit" />
+            }
+          >
+            Submit
+          </Button>
           <Button type="button" onClick={onClose}>
             Close
           </Button>
