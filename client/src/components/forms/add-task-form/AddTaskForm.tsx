@@ -27,14 +27,17 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TaskFormValues>({
     mode: "onBlur",
     resolver: yupResolver(taskValidationSchema),
   });
 
-  const addTaskHandler = (values: TaskFormValues) => {
-    boardSection.addTask(values);
+  const addTaskHandler = async (values: TaskFormValues) => {
+    await boardSection.addTask(values);
+    reset();
+    onClose();
   };
 
   return (

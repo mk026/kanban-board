@@ -28,14 +28,17 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<BoardFormValues>({
     mode: "onBlur",
     resolver: yupResolver(boardValidationSchema),
   });
 
-  const addBoardHandler = (values: BoardFormValues) => {
-    boardStore.createBoard(values);
+  const addBoardHandler = async (values: BoardFormValues) => {
+    await boardStore.createBoard(values);
+    reset();
+    onClose();
   };
 
   return (

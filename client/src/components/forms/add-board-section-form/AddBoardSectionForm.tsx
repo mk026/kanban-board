@@ -31,14 +31,17 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<BoardSectionFormValues>({
     mode: "onBlur",
     resolver: yupResolver(boardSectionValidationSchema),
   });
 
-  const addBoardSectionHandler = (values: BoardSectionFormValues) => {
-    board.addBoardSection(values);
+  const addBoardSectionHandler = async (values: BoardSectionFormValues) => {
+    await board.addBoardSection(values);
+    reset();
+    onClose();
   };
 
   return (
