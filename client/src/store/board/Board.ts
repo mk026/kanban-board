@@ -29,4 +29,8 @@ export class Board {
       title,
     });
   }
+
+  remove() {
+    this.store.deleteBoard(this.id);
+  }
 }
