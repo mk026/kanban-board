@@ -17,6 +17,8 @@ const BoardPage: FC = () => {
 
   const board = boardStore.getBoardById(Number(id));
 
+  const removeBoardHandler = () => board?.remove();
+
   useEffect(() => {
     if (board) {
       board.fetchBoardContent();
@@ -27,6 +29,7 @@ const BoardPage: FC = () => {
     <Container>
       <Typography>BoardPage for board {board?.title}</Typography>
       <Button onClick={toggleAddBoardSectionFormHandler}>Add Section</Button>
+      <Button onClick={removeBoardHandler}>Delete Board</Button>
       <AddBoardSectionForm
         open={addBoardSectionFormIsActive}
         onClose={toggleAddBoardSectionFormHandler}
