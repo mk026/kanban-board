@@ -27,7 +27,7 @@ interface AddTaskFormProps {
 
 const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
   const {
-    taskStore: { isLoading },
+    taskStore: { isLoading, error },
   } = useStore();
   const {
     register,
@@ -63,6 +63,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
             helperText={errors.description && errors.description.message}
           />
         </DialogContent>
+        {error}
         <DialogActions>
           <Button
             type="submit"
