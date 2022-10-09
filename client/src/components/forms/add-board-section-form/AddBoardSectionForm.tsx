@@ -18,21 +18,24 @@ import {
 } from "../../../validation/boardSectionValidation";
 import { Board } from "../../../store/board/Board";
 import { useStore } from "../../../hooks/useStore";
+import { observer } from "mobx-react-lite";
 
 interface AddBoardSectionFormProps {
   board: Board;
   open: boolean;
   onClose: () => void;
+  onSuccess: () => void;
+  onError: () => void;
 }
 
 const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
   board,
   open,
   onClose,
+  onSuccess,
+  onError,
 }) => {
-  const {
-    boardSectionStore: { isLoading },
-  } = useStore();
+  const { boardSectionStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -45,6 +48,11 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
 
   const addBoardSectionHandler = async (values: BoardSectionFormValues) => {
     await board.addBoardSection(values);
+    if (boardSectionStore.error) {
+      onError();
+    } else {
+      onSuccess();
+    }
     reset();
     onClose();
   };
@@ -64,9 +72,11 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
         <DialogActions>
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={boardSectionStore.isLoading}
             endIcon={
-              isLoading && <CircularProgress size="1rem" color="inherit" />
+              boardSectionStore.isLoading && (
+                <CircularProgress size="1rem" color="inherit" />
+              )
             }
           >
             Submit
@@ -80,4 +90,4 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
   );
 };
 
-export default AddBoardSectionForm;
+export default observer(AddBoardSectionForm);
