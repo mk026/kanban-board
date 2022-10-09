@@ -24,16 +24,12 @@ interface AddBoardSectionFormProps {
   board: Board;
   open: boolean;
   onClose: () => void;
-  onSuccess: () => void;
-  onError: () => void;
 }
 
 const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
   board,
   open,
   onClose,
-  onSuccess,
-  onError,
 }) => {
   const { boardSectionStore } = useStore();
   const {
@@ -48,11 +44,6 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
 
   const addBoardSectionHandler = async (values: BoardSectionFormValues) => {
     await board.addBoardSection(values);
-    if (boardSectionStore.error) {
-      onError();
-    } else {
-      onSuccess();
-    }
     reset();
     onClose();
   };

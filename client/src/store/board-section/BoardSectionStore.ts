@@ -48,10 +48,20 @@ export class BoardSectionStore {
       runInAction(() => {
         this.boardSections.push(boardSection);
       });
+      this.rootStore.uiStore.addAlert({
+        severity: "success",
+        title: "Success",
+        message: "Successfully added new board section",
+      });
       return boardSection;
     } catch (error) {
       runInAction(() => {
         this.error = error;
+        this.rootStore.uiStore.addAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to add board section",
+        });
       });
     } finally {
       runInAction(() => {
