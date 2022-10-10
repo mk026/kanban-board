@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
-import { Button, Card, Typography } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import TasksList from "../../tasks/tasks-list/TasksList";
 import AddTaskForm from "../../forms/add-task-form/AddTaskForm";
+import BoardSectionControls from "../board-section-controls/BoardSectionControls";
 
 interface BoardSectionItemProps {
   boardSection: BoardSection;
@@ -23,8 +24,10 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   return (
     <Card>
       <Typography>{title}</Typography>
-      <Button onClick={toggleAddTaskFormHandler}>Add Task</Button>
-      <Button onClick={removeBoardSectionHandler}>Delete Section</Button>
+      <BoardSectionControls
+        onAddTask={toggleAddTaskFormHandler}
+        onDeleteSection={removeBoardSectionHandler}
+      />
       <TasksList tasks={tasks} />
       <AddTaskForm
         open={addTaskFormIsActive}
