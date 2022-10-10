@@ -7,6 +7,7 @@ export const BASE_URL = "http://localhost:8080";
 export enum ApiEndpoints {
   SIGNUP = "/signup",
   SIGNIN = "/signin",
+  CHECK_AUTH = "/check_auth",
   USERS = "/users",
   BOARDS = "/boards",
   BOARD_SECTIONS = "/sections",

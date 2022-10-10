@@ -59,4 +59,27 @@ export class AuthStore {
       });
     }
   }
+
+  async checkAuth() {
+    try {
+      this.isLoading = true;
+      const {
+        data: { user, token },
+      } = await AuthService.checkAuth();
+      runInAction(() => {
+        AuthService.storeToken(token);
+        this.rootStore.userStore.setUser(user);
+        this.isAuth = true;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+        console.log(error);
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 }

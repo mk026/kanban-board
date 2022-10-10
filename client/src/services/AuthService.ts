@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 
-import { api, ApiEndpoints } from "../api";
+import { api, ApiEndpoints, authApi } from "../api";
 import { UserDto } from "../store/user/dto/UserDto";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
@@ -27,5 +27,9 @@ export default class AuthService {
 
   static storeToken(token: string) {
     localStorage.setItem(AuthService.tokenKey, token);
+  }
+
+  static checkAuth(): Promise<AxiosResponse<AuthResponse>> {
+    return authApi.get(ApiEndpoints.CHECK_AUTH);
   }
 }
