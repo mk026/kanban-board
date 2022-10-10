@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
+import Layout from "./components/layout/Layout";
 import AppRouter from "./components/routing/app-router/AppRouter";
-import Alerts from "./components/alerts/Alerts";
-import Header from "./components/header/Header";
 import { useStore } from "./hooks/useStore";
 
 function App() {
@@ -13,11 +12,9 @@ function App() {
   }, [authStore]);
 
   return (
-    <>
-      <Header />
+    <Layout>
       <AppRouter />
-      <Alerts />
-    </>
+    </Layout>
   );
 }
 
