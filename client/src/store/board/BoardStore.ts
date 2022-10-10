@@ -85,7 +85,7 @@ export class BoardStore {
     try {
       await BoardService.deleteBoard(id);
       runInAction(() => {
-        this.boards = this.boards.filter((board) => board.id === id);
+        this.boards = this.boards.filter((board) => board.id !== id);
       });
     } catch (error) {
       runInAction(() => {

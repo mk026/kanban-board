@@ -85,7 +85,7 @@ export class TaskStore {
     try {
       await TaskService.deleteTask(id);
       runInAction(() => {
-        this.tasks = this.tasks.filter((task) => task.id === id);
+        this.tasks = this.tasks.filter((task) => task.id !== id);
       });
     } catch (error) {
       runInAction(() => {

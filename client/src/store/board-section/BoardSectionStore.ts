@@ -100,7 +100,7 @@ export class BoardSectionStore {
       await BoardSectionService.deleteBoardSection(id);
       runInAction(() => {
         this.boardSections = this.boardSections.filter(
-          (board) => board.id === id
+          (board) => board.id !== id
         );
       });
     } catch (error) {
