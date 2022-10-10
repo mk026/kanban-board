@@ -3,10 +3,7 @@ import {
   Box,
   Button,
   CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+  Collapse,
   TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -46,39 +43,34 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add new task</DialogTitle>
+    <Collapse in={open}>
       <Box component="form" onSubmit={handleSubmit(addTaskHandler)}>
-        <DialogContent>
-          <TextField
-            label="Task title"
-            {...register("title")}
-            error={!!errors.title}
-            helperText={errors.title && errors.title.message}
-          />
-          <TextField
-            label="Task description"
-            {...register("description")}
-            error={!!errors.description}
-            helperText={errors.description && errors.description.message}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            endIcon={
-              isLoading && <CircularProgress size="1rem" color="inherit" />
-            }
-          >
-            Submit
-          </Button>
-          <Button type="button" onClick={onClose}>
-            Close
-          </Button>
-        </DialogActions>
+        <TextField
+          label="Task title"
+          {...register("title")}
+          error={!!errors.title}
+          helperText={errors.title && errors.title.message}
+        />
+        <TextField
+          label="Task description"
+          {...register("description")}
+          error={!!errors.description}
+          helperText={errors.description && errors.description.message}
+        />
+        <Button
+          type="submit"
+          disabled={isLoading}
+          endIcon={
+            isLoading && <CircularProgress size="1rem" color="inherit" />
+          }
+        >
+          Submit
+        </Button>
+        <Button type="button" onClick={onClose}>
+          Close
+        </Button>
       </Box>
-    </Dialog>
+    </Collapse>
   );
 };
 

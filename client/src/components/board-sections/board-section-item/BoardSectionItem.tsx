@@ -25,12 +25,12 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
       <Typography>{title}</Typography>
       <Button onClick={toggleAddTaskFormHandler}>Add Task</Button>
       <Button onClick={removeBoardSectionHandler}>Delete Section</Button>
+      <TasksList tasks={tasks} />
       <AddTaskForm
         open={addTaskFormIsActive}
         onClose={toggleAddTaskFormHandler}
         boardSection={boardSection}
       />
-      <TasksList tasks={tasks} />
     </Card>
   );
 };
