@@ -22,16 +22,10 @@ import { observer } from "mobx-react-lite";
 
 interface AddBoardSectionFormProps {
   board: Board;
-  open: boolean;
-  onClose: () => void;
 }
 
-const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
-  board,
-  open,
-  onClose,
-}) => {
-  const { boardSectionStore } = useStore();
+const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
+  const { boardSectionStore, uiStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -42,14 +36,19 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
     resolver: yupResolver(boardSectionValidationSchema),
   });
 
+  const closeFormHandler = () => uiStore.toggleAddBoardSectionForm();
+
   const addBoardSectionHandler = async (values: BoardSectionFormValues) => {
     await board.addBoardSection(values);
     reset();
-    onClose();
+    closeFormHandler();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      open={uiStore.addBoardSectionFormIsActive}
+      onClose={closeFormHandler}
+    >
       <DialogTitle>Add new section</DialogTitle>
       <Box component="form" onSubmit={handleSubmit(addBoardSectionHandler)}>
         <DialogContent>
@@ -72,7 +71,7 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({
           >
             Submit
           </Button>
-          <Button type="button" onClick={onClose}>
+          <Button type="button" onClick={closeFormHandler}>
             Close
           </Button>
         </DialogActions>

@@ -11,6 +11,9 @@ export interface IAlert {
 export class UIStore {
   rootStore: RootStore;
   alerts: IAlert[] = [];
+  addBoardFormIsActive: boolean = false;
+  addBoardSectionFormIsActive: boolean = false;
+  addTaskFormIsActive: boolean = false;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -24,5 +27,17 @@ export class UIStore {
 
   shiftAlerts() {
     this.alerts.shift();
+  }
+
+  toggleAddBoardForm() {
+    this.addBoardFormIsActive = !this.addBoardFormIsActive;
+  }
+
+  toggleAddBoardSectionForm() {
+    this.addBoardSectionFormIsActive = !this.addBoardSectionFormIsActive;
+  }
+
+  toggleAddTaskForm() {
+    this.addTaskFormIsActive = !this.addTaskFormIsActive;
   }
 }

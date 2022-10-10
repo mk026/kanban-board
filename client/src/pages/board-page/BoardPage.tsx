@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Container, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
@@ -9,14 +9,12 @@ import { useStore } from "../../hooks/useStore";
 
 const BoardPage: FC = () => {
   const { id } = useParams<"id">();
-  const { boardStore } = useStore();
-  const [addBoardSectionFormIsActive, setAddBoardSectionFormIsActive] =
-    useState(false);
-
-  const toggleAddBoardSectionFormHandler = () =>
-    setAddBoardSectionFormIsActive((prev) => !prev);
+  const { boardStore, uiStore } = useStore();
 
   const board = boardStore.getBoardById(Number(id));
+
+  const toggleAddBoardSectionFormHandler = () =>
+    uiStore.toggleAddBoardSectionForm();
 
   const removeBoardHandler = () => board?.remove();
 
@@ -31,11 +29,7 @@ const BoardPage: FC = () => {
       <Typography>BoardPage for board {board?.title}</Typography>
       <Button onClick={toggleAddBoardSectionFormHandler}>Add Section</Button>
       <Button onClick={removeBoardHandler}>Delete Board</Button>
-      <AddBoardSectionForm
-        open={addBoardSectionFormIsActive}
-        onClose={toggleAddBoardSectionFormHandler}
-        board={board!}
-      />
+      <AddBoardSectionForm board={board!} />
       <BoardSectionsList />
     </Container>
   );

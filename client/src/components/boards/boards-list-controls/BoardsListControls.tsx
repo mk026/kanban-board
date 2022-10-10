@@ -1,16 +1,15 @@
 import { FC } from "react";
 import { Button, Stack } from "@mui/material";
+import { useStore } from "../../../hooks/useStore";
 
-interface BoardsListControlsProps {
-  showAddBoardHandler: () => void;
-}
+const BoardsListControls: FC = () => {
+  const { uiStore } = useStore();
 
-const BoardsListControls: FC<BoardsListControlsProps> = ({
-  showAddBoardHandler,
-}) => {
+  const showAddBoardFormHandler = () => uiStore.toggleAddBoardForm();
+
   return (
     <Stack>
-      <Button onClick={showAddBoardHandler}>Add Board</Button>
+      <Button onClick={showAddBoardFormHandler}>Add Board</Button>
     </Stack>
   );
 };

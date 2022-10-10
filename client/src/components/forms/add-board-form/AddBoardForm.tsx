@@ -19,13 +19,8 @@ import {
 import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
 
-interface AddBoardFormProps {
-  open: boolean;
-  onClose: () => void;
-}
-
-const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
-  const { boardStore } = useStore();
+const AddBoardForm: FC = () => {
+  const { boardStore, uiStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -36,16 +31,18 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
     resolver: yupResolver(boardValidationSchema),
   });
 
+  const closeFormHandler = () => uiStore.toggleAddBoardForm();
+
   const addBoardHandler = async (values: BoardFormValues) => {
     await boardStore.createBoard(values);
     reset();
-    onClose();
+    closeFormHandler();
   };
 
   const { isLoading } = boardStore;
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={uiStore.addBoardFormIsActive} onClose={closeFormHandler}>
       <DialogTitle>Add new board</DialogTitle>
       <Box component="form" onSubmit={handleSubmit(addBoardHandler)}>
         <DialogContent>
@@ -72,7 +69,7 @@ const AddBoardForm: FC<AddBoardFormProps> = ({ open, onClose }) => {
           >
             Submit
           </Button>
-          <Button type="button" onClick={onClose}>
+          <Button type="button" onClick={closeFormHandler}>
             Close
           </Button>
         </DialogActions>
