@@ -29,6 +29,10 @@ export default class AuthService {
     localStorage.setItem(AuthService.tokenKey, token);
   }
 
+  static removeStoredToken() {
+    localStorage.removeItem(AuthService.tokenKey);
+  }
+
   static checkAuth(): Promise<AxiosResponse<AuthResponse>> {
     return authApi.get(ApiEndpoints.CHECK_AUTH);
   }

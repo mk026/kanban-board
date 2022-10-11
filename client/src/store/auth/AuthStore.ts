@@ -82,4 +82,9 @@ export class AuthStore {
       });
     }
   }
+
+  async signout() {
+    AuthService.removeStoredToken();
+    this.isAuth = false;
+  }
 }
