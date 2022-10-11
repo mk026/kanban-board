@@ -86,5 +86,6 @@ export class AuthStore {
   async signout() {
     AuthService.removeStoredToken();
     this.isAuth = false;
+    this.rootStore.userStore.user = null;
   }
 }
