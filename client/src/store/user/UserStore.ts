@@ -40,4 +40,22 @@ export class UserStore {
       });
     }
   }
+
+  async deleteUser() {
+    this.isLoading = true;
+    try {
+      await UserService.deleteUser(this.user!.id);
+      runInAction(() => {
+        this.rootStore.authStore.signout();
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 }

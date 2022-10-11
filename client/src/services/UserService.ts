@@ -9,7 +9,7 @@ export default class UserService {
     return authApi.put(ApiEndpoints.USERS, data);
   }
 
-  static deleteUser(id: string): Promise<AxiosResponse<UserDto>> {
+  static deleteUser(id: number): Promise<AxiosResponse<UserDto>> {
     return authApi.delete(`${ApiEndpoints.USERS}/${id}`);
   }
 }
