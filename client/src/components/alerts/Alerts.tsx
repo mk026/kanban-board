@@ -10,7 +10,11 @@ const Alerts: FC = () => {
   return (
     <List>
       {uiStore.alerts.map((alert) => (
-        <Alert severity={alert.severity}>
+        <Alert
+          key={alert.id}
+          severity={alert.severity}
+          onClose={() => uiStore.removeAlert(alert.id)}
+        >
           <AlertTitle>{alert.title}</AlertTitle>
           {alert.message}
         </Alert>

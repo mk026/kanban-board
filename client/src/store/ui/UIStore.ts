@@ -3,14 +3,17 @@ import { makeAutoObservable } from "mobx";
 import { RootStore } from "..";
 
 export interface IAlert {
+  id: number;
   severity: AlertColor;
   title: string;
   message: string;
+  timer: ReturnType<typeof setTimeout>;
 }
 
 export class UIStore {
   rootStore: RootStore;
   alerts: IAlert[] = [];
+  alertsCount: number = 0;
   addBoardFormIsActive: boolean = false;
   addBoardSectionFormIsActive: boolean = false;
   addTaskFormIsActive: boolean = false;
@@ -20,13 +23,20 @@ export class UIStore {
     this.rootStore = rootStore;
   }
 
-  addAlert(alert: IAlert) {
-    this.alerts.push(alert);
-    setTimeout(() => this.shiftAlerts(), 5000);
+  addAlert(alert: Omit<IAlert, "id" | "timer">) {
+    const id = this.alertsCount++;
+    const timer = setTimeout(() => this.removeAlert(id), 5000);
+    this.alerts.push({ ...alert, id, timer });
   }
 
-  shiftAlerts() {
-    this.alerts.shift();
+  removeAlert(id: number) {
+    this.alerts = this.alerts.filter((alert) => {
+      if (alert.id === id) {
+        clearTimeout(alert.timer);
+        return false;
+      }
+      return true;
+    });
   }
 
   toggleAddBoardForm() {
