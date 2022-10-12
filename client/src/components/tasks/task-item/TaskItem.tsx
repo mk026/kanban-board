@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Button, Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useDrag } from "react-dnd";
@@ -11,15 +11,15 @@ export interface BoardItemProps {
 }
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
-  const [{ drop }, drag] = useDrag(() => ({
+  const [, drag] = useDrag<Pick<Task, "id">, BoardSection>(() => ({
     type: "task",
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-      drop: monitor.getDropResult<BoardSection>(),
-    }),
+    item: { id: task.id },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      const didDrop = monitor.didDrop();
+      console.log(item, dropResult, didDrop);
+    },
   }));
-
-  useEffect(() => console.log(drop), [drop]);
 
   const deleteTaskHandler = () => task.remove();
 
