@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -7,8 +7,10 @@ import {
   UpdateProfileFormValues,
   updateProfileValidationSchema,
 } from "../../../validation/updateProfileValidation";
+import { useStore } from "../../../hooks/useStore";
 
 const UpdateProfileForm: FC = () => {
+  const { userStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -19,11 +21,11 @@ const UpdateProfileForm: FC = () => {
   });
 
   const updateProfileHandler = (values: UpdateProfileFormValues) => {
-    console.log(values);
+    userStore.updateUser(values);
   };
 
   return (
-    <form onSubmit={handleSubmit(updateProfileHandler)}>
+    <Box component="form" onSubmit={handleSubmit(updateProfileHandler)}>
       <TextField
         label="Name"
         {...register("name")}
@@ -38,7 +40,7 @@ const UpdateProfileForm: FC = () => {
         helperText={errors.email && errors.email.message}
       />
       <Button type="submit">Submit</Button>
-    </form>
+    </Box>
   );
 };
 
