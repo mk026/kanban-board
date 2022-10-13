@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { BoardSection } from "../board-section/BoardSection";
 
 import { TaskDto } from "./dto/TaskDto";
 import { TaskStore } from "./TaskStore";
@@ -26,15 +27,19 @@ export class Task {
     this.store = store;
   }
 
-  move(target: Task) {
-    const targetOrder = target.order + 1;
-    const targetSectionId = target.sectionId;
+  move(target: Task | BoardSection) {
+    if ("sectionId" in target) {
+      const targetOrder = target.order + 1;
+      const targetSectionId = target.sectionId;
 
-    this.store.updateTask({
-      ...this,
-      order: targetOrder,
-      sectionId: targetSectionId,
-    });
+      this.store.updateTask({
+        ...this,
+        order: targetOrder,
+        sectionId: targetSectionId,
+      });
+    } else {
+      this.store.updateTask({ ...this, order: 0, sectionId: target.id });
+    }
   }
 
   remove() {

@@ -1,15 +1,34 @@
 import { FC } from "react";
-import { Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import { useDrop } from "react-dnd";
 
 import TaskItem from "../task-item/TaskItem";
 import { Task } from "../../../store/task/Task";
+import { BoardSection } from "../../../store/board-section/BoardSection";
 
 interface TasksListProps {
   tasks: Task[];
+  boardSection: BoardSection;
 }
 
-const TasksList: FC<TasksListProps> = ({ tasks }) => {
+const TasksList: FC<TasksListProps> = ({ tasks, boardSection }) => {
+  const [, drop] = useDrop<Task>(() => ({
+    accept: "task",
+    drop: () => boardSection,
+  }));
+
+  if (tasks.length === 0) {
+    return (
+      <Box
+        ref={drop}
+        sx={{ width: "100%", minHeight: "3rem", padding: "1rem" }}
+      >
+        <Typography>No tasks</Typography>
+      </Box>
+    );
+  }
+
   return (
     <Stack>
       {tasks.map((task) => (

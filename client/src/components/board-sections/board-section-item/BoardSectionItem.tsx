@@ -28,7 +28,7 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
         onAddTask={toggleAddTaskFormHandler}
         onDeleteSection={removeBoardSectionHandler}
       />
-      <TasksList tasks={tasks} />
+      <TasksList tasks={tasks} boardSection={boardSection} />
       <AddTaskForm
         open={addTaskFormIsActive}
         onClose={toggleAddTaskFormHandler}
