@@ -4,19 +4,19 @@ import { observer } from "mobx-react-lite";
 import { useDrag, useDrop } from "react-dnd";
 
 import { Task } from "../../../store/task/Task";
-import { BoardSection } from "../../../store/board-section/BoardSection";
 
 export interface BoardItemProps {
   task: Task;
 }
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
-  const [, drag] = useDrag<Pick<Task, "id">, BoardSection>(() => ({
+  const [, drag] = useDrag<Task, Task>(() => ({
     type: "task",
-    item: { id: task.id },
+    item: task,
     end: (item, monitor) => {
       if (monitor.didDrop()) {
         const dropResult = monitor.getDropResult();
+        task.move(dropResult!);
         console.log(item, dropResult);
       }
     },

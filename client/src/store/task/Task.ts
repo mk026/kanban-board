@@ -26,6 +26,17 @@ export class Task {
     this.store = store;
   }
 
+  move(target: Task) {
+    const targetOrder = target.order + 1;
+    const targetSectionId = target.sectionId;
+
+    this.store.updateTask({
+      ...this,
+      order: targetOrder,
+      sectionId: targetSectionId,
+    });
+  }
+
   remove() {
     this.store.deleteTask(this.id);
   }
