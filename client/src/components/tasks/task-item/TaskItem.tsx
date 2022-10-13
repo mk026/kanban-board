@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Button, Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useDrag } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 
 import { Task } from "../../../store/task/Task";
 import { BoardSection } from "../../../store/board-section/BoardSection";
@@ -15,16 +15,25 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
     type: "task",
     item: { id: task.id },
     end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-      const didDrop = monitor.didDrop();
-      console.log(item, dropResult, didDrop);
+      if (monitor.didDrop()) {
+        const dropResult = monitor.getDropResult();
+        console.log(item, dropResult);
+      }
     },
+  }));
+  const [, drop] = useDrop(() => ({
+    accept: "task",
+    drop: () => task,
   }));
 
   const deleteTaskHandler = () => task.remove();
 
   return (
-    <Card variant="outlined" ref={drag} sx={{ cursor: "move" }}>
+    <Card
+      variant="outlined"
+      ref={(node) => drag(drop(node))}
+      sx={{ cursor: "move" }}
+    >
       <Typography variant="h2">{task.title}</Typography>
       <Typography variant="body1">{task.description}</Typography>
       <Button onClick={deleteTaskHandler}>Delete</Button>
