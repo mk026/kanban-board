@@ -26,9 +26,11 @@ export class BoardSection {
   }
 
   addTask({ title, description }: TaskFormValues) {
+    const order = Math.max(...this.getTasks().map((task) => task.order)) + 1;
     return this.store.rootStore.taskStore.createTask({
       boardId: this.boardId,
       sectionId: this.id,
+      order,
       title,
       description,
     });
