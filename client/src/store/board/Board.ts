@@ -24,8 +24,15 @@ export class Board {
   }
 
   addBoardSection({ title }: BoardSectionFormValues) {
+    const order =
+      Math.max(
+        ...this.store.rootStore.boardSectionStore.boardSections.map(
+          (boardSection) => boardSection.order
+        )
+      ) + 1;
     return this.store.rootStore.boardSectionStore.createBoardSection({
       boardId: this.id,
+      order,
       title,
     });
   }

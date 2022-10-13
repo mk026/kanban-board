@@ -7,16 +7,18 @@ import { TaskFormValues } from "../../validation/taskValidation";
 export class BoardSection {
   id: number;
   boardId: number;
+  order: number;
   title: string;
   store: BoardSectionStore;
 
   constructor(
     store: BoardSectionStore,
-    { id, boardId, title }: BoardSectionDto
+    { id, boardId, order, title }: BoardSectionDto
   ) {
     makeAutoObservable(this);
     this.id = id;
     this.boardId = boardId;
+    this.order = order;
     this.title = title;
     this.store = store;
   }

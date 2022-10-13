@@ -1,4 +1,5 @@
 export class UpdateBoardSectionDto {
   public readonly id: number;
-  public readonly title: string;
+  public readonly order?: number;
+  public readonly title?: string;
 }
