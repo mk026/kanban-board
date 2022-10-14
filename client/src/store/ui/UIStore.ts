@@ -15,6 +15,7 @@ export class UIStore {
   alerts: IAlert[] = [];
   alertsCount: number = 0;
   addBoardFormIsActive: boolean = false;
+  editBoardFormIsActive: boolean = false;
   addBoardSectionFormIsActive: boolean = false;
   addTaskFormIsActive: boolean = false;
 
@@ -41,6 +42,10 @@ export class UIStore {
 
   toggleAddBoardForm() {
     this.addBoardFormIsActive = !this.addBoardFormIsActive;
+  }
+
+  toggleEditBoardForm() {
+    this.editBoardFormIsActive = !this.editBoardFormIsActive;
   }
 
   toggleAddBoardSectionForm() {

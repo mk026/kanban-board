@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 
 import BoardSectionsList from "../../components/board-sections/board-sections-list/BoardSectionsList";
 import AddBoardSectionForm from "../../components/forms/add-board-section-form/AddBoardSectionForm";
+import EditBoardForm from "../../components/forms/edit-board-form/EditBoardForm";
 import { useStore } from "../../hooks/useStore";
 import BoardControls from "../../components/boards/board-controls/BoardControls";
 
@@ -25,6 +26,7 @@ const BoardPage: FC = () => {
       <Typography>BoardPage for board {board?.title}</Typography>
       <BoardControls board={board} />
       <AddBoardSectionForm board={board!} />
+      <EditBoardForm board={board!} />
       <BoardSectionsList />
     </Container>
   );
