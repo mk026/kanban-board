@@ -14,11 +14,14 @@ const BoardControls: FC<BoardControlsProps> = ({ board }) => {
   const toggleAddBoardSectionFormHandler = () =>
     uiStore.toggleAddBoardSectionForm();
 
+  const toggleEditBoardFormHandler = () => uiStore.toggleEditBoardForm();
+
   const removeBoardHandler = () => board.remove();
 
   return (
     <Stack direction="row">
       <Button onClick={toggleAddBoardSectionFormHandler}>Add Section</Button>
+      <Button onClick={toggleEditBoardFormHandler}>Edit Board</Button>
       <Button onClick={removeBoardHandler}>Delete Board</Button>
     </Stack>
   );
