@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { observer } from "mobx-react-lite";
 
 import {
   TaskFormValues,
@@ -75,4 +76,4 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
   );
 };
 
-export default EditTaskForm;
+export default observer(EditTaskForm);
