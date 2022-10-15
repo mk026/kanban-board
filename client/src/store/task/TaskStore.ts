@@ -45,11 +45,21 @@ export class TaskStore {
       const task = new Task(this, data);
       runInAction(() => {
         this.tasks.push(task);
+        this.rootStore.uiStore.addAlert({
+          severity: "success",
+          title: "Success",
+          message: "Successfully added new task",
+        });
       });
       return task;
     } catch (error) {
       runInAction(() => {
         this.error = error;
+        this.rootStore.uiStore.addAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to add task",
+        });
       });
     } finally {
       runInAction(() => {
@@ -67,11 +77,21 @@ export class TaskStore {
         this.tasks = this.tasks.map((task) =>
           task.id === data.id ? updatedTask : task
         );
+        this.rootStore.uiStore.addAlert({
+          severity: "success",
+          title: "Success",
+          message: "Successfully updated task",
+        });
       });
       return data;
     } catch (error) {
       runInAction(() => {
         this.error = error;
+        this.rootStore.uiStore.addAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to update task",
+        });
       });
     } finally {
       runInAction(() => {
@@ -86,10 +106,20 @@ export class TaskStore {
       await TaskService.deleteTask(id);
       runInAction(() => {
         this.tasks = this.tasks.filter((task) => task.id !== id);
+        this.rootStore.uiStore.addAlert({
+          severity: "success",
+          title: "Success",
+          message: "Successfully deleted task",
+        });
       });
     } catch (error) {
       runInAction(() => {
         this.error = error;
+        this.rootStore.uiStore.addAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to delete task",
+        });
       });
     } finally {
       runInAction(() => {
