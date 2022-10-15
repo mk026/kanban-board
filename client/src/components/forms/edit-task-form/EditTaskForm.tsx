@@ -16,16 +16,14 @@ import {
 import { Task } from "../../../store/task/Task";
 import { useStore } from "../../../hooks/useStore";
 
-interface AddTaskFormProps {
+interface EditTaskFormProps {
   task: Task;
   open: boolean;
   onClose: () => void;
 }
 
-const AddTaskForm: FC<AddTaskFormProps> = ({ task, open, onClose }) => {
-  const {
-    taskStore: { isLoading },
-  } = useStore();
+const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
+  const { taskStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -37,15 +35,15 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ task, open, onClose }) => {
     resolver: yupResolver(taskValidationSchema),
   });
 
-  const addTaskHandler = async (values: TaskFormValues) => {
-    console.log(values);
+  const editTaskHandler = async (values: TaskFormValues) => {
+    await taskStore.updateTask({ ...task, ...values });
     reset();
     onClose();
   };
 
   return (
     <Collapse in={open}>
-      <Box component="form" onSubmit={handleSubmit(addTaskHandler)}>
+      <Box component="form" onSubmit={handleSubmit(editTaskHandler)}>
         <TextField
           label="Task title"
           {...register("title")}
@@ -60,9 +58,11 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ task, open, onClose }) => {
         />
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={taskStore.isLoading}
           endIcon={
-            isLoading && <CircularProgress size="1rem" color="inherit" />
+            taskStore.isLoading && (
+              <CircularProgress size="1rem" color="inherit" />
+            )
           }
         >
           Submit
@@ -75,4 +75,4 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ task, open, onClose }) => {
   );
 };
 
-export default AddTaskForm;
+export default EditTaskForm;
