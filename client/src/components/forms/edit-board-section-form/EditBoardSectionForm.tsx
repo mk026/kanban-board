@@ -44,7 +44,7 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
   });
 
   const editBoardSectionHandler = async (values: BoardSectionFormValues) => {
-    console.log(values);
+    await boardSectionStore.updateBoardSection({ ...boardSection, ...values });
     reset();
     onClose();
   };
