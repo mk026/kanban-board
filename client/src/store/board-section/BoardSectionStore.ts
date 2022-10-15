@@ -47,11 +47,11 @@ export class BoardSectionStore {
       const boardSection = new BoardSection(this, data);
       runInAction(() => {
         this.boardSections.push(boardSection);
-      });
-      this.rootStore.uiStore.addAlert({
-        severity: "success",
-        title: "Success",
-        message: "Successfully added new board section",
+        this.rootStore.uiStore.addAlert({
+          severity: "success",
+          title: "Success",
+          message: "Successfully added new board section",
+        });
       });
       return boardSection;
     } catch (error) {
@@ -81,11 +81,21 @@ export class BoardSectionStore {
         this.boardSections = this.boardSections.map((boardSection) =>
           boardSection.id === data.id ? updatedBoardSection : boardSection
         );
+        this.rootStore.uiStore.addAlert({
+          severity: "success",
+          title: "Success",
+          message: "Successfully updated board section",
+        });
       });
       return data;
     } catch (error) {
       runInAction(() => {
         this.error = error;
+        this.rootStore.uiStore.addAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to update board sections",
+        });
       });
     } finally {
       runInAction(() => {
@@ -102,10 +112,20 @@ export class BoardSectionStore {
         this.boardSections = this.boardSections.filter(
           (board) => board.id !== id
         );
+        this.rootStore.uiStore.addAlert({
+          severity: "success",
+          title: "Success",
+          message: "Successfully deleted board section",
+        });
       });
     } catch (error) {
       runInAction(() => {
         this.error = error;
+        this.rootStore.uiStore.addAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to delete board sections",
+        });
       });
     } finally {
       runInAction(() => {
