@@ -40,7 +40,7 @@ const EditBoardForm: FC<EditBoardFormProps> = ({ board }) => {
   const closeFormHandler = () => uiStore.toggleEditBoardForm();
 
   const editBoardHandler = async (values: BoardFormValues) => {
-    console.log(values);
+    await boardStore.updateBoard({ ...board, ...values });
     reset();
     closeFormHandler();
   };
