@@ -18,6 +18,9 @@ export class Section {
   @Column()
   title: string;
 
+  @Column()
+  order: number;
+
   @ManyToOne(() => Board, (board) => board.sections)
   board: Board;
 

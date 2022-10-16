@@ -15,6 +15,9 @@ export class Task {
   @Column()
   description: string;
 
+  @Column()
+  order: number;
+
   @ManyToOne(() => User, (user) => user.tasks)
   user: User;
 
