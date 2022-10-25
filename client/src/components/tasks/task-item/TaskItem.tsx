@@ -11,7 +11,11 @@ export interface BoardItemProps {
 }
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
-  const [, drag] = useDrag<Task, Task | BoardSection>(() => ({
+  const [{ isDragging }, drag] = useDrag<
+    Task,
+    Task | BoardSection,
+    { isDragging: boolean }
+  >(() => ({
     type: "task",
     item: task,
     end: (item, monitor) => {
@@ -21,6 +25,7 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
         console.log(item, dropResult);
       }
     },
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
   }));
   const [, drop] = useDrop(() => ({
     accept: "task",
@@ -29,16 +34,22 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
 
   const deleteTaskHandler = () => task.remove();
 
+  if (isDragging) {
+    return null;
+  }
+
   return (
-    <Card
-      variant="outlined"
-      ref={(node) => drag(drop(node))}
-      sx={{ cursor: "move" }}
-    >
-      <Typography variant="h2">{task.title}</Typography>
-      <Typography variant="body1">{task.description}</Typography>
-      <Button onClick={deleteTaskHandler}>Delete</Button>
-    </Card>
+    <>
+      <Card
+        variant="outlined"
+        ref={(node) => drag(drop(node))}
+        sx={{ cursor: "move" }}
+      >
+        <Typography variant="h2">{task.title}</Typography>
+        <Typography variant="body1">{task.description}</Typography>
+        <Button onClick={deleteTaskHandler}>Delete</Button>
+      </Card>
+    </>
   );
 };
 
