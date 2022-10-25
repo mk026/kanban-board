@@ -49,13 +49,13 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
           label="Task title"
           {...register("title")}
           error={!!errors.title}
-          helperText={errors.title && errors.title.message}
+          helperText={errors.title?.message}
         />
         <TextField
           label="Task description"
           {...register("description")}
           error={!!errors.description}
-          helperText={errors.description && errors.description.message}
+          helperText={errors.description?.message}
         />
         <Button
           type="submit"

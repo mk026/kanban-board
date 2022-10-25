@@ -50,13 +50,13 @@ const AddBoardForm: FC = () => {
             label="Board title"
             {...register("title")}
             error={!!errors.title}
-            helperText={errors.title && errors.title.message}
+            helperText={errors.title?.message}
           />
           <TextField
             label="Board description (optional)"
             {...register("description")}
             error={!!errors.description}
-            helperText={errors.description && errors.description.message}
+            helperText={errors.description?.message}
           />
         </DialogContent>
         <DialogActions>

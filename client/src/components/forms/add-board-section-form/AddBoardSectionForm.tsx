@@ -56,7 +56,7 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
             label="Section title"
             {...register("title")}
             error={!!errors.title}
-            helperText={errors.title && errors.title.message}
+            helperText={errors.title?.message}
           />
         </DialogContent>
         <DialogActions>

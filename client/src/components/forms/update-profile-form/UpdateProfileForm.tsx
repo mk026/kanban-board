@@ -30,14 +30,14 @@ const UpdateProfileForm: FC = () => {
         label="Name"
         {...register("name")}
         error={!!errors.name}
-        helperText={errors.name && errors.name.message}
+        helperText={errors.name?.message}
       />
       <TextField
         type="email"
         label="Email"
         {...register("email")}
         error={!!errors.email}
-        helperText={errors.email && errors.email.message}
+        helperText={errors.email?.message}
       />
       <Button type="submit">Submit</Button>
     </Box>

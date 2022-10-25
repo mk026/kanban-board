@@ -29,21 +29,21 @@ const UpdatePasswordForm: FC = () => {
         label="Old password"
         {...register("oldPassword")}
         error={!!errors.oldPassword}
-        helperText={errors.oldPassword && errors.oldPassword.message}
+        helperText={errors.oldPassword?.message}
       />
       <TextField
         type="password"
         label="New Password"
         {...register("password")}
         error={!!errors.password}
-        helperText={errors.password && errors.password.message}
+        helperText={errors.password?.message}
       />
       <TextField
         type="password"
         label="Confirm new Password"
         {...register("confirmPassword")}
         error={!!errors.confirmPassword}
-        helperText={errors.confirmPassword && errors.confirmPassword.message}
+        helperText={errors.confirmPassword?.message}
       />
       <Button type="submit">Submit</Button>
     </form>
