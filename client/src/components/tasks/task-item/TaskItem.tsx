@@ -1,16 +1,18 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button, Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useDrag, useDrop } from "react-dnd";
 
 import { Task } from "../../../store/task/Task";
 import { BoardSection } from "../../../store/board-section/BoardSection";
+import EditTaskForm from "../../forms/edit-task-form/EditTaskForm";
 
 export interface BoardItemProps {
   task: Task;
 }
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [{ isDragging }, drag] = useDrag<
     Task,
     Task | BoardSection,
@@ -32,10 +34,16 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
     drop: () => task,
   }));
 
+  const toggleEditView = () => setIsEditing((prev) => !prev);
   const deleteTaskHandler = () => task.remove();
 
   if (isDragging) {
     return null;
+  }
+  if (isEditing) {
+    return (
+      <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
+    );
   }
 
   return (
@@ -47,6 +55,7 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
       >
         <Typography variant="h2">{task.title}</Typography>
         <Typography variant="body1">{task.description}</Typography>
+        <Button onClick={toggleEditView}>Edit</Button>
         <Button onClick={deleteTaskHandler}>Delete</Button>
       </Card>
     </>
