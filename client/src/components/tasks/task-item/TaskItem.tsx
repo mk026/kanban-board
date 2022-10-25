@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Button, Card, Typography } from "@mui/material";
+import { Button, Card, Collapse, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useDrag, useDrop } from "react-dnd";
 
@@ -40,24 +40,22 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
   if (isDragging) {
     return null;
   }
-  if (isEditing) {
-    return (
-      <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
-    );
-  }
 
   return (
     <>
-      <Card
-        variant="outlined"
-        ref={(node) => drag(drop(node))}
-        sx={{ cursor: "move" }}
-      >
-        <Typography variant="h2">{task.title}</Typography>
-        <Typography variant="body1">{task.description}</Typography>
-        <Button onClick={toggleEditView}>Edit</Button>
-        <Button onClick={deleteTaskHandler}>Delete</Button>
-      </Card>
+      <Collapse in={!isEditing}>
+        <Card
+          variant="outlined"
+          ref={(node) => drag(drop(node))}
+          sx={{ cursor: "move" }}
+        >
+          <Typography variant="h2">{task.title}</Typography>
+          <Typography variant="body1">{task.description}</Typography>
+          <Button onClick={toggleEditView}>Edit</Button>
+          <Button onClick={deleteTaskHandler}>Delete</Button>
+        </Card>
+      </Collapse>
+      <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
     </>
   );
 };
