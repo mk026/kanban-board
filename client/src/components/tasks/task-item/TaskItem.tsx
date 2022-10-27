@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { Button, Card, Collapse, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useDrag, useDrop } from "react-dnd";
@@ -14,6 +14,8 @@ export interface BoardItemProps {
 
 const TaskItem: FC<BoardItemProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [hoveringOnTop, setHoveringOnTop] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag<
     Task,
     Task | BoardSection,
@@ -30,11 +32,26 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
     },
     collect: (monitor) => ({ isDragging: monitor.isDragging() }),
   }));
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{ isOver }, drop] = useDrop<Task, Task, { isOver: boolean }>(() => ({
     accept: "task",
     drop: () => task,
     collect: (monitor) => ({ isOver: monitor.isOver() }),
+    hover: (item, monitor) => {
+      const hoverBoundingRect = ref.current!.getBoundingClientRect();
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
+      if (hoverClientY < hoverMiddleY && !hoveringOnTop) {
+        setHoveringOnTop(true);
+      }
+      if (hoverClientY > hoverMiddleY && hoveringOnTop) {
+        setHoveringOnTop(false);
+      }
+    },
   }));
+
+  drag(drop(ref));
 
   const toggleEditView = () => setIsEditing((prev) => !prev);
   const deleteTaskHandler = () => task.remove();
@@ -46,17 +63,13 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
   return (
     <>
       <Collapse in={!isEditing}>
-        <Card
-          variant="outlined"
-          ref={(node) => drag(drop(node))}
-          sx={{ cursor: "move" }}
-        >
-          <TaskPlaceholder open={isOver} />
+        <Card variant="outlined" ref={ref} sx={{ cursor: "move" }}>
+          <TaskPlaceholder open={isOver && hoveringOnTop} />
           <Typography variant="h2">{task.title}</Typography>
           <Typography variant="body1">{task.description}</Typography>
           <Button onClick={toggleEditView}>Edit</Button>
           <Button onClick={deleteTaskHandler}>Delete</Button>
-          <TaskPlaceholder open={isOver} />
+          <TaskPlaceholder open={isOver && !hoveringOnTop} />
         </Card>
       </Collapse>
       <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
