@@ -6,6 +6,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { Task } from "../../../store/task/Task";
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import EditTaskForm from "../../forms/edit-task-form/EditTaskForm";
+import TaskPlaceholder from "../task-placeholder/TaskPlaceholder";
 
 export interface BoardItemProps {
   task: Task;
@@ -29,9 +30,10 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
     },
     collect: (monitor) => ({ isDragging: monitor.isDragging() }),
   }));
-  const [, drop] = useDrop(() => ({
+  const [{ isOver }, drop] = useDrop(() => ({
     accept: "task",
     drop: () => task,
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
   }));
 
   const toggleEditView = () => setIsEditing((prev) => !prev);
@@ -43,6 +45,7 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
 
   return (
     <>
+      <TaskPlaceholder open={isOver} />
       <Collapse in={!isEditing}>
         <Card
           variant="outlined"
@@ -55,6 +58,7 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
           <Button onClick={deleteTaskHandler}>Delete</Button>
         </Card>
       </Collapse>
+      <TaskPlaceholder open={isOver} />
       <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
     </>
   );
