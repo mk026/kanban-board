@@ -45,20 +45,20 @@ const TaskItem: FC<BoardItemProps> = ({ task }) => {
 
   return (
     <>
-      <TaskPlaceholder open={isOver} />
       <Collapse in={!isEditing}>
         <Card
           variant="outlined"
           ref={(node) => drag(drop(node))}
           sx={{ cursor: "move" }}
         >
+          <TaskPlaceholder open={isOver} />
           <Typography variant="h2">{task.title}</Typography>
           <Typography variant="body1">{task.description}</Typography>
           <Button onClick={toggleEditView}>Edit</Button>
           <Button onClick={deleteTaskHandler}>Delete</Button>
+          <TaskPlaceholder open={isOver} />
         </Card>
       </Collapse>
-      <TaskPlaceholder open={isOver} />
       <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
     </>
   );
