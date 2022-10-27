@@ -8,11 +8,11 @@ import { BoardSection } from "../../../store/board-section/BoardSection";
 import EditTaskForm from "../../forms/edit-task-form/EditTaskForm";
 import TaskPlaceholder from "../task-placeholder/TaskPlaceholder";
 
-export interface BoardItemProps {
+export interface TaskItemProps {
   task: Task;
 }
 
-const TaskItem: FC<BoardItemProps> = ({ task }) => {
+const TaskItem: FC<TaskItemProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [hoveringOnTop, setHoveringOnTop] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
