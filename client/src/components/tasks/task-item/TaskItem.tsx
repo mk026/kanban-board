@@ -42,16 +42,14 @@ const TaskItem: FC<TaskItemProps> = ({ task }) => {
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
-      if (hoverClientY < hoverMiddleY && !hoveringOnTop) {
+      if (hoverClientY < hoverMiddleY) {
         setHoveringOnTop(true);
       }
-      if (hoverClientY > hoverMiddleY && hoveringOnTop) {
+      if (hoverClientY > hoverMiddleY) {
         setHoveringOnTop(false);
       }
     },
   }));
-
-  drag(drop(ref));
 
   const toggleEditView = () => setIsEditing((prev) => !prev);
   const deleteTaskHandler = () => task.remove();
@@ -61,19 +59,19 @@ const TaskItem: FC<TaskItemProps> = ({ task }) => {
   }
 
   return (
-    <>
+    <div ref={(node) => drag(drop(node))}>
+      <TaskPlaceholder open={isOver && hoveringOnTop} />
       <Collapse in={!isEditing}>
         <Card variant="outlined" ref={ref} sx={{ cursor: "move" }}>
-          <TaskPlaceholder open={isOver && hoveringOnTop} />
           <Typography variant="h2">{task.title}</Typography>
           <Typography variant="body1">{task.description}</Typography>
           <Button onClick={toggleEditView}>Edit</Button>
           <Button onClick={deleteTaskHandler}>Delete</Button>
-          <TaskPlaceholder open={isOver && !hoveringOnTop} />
         </Card>
       </Collapse>
       <EditTaskForm open={isEditing} task={task} onClose={toggleEditView} />
-    </>
+      <TaskPlaceholder open={isOver && !hoveringOnTop} />
+    </div>
   );
 };
 
