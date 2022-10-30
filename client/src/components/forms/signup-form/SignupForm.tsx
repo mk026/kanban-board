@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
@@ -54,8 +54,17 @@ const SignupForm: FC = () => {
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword?.message}
       />
-      <Button type="submit">Submit</Button>
-      {authStore.isLoading && <span>Loading...</span>}
+      <Button
+        type="submit"
+        disabled={authStore.isLoading}
+        endIcon={
+          authStore.isLoading && (
+            <CircularProgress size="1rem" color="inherit" />
+          )
+        }
+      >
+        Submit
+      </Button>
     </form>
   );
 };
