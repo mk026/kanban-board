@@ -4,6 +4,7 @@ import { RootStore } from "..";
 import { User } from "./User";
 import { UserDto } from "./dto/UserDto";
 import { UpdateUserDto } from "./dto/UpdateUserDto";
+import { UpdatePasswordFormValues } from "../../validation/updatePasswordValidation";
 import UserService from "../../services/UserService";
 
 export class UserStore {
@@ -30,6 +31,21 @@ export class UserStore {
         this.user = updatedUser;
       });
       return data;
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  async updatePassword(updatePasswordValues: UpdatePasswordFormValues) {
+    this.isLoading = true;
+    try {
+      await UserService.updatePassword(updatePasswordValues);
     } catch (error) {
       runInAction(() => {
         this.error = error;
