@@ -1,14 +1,17 @@
 import { FC } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { observer } from "mobx-react-lite";
 
 import {
   UpdatePasswordFormValues,
   updatePasswordValidationSchema,
 } from "../../../validation/updatePasswordValidation";
+import { useStore } from "../../../hooks/useStore";
 
 const UpdatePasswordForm: FC = () => {
+  const { userStore } = useStore();
   const {
     register,
     handleSubmit,
@@ -19,7 +22,7 @@ const UpdatePasswordForm: FC = () => {
   });
 
   const updatePasswordHandler = (values: UpdatePasswordFormValues) => {
-    console.log(values);
+    userStore.updatePassword(values);
   };
 
   return (
@@ -45,9 +48,19 @@ const UpdatePasswordForm: FC = () => {
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword?.message}
       />
-      <Button type="submit">Submit</Button>
+      <Button
+        type="submit"
+        disabled={userStore.isLoading}
+        endIcon={
+          userStore.isLoading && (
+            <CircularProgress size="1rem" color="inherit" />
+          )
+        }
+      >
+        Submit
+      </Button>
     </form>
   );
 };
 
-export default UpdatePasswordForm;
+export default observer(UpdatePasswordForm);
