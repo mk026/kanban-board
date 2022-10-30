@@ -9,6 +9,7 @@ export enum ApiEndpoints {
   SIGNIN = "/signin",
   CHECK_AUTH = "/check_auth",
   USERS = "/users",
+  PASSWORD_UPDATE = "/users/password",
   BOARDS = "/boards",
   BOARD_SECTIONS = "/sections",
   TASKS = "/tasks",
