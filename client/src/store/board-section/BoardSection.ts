@@ -24,7 +24,15 @@ export class BoardSection {
   }
 
   getTasks() {
-    return this.store.rootStore.taskStore.getTasksForSection(this.id);
+    return this.store.rootStore.taskStore
+      .getTasksForSection(this.id)
+      .sort((a, b) => {
+        if (a.order < b.order) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
   }
 
   addTask({ title, description }: TaskFormValues) {
