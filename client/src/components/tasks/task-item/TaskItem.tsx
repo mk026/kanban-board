@@ -54,7 +54,8 @@ const TaskItem: FC<TaskItemProps> = ({ task }) => {
           setHoveringOnTop(false);
         }
       },
-    })
+    }),
+    [hoveringOnTop]
   );
 
   const toggleEditView = () => setIsEditing((prev) => !prev);
