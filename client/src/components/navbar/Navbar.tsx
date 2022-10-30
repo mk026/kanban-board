@@ -1,26 +1,38 @@
-import { Link, Stack } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Paths } from "../../routes";
 
 const Navbar: FC = () => {
+  const { pathname } = useLocation();
+
   return (
-    <nav>
-      <Stack direction="row">
-        <Link component={NavLink} to={Paths.HOME_PATH}>
-          Home
-        </Link>
-        <Link component={NavLink} to={Paths.BOARDS_PATH}>
-          Boards
-        </Link>
-        <Link component={NavLink} to={Paths.PROFILE_PATH}>
-          Profile
-        </Link>
-        <Link component={NavLink} to={Paths.AUTH_PATH}>
-          Login
-        </Link>
-      </Stack>
-    </nav>
+    <Tabs component="nav" value={pathname}>
+      <Tab
+        label="Home"
+        value={Paths.HOME_PATH}
+        component={NavLink}
+        to={Paths.HOME_PATH}
+      />
+      <Tab
+        label="Boards"
+        value={Paths.BOARDS_PATH}
+        component={NavLink}
+        to={Paths.BOARDS_PATH}
+      />
+      <Tab
+        label="Profile"
+        value={Paths.PROFILE_PATH}
+        component={NavLink}
+        to={Paths.PROFILE_PATH}
+      />
+      <Tab
+        label="Auth"
+        value={Paths.AUTH_PATH}
+        component={NavLink}
+        to={Paths.AUTH_PATH}
+      />
+    </Tabs>
   );
 };
 

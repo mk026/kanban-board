@@ -1,4 +1,4 @@
-import { Box, Button, Link } from "@mui/material";
+import { AppBar, Box, Button, Link } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { Link as RouterLink } from "react-router-dom";
 import { FC } from "react";
@@ -11,25 +11,22 @@ const Header: FC = () => {
   const { authStore } = useStore();
 
   return (
-    <Box
+    <AppBar
       component="header"
-      sx={{
-        position: "sticky",
-        padding: "1rem",
-        background: "#523e3e",
-        top: 0,
-        zIndex: 10,
-      }}
+      position="sticky"
+      sx={{ backgroundColor: "darkgray" }}
     >
-      <Navbar />
-      {!authStore.isAuth && (
-        <Button>
-          <Link component={RouterLink} to={Paths.AUTH_PATH}>
-            Signin
-          </Link>
-        </Button>
-      )}
-    </Box>
+      <Box sx={{ padding: "1rem" }}>
+        <Navbar />
+        {!authStore.isAuth && (
+          <Button>
+            <Link component={RouterLink} to={Paths.AUTH_PATH}>
+              Signin
+            </Link>
+          </Button>
+        )}
+      </Box>
+    </AppBar>
   );
 };
 
