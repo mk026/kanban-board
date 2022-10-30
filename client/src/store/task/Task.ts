@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { BoardSection } from "../board-section/BoardSection";
+// import { BoardSection } from "../board-section/BoardSection";
 
 import { TaskDto } from "./dto/TaskDto";
 import { TaskStore } from "./TaskStore";
@@ -27,18 +27,36 @@ export class Task {
     this.store = store;
   }
 
-  move(target: Task | BoardSection) {
-    if ("sectionId" in target) {
-      const targetOrder = target.order + 1;
-      const targetSectionId = target.sectionId;
-
-      this.store.updateTask({
-        ...this,
-        order: targetOrder,
-        sectionId: targetSectionId,
-      });
-    } else {
-      this.store.updateTask({ ...this, order: 0, sectionId: target.id });
+  move(targetTask: Task, insertAfter: boolean) {
+    const originSectionTasks = this.store.getTasksForSection(this.sectionId);
+    const isSameSection = this.sectionId === targetTask.sectionId;
+    const isMovingDown = this.order < targetTask.order;
+    if (isSameSection) {
+      if (isMovingDown) {
+        const targetOrder = insertAfter
+          ? targetTask.order
+          : targetTask.order - 1;
+        originSectionTasks.forEach((task) => {
+          if (task.order <= targetOrder && task.order >= this.order) {
+            task.order = task.order - 1;
+          }
+          if (task.order > targetOrder) {
+            task.order = task.order + 1;
+          }
+        });
+        this.order = targetOrder;
+      } else {
+        const targetOrder = insertAfter
+          ? targetTask.order + 1
+          : targetTask.order;
+        const sourceOrder = this.order;
+        originSectionTasks.forEach((task) => {
+          if (task.order >= targetOrder && task.order <= sourceOrder) {
+            task.order = task.order + 1;
+          }
+        });
+        this.order = targetOrder;
+      }
     }
   }
 

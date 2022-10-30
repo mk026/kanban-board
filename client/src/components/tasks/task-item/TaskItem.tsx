@@ -12,44 +12,50 @@ export interface TaskItemProps {
   task: Task;
 }
 
+interface DropResult {
+  target: Task | BoardSection;
+  droppedOnTop: boolean;
+}
+
 const TaskItem: FC<TaskItemProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [hoveringOnTop, setHoveringOnTop] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag<
     Task,
-    Task | BoardSection,
+    DropResult,
     { isDragging: boolean }
   >(() => ({
     type: "task",
     item: task,
     end: (item, monitor) => {
       if (monitor.didDrop()) {
-        const dropResult = monitor.getDropResult();
-        task.move(dropResult!);
-        console.log(item, dropResult);
+        const dropResult = monitor.getDropResult()!;
+        task.move(dropResult.target as Task, !dropResult.droppedOnTop);
       }
     },
     collect: (monitor) => ({ isDragging: monitor.isDragging() }),
   }));
-  const [{ isOver }, drop] = useDrop<Task, Task, { isOver: boolean }>(() => ({
-    accept: "task",
-    drop: () => task,
-    collect: (monitor) => ({ isOver: monitor.isOver() }),
-    hover: (item, monitor) => {
-      const hoverBoundingRect = ref.current!.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
-      if (hoverClientY < hoverMiddleY) {
-        setHoveringOnTop(true);
-      }
-      if (hoverClientY > hoverMiddleY) {
-        setHoveringOnTop(false);
-      }
-    },
-  }));
+  const [{ isOver }, drop] = useDrop<Task, DropResult, { isOver: boolean }>(
+    () => ({
+      accept: "task",
+      drop: () => ({ target: task, droppedOnTop: hoveringOnTop }),
+      collect: (monitor) => ({ isOver: monitor.isOver() }),
+      hover: (item, monitor) => {
+        const hoverBoundingRect = ref.current!.getBoundingClientRect();
+        const hoverMiddleY =
+          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const clientOffset = monitor.getClientOffset();
+        const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
+        if (hoverClientY < hoverMiddleY) {
+          setHoveringOnTop(true);
+        }
+        if (hoverClientY > hoverMiddleY) {
+          setHoveringOnTop(false);
+        }
+      },
+    })
+  );
 
   const toggleEditView = () => setIsEditing((prev) => !prev);
   const deleteTaskHandler = () => task.remove();
