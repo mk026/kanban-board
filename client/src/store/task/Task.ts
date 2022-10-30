@@ -57,6 +57,23 @@ export class Task {
         });
         this.order = targetOrder;
       }
+    } else {
+      const targetSectionTasks = this.store.getTasksForSection(
+        targetTask.sectionId
+      );
+      const targetOrder = insertAfter ? targetTask.order + 1 : targetTask.order;
+      originSectionTasks.forEach((task) => {
+        if (task.order >= this.order) {
+          task.order = task.order - 1;
+        }
+      });
+      targetSectionTasks.forEach((task) => {
+        if (task.order >= targetOrder) {
+          task.order = task.order + 1;
+        }
+      });
+      this.sectionId = targetTask.sectionId;
+      this.order = targetOrder;
     }
   }
 
