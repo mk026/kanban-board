@@ -1,10 +1,11 @@
 import { Tab, Tabs } from "@mui/material";
 import { FC } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useMatch } from "react-router-dom";
 import { Paths } from "../../routes";
 
 const Navbar: FC = () => {
   const { pathname } = useLocation();
+  const boardMatch = useMatch(Paths.BOARD_PATH);
 
   return (
     <Tabs component="nav" value={pathname}>
@@ -16,7 +17,7 @@ const Navbar: FC = () => {
       />
       <Tab
         label="Boards"
-        value={Paths.BOARDS_PATH}
+        value={boardMatch?.pathname ?? Paths.BOARDS_PATH}
         component={NavLink}
         to={Paths.BOARDS_PATH}
       />
