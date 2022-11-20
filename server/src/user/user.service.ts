@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 
 import { SignupCredentialsDto } from '../auth/dto/signup-credentials.dto';
 import { AuthService } from '../auth/auth.service';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 
@@ -50,6 +51,10 @@ export class UserService {
     if (result.affected === 0) {
       throw new NotFoundException(`User with id ${id} not found`);
     }
+  }
+
+  async updatePassword(id: number, updatePasswordDto: UpdatePasswordDto) {
+    return `Update password for user with id ${id}`;
   }
 
   async deleteUser(id: number) {
