@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
 
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -29,17 +30,14 @@ export class UserController {
     return this.userService.getUser(id);
   }
 
-  @Put(':id')
-  updateUser(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateUserDto: UpdateUserDto,
-  ) {
+  @Put()
+  updateUser(@GetUser() id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.updateUser(id, updateUserDto);
   }
 
-  @Put(':id')
+  @Put()
   updatePassword(
-    @Param('id', ParseIntPipe) id: number,
+    @GetUser() id: number,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ) {
     return this.userService.updatePassword(id, updatePasswordDto);
