@@ -9,8 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/auth/get-user.decorator';
 
+import { GetUser } from '../auth/get-user.decorator';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
@@ -35,7 +35,7 @@ export class UserController {
     return this.userService.updateUser(id, updateUserDto);
   }
 
-  @Put()
+  @Put('/password')
   updatePassword(
     @GetUser() id: number,
     @Body() updatePasswordDto: UpdatePasswordDto,
