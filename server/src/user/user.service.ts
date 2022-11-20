@@ -56,6 +56,9 @@ export class UserService {
 
   async updatePassword(id: number, updatePasswordDto: UpdatePasswordDto) {
     const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
     const { oldPassword, newPassword } = updatePasswordDto;
     const isPasswordValid = this.authService.verifyPassword(
       oldPassword,
