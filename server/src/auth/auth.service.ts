@@ -18,7 +18,7 @@ export class AuthService {
   async signup(
     signupCredentialsDto: SignupCredentialsDto,
   ): Promise<AuthResponse> {
-    const passwordHash = bcryptjs.hashSync(signupCredentialsDto.password);
+    const passwordHash = this.hashPassword(signupCredentialsDto.password);
     const user = await this.userService.createUser({
       ...signupCredentialsDto,
       password: passwordHash,
@@ -38,7 +38,7 @@ export class AuthService {
     if (!foundUser) {
       throw new UnauthorizedException('Incorrect email or password');
     }
-    const isPasswordValid = bcryptjs.compareSync(password, foundUser.password);
+    const isPasswordValid = this.verifyPassword(password, foundUser.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Incorrect email or password');
     }
@@ -52,5 +52,13 @@ export class AuthService {
   generateToken(userId: number) {
     const payload: JwtPayload = { userId };
     return this.jwtService.sign(payload);
+  }
+
+  hashPassword(password: string) {
+    return bcryptjs.hashSync(password);
+  }
+
+  verifyPassword(password: string, hash: string) {
+    return bcryptjs.compareSync(password, hash);
   }
 }
