@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -54,7 +55,18 @@ export class UserService {
   }
 
   async updatePassword(id: number, updatePasswordDto: UpdatePasswordDto) {
-    return `Update password for user with id ${id}`;
+    const user = await this.userRepository.findOneBy({ id });
+    const { oldPassword, newPassword } = updatePasswordDto;
+    const isPasswordValid = this.authService.verifyPassword(
+      oldPassword,
+      user.password,
+    );
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Incorrect credentials');
+    }
+    const newPasswordHash = this.authService.hashPassword(newPassword);
+    user.password = newPasswordHash;
+    await this.userRepository.save(user);
   }
 
   async deleteUser(id: number) {
