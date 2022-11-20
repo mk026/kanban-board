@@ -1,31 +1,28 @@
-import {
-  ConflictException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 
-import { User } from '../user/user.entity';
 import { SigninCredentialsDto } from './dto/signin-credentials.dto';
 import { SignupCredentialsDto } from './dto/signup-credentials.dto';
 import { AuthResponse } from './auth-response.interface';
 import { JwtPayload } from './jwt-payload.interface';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userService: UserService,
   ) {}
 
   async signup(
     signupCredentialsDto: SignupCredentialsDto,
   ): Promise<AuthResponse> {
-    const user = await this.createUser(signupCredentialsDto);
+    const passwordHash = bcryptjs.hashSync(signupCredentialsDto.password);
+    const user = await this.userService.createUser({
+      ...signupCredentialsDto,
+      password: passwordHash,
+    });
     const accessToken = this.generateToken(user.id);
     return {
       user: { name: user.name, email: user.email },
@@ -37,7 +34,7 @@ export class AuthService {
     signinCredentialsDto: SigninCredentialsDto,
   ): Promise<AuthResponse> {
     const { email, password } = signinCredentialsDto;
-    const foundUser = await this.userRepository.findOne({ where: { email } });
+    const foundUser = await this.userService.getUserByEmail(email);
     if (!foundUser) {
       throw new UnauthorizedException('Incorrect email or password');
     }
@@ -50,22 +47,6 @@ export class AuthService {
       user: { name: foundUser.name, email: foundUser.email },
       accessToken,
     };
-  }
-
-  async createUser(signupCredentialsDto: SignupCredentialsDto) {
-    const foundUser = this.userRepository.findOne({
-      where: { email: signupCredentialsDto.email },
-    });
-    if (foundUser) {
-      throw new ConflictException('Email already in use');
-    }
-    const passwordHash = bcryptjs.hashSync(signupCredentialsDto.password);
-    const user = this.userRepository.create({
-      ...signupCredentialsDto,
-      password: passwordHash,
-    });
-    await this.userRepository.save(user);
-    return user;
   }
 
   generateToken(userId: number) {
