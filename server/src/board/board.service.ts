@@ -12,8 +12,8 @@ export class BoardService {
     private readonly boardRepository: Repository<Board>,
   ) {}
 
-  getBoards() {
-    return this.boardRepository.find();
+  getBoards(userId: number) {
+    return this.boardRepository.findBy({ user: { id: userId } });
   }
 
   async addBoard(createBoardDto: CreateBoardDto) {

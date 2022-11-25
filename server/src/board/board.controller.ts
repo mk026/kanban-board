@@ -10,6 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+
+import { GetUser } from '../auth/get-user.decorator';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
@@ -20,8 +22,8 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Get()
-  getBoards() {
-    return this.boardService.getBoards();
+  getBoards(@GetUser() userId: number) {
+    return this.boardService.getBoards(userId);
   }
 
   @Post()
