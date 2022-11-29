@@ -10,10 +10,12 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
+import { GetUser } from '../auth/get-user.decorator';
 import { SectionService } from './section.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('sections')
 @UseGuards(AuthGuard())
@@ -21,17 +23,24 @@ export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
   @Get()
-  getSections(@Query('boardId', ParseIntPipe) boardId: number) {
+  getSections(
+    @GetUser() userId: number,
+    @Query('boardId', ParseIntPipe) boardId: number,
+  ) {
     return this.sectionService.getSections(boardId);
   }
 
   @Post()
-  addSection(@Body() createSectionDto: CreateSectionDto) {
+  addSection(
+    @GetUser() userId: number,
+    @Body() createSectionDto: CreateSectionDto,
+  ) {
     return this.sectionService.addSection(createSectionDto);
   }
 
   @Put(':id')
   updateSection(
+    @GetUser() userId: number,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateSectionDto: UpdateSectionDto,
   ) {
@@ -39,7 +48,10 @@ export class SectionController {
   }
 
   @Delete(':id')
-  deleteSection(@Param('id', ParseIntPipe) id: number) {
+  deleteSection(
+    @GetUser() userId: number,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
     return this.sectionService.deleteSection(id);
   }
 }
