@@ -19,7 +19,4 @@ export class CreateTaskDto {
 
   @IsNotEmpty()
   readonly sectionId: number;
-
-  @IsNotEmpty()
-  readonly userId: number;
 }
