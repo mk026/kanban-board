@@ -5,7 +5,4 @@ export class CreateBoardDto {
   @MinLength(1)
   @MaxLength(50)
   readonly title: string;
-
-  @IsNotEmpty()
-  readonly userId: number;
 }
