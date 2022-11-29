@@ -16,13 +16,23 @@ export class BoardService {
     return this.boardRepository.findBy({ user: { id: userId } });
   }
 
-  async addBoard(createBoardDto: CreateBoardDto) {
-    const board = this.boardRepository.create(createBoardDto);
+  async addBoard(createBoardDto: CreateBoardDto, userId: number) {
+    const board = this.boardRepository.create({
+      ...createBoardDto,
+      user: { id: userId },
+    });
     await this.boardRepository.save(board);
   }
 
-  async updateBoard(id: number, updateBoardDto: UpdateBoardDto) {
-    const result = await this.boardRepository.update(id, updateBoardDto);
+  async updateBoard(
+    id: number,
+    updateBoardDto: UpdateBoardDto,
+    userId: number,
+  ) {
+    const result = await this.boardRepository.update(
+      { id, user: { id: userId } },
+      updateBoardDto,
+    );
     if (result.affected === 0) {
       throw new NotFoundException(`Board with id ${id} not found`);
     }
