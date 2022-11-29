@@ -12,7 +12,4 @@ export class CreateSectionDto {
 
   @IsNotEmpty()
   readonly boardId: number;
-
-  @IsNotEmpty()
-  readonly userId: number;
 }
