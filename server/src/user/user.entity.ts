@@ -1,17 +1,10 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Unique,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Board } from '../board/board.entity';
 import { Section } from '../section/section.entity';
 import { Task } from '../task/task.entity';
 
 @Entity()
-@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -19,7 +12,7 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
