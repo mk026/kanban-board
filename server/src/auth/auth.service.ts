@@ -9,8 +9,8 @@ import * as bcryptjs from 'bcryptjs';
 
 import { SigninCredentialsDto } from './dto/signin-credentials.dto';
 import { SignupCredentialsDto } from './dto/signup-credentials.dto';
-import { AuthResponse } from './auth-response.interface';
-import { JwtPayload } from './jwt-payload.interface';
+import { AuthResponse } from './interfaces/auth-response.interface';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UserService } from '../user/user.service';
 
 @Injectable()
