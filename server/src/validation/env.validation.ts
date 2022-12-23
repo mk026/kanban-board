@@ -1,5 +1,5 @@
 import { plainToInstance } from 'class-transformer';
-import { IsNotEmpty, IsNumber, validateSync } from 'class-validator';
+import { IsIn, IsNotEmpty, IsNumber, validateSync } from 'class-validator';
 
 class EnvironmentVariables {
   @IsNumber()
@@ -21,6 +21,9 @@ class EnvironmentVariables {
 
   @IsNotEmpty()
   DB_PASSWORD: string;
+
+  @IsIn(['true', 'false'])
+  DB_SYNC: string;
 
   @IsNotEmpty()
   JWT_SECRET: string;
