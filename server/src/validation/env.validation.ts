@@ -23,7 +23,7 @@ class EnvironmentVariables {
   DB_PASSWORD: string;
 
   @IsIn(['true', 'false'])
-  DB_SYNC: string;
+  DB_SYNC: 'true' | 'false';
 
   @IsNotEmpty()
   JWT_SECRET: string;
