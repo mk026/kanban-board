@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-import { GetUser } from '../auth/get-user.decorator';
+import { AuthUser } from '../common/decorators/auth-user.decorator';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
@@ -24,20 +24,20 @@ export class TaskController {
 
   @Get()
   getTasks(
-    @GetUser() userId: number,
+    @AuthUser() userId: number,
     @Query('boardId', ParseIntPipe) boardId: number,
   ) {
     return this.taskService.getTasks(boardId);
   }
 
   @Post()
-  addTask(@GetUser() userId: number, @Body() createTaskDto: CreateTaskDto) {
+  addTask(@AuthUser() userId: number, @Body() createTaskDto: CreateTaskDto) {
     return this.taskService.addTask(createTaskDto);
   }
 
   @Put(':id')
   updateTask(
-    @GetUser() userId: number,
+    @AuthUser() userId: number,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
@@ -45,7 +45,10 @@ export class TaskController {
   }
 
   @Delete(':id')
-  deleteTask(@GetUser() userId: number, @Param('id', ParseIntPipe) id: number) {
+  deleteTask(
+    @AuthUser() userId: number,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
     return this.taskService.deleteTask(id);
   }
 }

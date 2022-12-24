@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-import { GetUser } from '../auth/get-user.decorator';
+import { AuthUser } from '../common/decorators/auth-user.decorator';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
@@ -22,18 +22,18 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Get()
-  getBoards(@GetUser() userId: number) {
+  getBoards(@AuthUser() userId: number) {
     return this.boardService.getBoards(userId);
   }
 
   @Post()
-  addBoard(@GetUser() userId: number, @Body() createBoardDto: CreateBoardDto) {
+  addBoard(@AuthUser() userId: number, @Body() createBoardDto: CreateBoardDto) {
     return this.boardService.addBoard(createBoardDto, userId);
   }
 
   @Put(':id')
   updateBoard(
-    @GetUser() userId: number,
+    @AuthUser() userId: number,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateBoardDto: UpdateBoardDto,
   ) {
@@ -42,7 +42,7 @@ export class BoardController {
 
   @Delete(':id')
   deleteBoard(
-    @GetUser() userId: number,
+    @AuthUser() userId: number,
     @Param('id', ParseIntPipe) id: number,
   ) {
     return this.boardService.deleteBoard(id, userId);
