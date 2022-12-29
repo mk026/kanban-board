@@ -1,30 +1,24 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcryptjs from 'bcryptjs';
 
 import { SigninCredentialsDto } from './dto/signin-credentials.dto';
 import { SignupCredentialsDto } from './dto/signup-credentials.dto';
 import { AuthResponse } from './interfaces/auth-response.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UserService } from '../user/user.service';
+import { Hash } from '../common/utils/hash.util';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) {}
 
   async signup(
     signupCredentialsDto: SignupCredentialsDto,
   ): Promise<AuthResponse> {
-    const passwordHash = this.hashPassword(signupCredentialsDto.password);
+    const passwordHash = Hash.generateHash(signupCredentialsDto.password);
     const user = await this.userService.createUser({
       ...signupCredentialsDto,
       password: passwordHash,
@@ -44,7 +38,7 @@ export class AuthService {
     if (!foundUser) {
       throw new UnauthorizedException('Incorrect email or password');
     }
-    const isPasswordValid = this.verifyPassword(password, foundUser.password);
+    const isPasswordValid = Hash.compare(password, foundUser.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Incorrect email or password');
     }
@@ -58,13 +52,5 @@ export class AuthService {
   generateToken(userId: number) {
     const payload: JwtPayload = { userId };
     return this.jwtService.sign(payload);
-  }
-
-  hashPassword(password: string) {
-    return bcryptjs.hashSync(password);
-  }
-
-  verifyPassword(password: string, hash: string) {
-    return bcryptjs.compareSync(password, hash);
   }
 }
