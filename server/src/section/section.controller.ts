@@ -10,15 +10,15 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from '../common/decorators/auth-user.decorator';
 import { SectionService } from './section.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 
 @Controller('sections')
-@UseGuards(AuthGuard())
+@UseGuards(JwtAuthGuard)
 export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
