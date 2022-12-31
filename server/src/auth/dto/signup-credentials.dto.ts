@@ -1,10 +1,21 @@
-import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class SignupCredentialsDto {
   @IsNotEmpty()
   @MinLength(1)
   @MaxLength(50)
   readonly name: string;
+
+  @IsOptional()
+  @MinLength(1)
+  @MaxLength(1000)
+  readonly bio?: string;
 
   @IsEmail()
   readonly email: string;
