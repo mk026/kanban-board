@@ -14,6 +14,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from '../common/decorators/auth-user.decorator';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { GetTasksDto } from './dto/get-tasks.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
 
@@ -23,11 +24,8 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  getTasks(
-    @AuthUser() userId: number,
-    @Query('boardId', ParseIntPipe) boardId: number,
-  ) {
-    return this.taskService.getTasks(boardId);
+  getTasks(@AuthUser() userId: number, @Query() getTasksDto: GetTasksDto) {
+    return this.taskService.getTasks(userId, getTasksDto);
   }
 
   @Post()

@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CreateTaskDto } from './dto/create-task.dto';
+import { GetTasksDto } from './dto/get-tasks.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './task.entity';
 
@@ -12,8 +14,13 @@ export class TaskService {
     private readonly taskRepository: Repository<Task>,
   ) {}
 
-  getTasks(boardId: number) {
-    return this.taskRepository.find({ where: { board: { id: boardId } } });
+  getTasks(userId: number, getTasksDto: GetTasksDto) {
+    return this.taskRepository.find({
+      where: {
+        board: { id: getTasksDto.boardId },
+        user: { id: userId },
+      },
+    });
   }
 
   async addTask(createTaskDto: CreateTaskDto) {
