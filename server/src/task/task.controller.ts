@@ -25,12 +25,12 @@ export class TaskController {
 
   @Get()
   getTasks(@AuthUser() userId: number, @Query() getTasksDto: GetTasksDto) {
-    return this.taskService.getTasks(userId, getTasksDto);
+    return this.taskService.getTasks(getTasksDto, userId);
   }
 
   @Post()
   addTask(@AuthUser() userId: number, @Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.addTask(createTaskDto);
+    return this.taskService.addTask(createTaskDto, userId);
   }
 
   @Put(':id')
@@ -39,7 +39,7 @@ export class TaskController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
-    return this.taskService.updateTask(id, updateTaskDto);
+    return this.taskService.updateTask(id, updateTaskDto, userId);
   }
 
   @Delete(':id')
@@ -47,6 +47,6 @@ export class TaskController {
     @AuthUser() userId: number,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.taskService.deleteTask(id);
+    return this.taskService.deleteTask(id, userId);
   }
 }
