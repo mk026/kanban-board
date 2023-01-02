@@ -23,20 +23,35 @@ export class SectionService {
     });
   }
 
-  async addSection(createSectionDto: CreateSectionDto) {
-    const section = this.sectionRepository.create(createSectionDto);
+  async addSection(createSectionDto: CreateSectionDto, userId: number) {
+    const section = this.sectionRepository.create({
+      title: createSectionDto.title,
+      order: createSectionDto.order,
+      board: { id: createSectionDto.boardId },
+      user: { id: userId },
+    });
     await this.sectionRepository.save(section);
   }
 
-  async updateSection(id: number, updateSectionDto: UpdateSectionDto) {
-    const result = await this.sectionRepository.update(id, updateSectionDto);
+  async updateSection(
+    id: number,
+    updateSectionDto: UpdateSectionDto,
+    userId: number,
+  ) {
+    const result = await this.sectionRepository.update(
+      { id, user: { id: userId } },
+      updateSectionDto,
+    );
     if (result.affected === 0) {
       throw new NotFoundException(`Section with id ${id} not found`);
     }
   }
 
-  async deleteSection(id: number) {
-    const result = await this.sectionRepository.delete(id);
+  async deleteSection(id: number, userId: number) {
+    const result = await this.sectionRepository.delete({
+      id,
+      user: { id: userId },
+    });
     if (result.affected === 0) {
       throw new NotFoundException(`Section with id ${id} not found`);
     }

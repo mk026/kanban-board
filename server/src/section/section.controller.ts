@@ -36,7 +36,7 @@ export class SectionController {
     @AuthUser() userId: number,
     @Body() createSectionDto: CreateSectionDto,
   ) {
-    return this.sectionService.addSection(createSectionDto);
+    return this.sectionService.addSection(createSectionDto, userId);
   }
 
   @Put(':id')
@@ -45,7 +45,7 @@ export class SectionController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateSectionDto: UpdateSectionDto,
   ) {
-    return this.sectionService.updateSection(id, updateSectionDto);
+    return this.sectionService.updateSection(id, updateSectionDto, userId);
   }
 
   @Delete(':id')
@@ -53,6 +53,6 @@ export class SectionController {
     @AuthUser() userId: number,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.sectionService.deleteSection(id);
+    return this.sectionService.deleteSection(id, userId);
   }
 }
