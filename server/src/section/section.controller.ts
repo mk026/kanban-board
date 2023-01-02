@@ -16,6 +16,7 @@ import { AuthUser } from '../common/decorators/auth-user.decorator';
 import { SectionService } from './section.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
+import { GetSectionsDto } from './dto/get-sections.dto';
 
 @Controller('sections')
 @UseGuards(JwtAuthGuard)
@@ -25,9 +26,9 @@ export class SectionController {
   @Get()
   getSections(
     @AuthUser() userId: number,
-    @Query('boardId', ParseIntPipe) boardId: number,
+    @Query() getSectionsDto: GetSectionsDto,
   ) {
-    return this.sectionService.getSections(boardId);
+    return this.sectionService.getSections(getSectionsDto, userId);
   }
 
   @Post()

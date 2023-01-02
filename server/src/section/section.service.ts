@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CreateSectionDto } from './dto/create-section.dto';
+import { GetSectionsDto } from './dto/get-sections.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 import { Section } from './section.entity';
 
@@ -12,8 +14,13 @@ export class SectionService {
     private readonly sectionRepository: Repository<Section>,
   ) {}
 
-  getSections(boardId: number) {
-    return this.sectionRepository.find({ where: { board: { id: boardId } } });
+  getSections(getSectionsDto: GetSectionsDto, userId: number) {
+    return this.sectionRepository.find({
+      where: {
+        user: { id: userId },
+        board: { id: getSectionsDto.boardId },
+      },
+    });
   }
 
   async addSection(createSectionDto: CreateSectionDto) {
