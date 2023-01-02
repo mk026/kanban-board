@@ -1,6 +1,8 @@
-import { IsNotEmpty } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsInt } from 'class-validator';
 
 export class GetTasksDto {
-  @IsNotEmpty()
+  @IsInt()
+  @Type(() => Number)
   readonly boardId: number;
 }
