@@ -29,6 +29,7 @@ const UpdateProfileForm: FC = () => {
         onSubmit={methods.handleSubmit(updateProfileHandler)}
       >
         <FormField label="Name" name="name" />
+        <FormField label="About yourself" name="bio" multiline />
         <FormField type="email" label="Email" name="email" />
         <LoadingButton isLoading={userStore.isLoading}>Save</LoadingButton>
       </Box>

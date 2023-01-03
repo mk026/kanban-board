@@ -27,6 +27,7 @@ const SignupForm: FC = () => {
     <FormProvider {...methods}>
       <Box component="form" onSubmit={methods.handleSubmit(signupHandler)}>
         <FormField label="Name" name="name" />
+        <FormField label="About yourself" name="bio" multiline />
         <FormField type="email" label="Email" name="email" />
         <FormField type="password" label="Password" name="password" />
         <FormField
