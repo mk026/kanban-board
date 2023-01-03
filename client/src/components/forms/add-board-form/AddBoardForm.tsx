@@ -6,9 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
@@ -17,16 +16,12 @@ import {
 } from "../../../validation/boardValidation";
 import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
+import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
 const AddBoardForm: FC = () => {
   const { boardStore, uiStore } = useStore();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<BoardFormValues>({
+  const methods = useForm<BoardFormValues>({
     mode: "onBlur",
     resolver: yupResolver(boardValidationSchema),
   });
@@ -35,7 +30,7 @@ const AddBoardForm: FC = () => {
 
   const addBoardHandler = async (values: BoardFormValues) => {
     await boardStore.createBoard(values);
-    reset();
+    methods.reset();
     closeFormHandler();
   };
 
@@ -44,28 +39,20 @@ const AddBoardForm: FC = () => {
   return (
     <Dialog open={uiStore.addBoardFormIsActive} onClose={closeFormHandler}>
       <DialogTitle>Add new board</DialogTitle>
-      <Box component="form" onSubmit={handleSubmit(addBoardHandler)}>
-        <DialogContent>
-          <TextField
-            label="Board title"
-            {...register("title")}
-            error={!!errors.title}
-            helperText={errors.title?.message}
-          />
-          <TextField
-            label="Board description (optional)"
-            {...register("description")}
-            error={!!errors.description}
-            helperText={errors.description?.message}
-          />
-        </DialogContent>
-        <DialogActions>
-          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
-          <Button type="button" onClick={closeFormHandler}>
-            Close
-          </Button>
-        </DialogActions>
-      </Box>
+      <FormProvider {...methods}>
+        <Box component="form" onSubmit={methods.handleSubmit(addBoardHandler)}>
+          <DialogContent>
+            <FormField label="Board title" name="title" />
+            <FormField label="Board description" name="description" />
+          </DialogContent>
+          <DialogActions>
+            <LoadingButton isLoading={isLoading}>Save</LoadingButton>
+            <Button type="button" onClick={closeFormHandler}>
+              Close
+            </Button>
+          </DialogActions>
+        </Box>
+      </FormProvider>
     </Dialog>
   );
 };

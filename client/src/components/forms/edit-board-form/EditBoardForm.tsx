@@ -6,9 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
 
@@ -18,6 +17,7 @@ import {
 } from "../../../validation/boardValidation";
 import { Board } from "../../../store/board/Board";
 import { useStore } from "../../../hooks/useStore";
+import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
 interface EditBoardFormProps {
@@ -26,12 +26,7 @@ interface EditBoardFormProps {
 
 const EditBoardForm: FC<EditBoardFormProps> = ({ board }) => {
   const { boardStore, uiStore } = useStore();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<BoardFormValues>({
+  const methods = useForm<BoardFormValues>({
     mode: "onBlur",
     defaultValues: { title: board.title, description: board.description },
     resolver: yupResolver(boardValidationSchema),
@@ -41,7 +36,7 @@ const EditBoardForm: FC<EditBoardFormProps> = ({ board }) => {
 
   const editBoardHandler = async (values: BoardFormValues) => {
     await boardStore.updateBoard({ ...board, ...values });
-    reset();
+    methods.reset();
     closeFormHandler();
   };
 
@@ -50,28 +45,20 @@ const EditBoardForm: FC<EditBoardFormProps> = ({ board }) => {
   return (
     <Dialog open={uiStore.editBoardFormIsActive} onClose={closeFormHandler}>
       <DialogTitle>Edit board</DialogTitle>
-      <Box component="form" onSubmit={handleSubmit(editBoardHandler)}>
-        <DialogContent>
-          <TextField
-            label="Board title"
-            {...register("title")}
-            error={!!errors.title}
-            helperText={errors.title?.message}
-          />
-          <TextField
-            label="Board description (optional)"
-            {...register("description")}
-            error={!!errors.description}
-            helperText={errors.description?.message}
-          />
-        </DialogContent>
-        <DialogActions>
-          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
-          <Button type="button" onClick={closeFormHandler}>
-            Close
-          </Button>
-        </DialogActions>
-      </Box>
+      <FormProvider {...methods}>
+        <Box component="form" onSubmit={methods.handleSubmit(editBoardHandler)}>
+          <DialogContent>
+            <FormField label="Board title" name="title" />
+            <FormField label="Board description" name="description" />
+          </DialogContent>
+          <DialogActions>
+            <LoadingButton isLoading={isLoading}>Save</LoadingButton>
+            <Button type="button" onClick={closeFormHandler}>
+              Close
+            </Button>
+          </DialogActions>
+        </Box>
+      </FormProvider>
     </Dialog>
   );
 };

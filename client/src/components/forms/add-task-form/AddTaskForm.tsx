@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Box, Button, Collapse, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Box, Button, Collapse } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
@@ -9,6 +9,7 @@ import {
 } from "../../../validation/taskValidation";
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import { useStore } from "../../../hooks/useStore";
+import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
 interface AddTaskFormProps {
@@ -21,42 +22,29 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
   const {
     taskStore: { isLoading },
   } = useStore();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<TaskFormValues>({
+  const methods = useForm<TaskFormValues>({
     mode: "onBlur",
     resolver: yupResolver(taskValidationSchema),
   });
 
   const addTaskHandler = async (values: TaskFormValues) => {
     await boardSection.addTask(values);
-    reset();
+    methods.reset();
     onClose();
   };
 
   return (
     <Collapse in={open}>
-      <Box component="form" onSubmit={handleSubmit(addTaskHandler)}>
-        <TextField
-          label="Task title"
-          {...register("title")}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
-        <TextField
-          label="Task description"
-          {...register("description")}
-          error={!!errors.description}
-          helperText={errors.description?.message}
-        />
-        <LoadingButton isLoading={isLoading}>Save</LoadingButton>
-        <Button type="button" onClick={onClose}>
-          Close
-        </Button>
-      </Box>
+      <FormProvider {...methods}>
+        <Box component="form" onSubmit={methods.handleSubmit(addTaskHandler)}>
+          <FormField label="Task title" name="title" />
+          <FormField label="Task description" name="description" />
+          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
+          <Button type="button" onClick={onClose}>
+            Close
+          </Button>
+        </Box>
+      </FormProvider>
     </Collapse>
   );
 };

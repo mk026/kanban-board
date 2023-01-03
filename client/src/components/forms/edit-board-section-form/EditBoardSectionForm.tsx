@@ -6,9 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
 
@@ -18,6 +17,7 @@ import {
 } from "../../../validation/boardSectionValidation";
 import { useStore } from "../../../hooks/useStore";
 import { BoardSection } from "../../../store/board-section/BoardSection";
+import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
 interface EditBoardSectionFormProps {
@@ -32,12 +32,7 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
   onClose,
 }) => {
   const { boardSectionStore } = useStore();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<BoardSectionFormValues>({
+  const methods = useForm<BoardSectionFormValues>({
     mode: "onBlur",
     defaultValues: { title: boardSection.title },
     resolver: yupResolver(boardSectionValidationSchema),
@@ -45,31 +40,31 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
 
   const editBoardSectionHandler = async (values: BoardSectionFormValues) => {
     await boardSectionStore.updateBoardSection({ ...boardSection, ...values });
-    reset();
+    methods.reset();
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit section</DialogTitle>
-      <Box component="form" onSubmit={handleSubmit(editBoardSectionHandler)}>
-        <DialogContent>
-          <TextField
-            label="Section title"
-            {...register("title")}
-            error={!!errors.title}
-            helperText={errors.title?.message}
-          />
-        </DialogContent>
-        <DialogActions>
-          <LoadingButton isLoading={boardSectionStore.isLoading}>
-            Save
-          </LoadingButton>
-          <Button type="button" onClick={onClose}>
-            Close
-          </Button>
-        </DialogActions>
-      </Box>
+      <FormProvider {...methods}>
+        <Box
+          component="form"
+          onSubmit={methods.handleSubmit(editBoardSectionHandler)}
+        >
+          <DialogContent>
+            <FormField label="Section title" name="title" />
+          </DialogContent>
+          <DialogActions>
+            <LoadingButton isLoading={boardSectionStore.isLoading}>
+              Save
+            </LoadingButton>
+            <Button type="button" onClick={onClose}>
+              Close
+            </Button>
+          </DialogActions>
+        </Box>
+      </FormProvider>
     </Dialog>
   );
 };
