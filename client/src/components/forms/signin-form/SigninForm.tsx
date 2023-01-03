@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Box, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Box } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
 
@@ -9,15 +9,12 @@ import {
   signinValidationSchema,
 } from "../../../validation/signinValidation";
 import { useStore } from "../../../hooks/useStore";
+import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
 const SigninForm: FC = () => {
   const { authStore } = useStore();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SigninFormValues>({
+  const methods = useForm<SigninFormValues>({
     mode: "onBlur",
     resolver: yupResolver(signinValidationSchema),
   });
@@ -27,23 +24,13 @@ const SigninForm: FC = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(signinHandler)}>
-      <TextField
-        type="email"
-        label="Email"
-        {...register("email")}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
-      <TextField
-        type="password"
-        label="Password"
-        {...register("password")}
-        error={!!errors.password}
-        helperText={errors.password?.message}
-      />
-      <LoadingButton isLoading={authStore.isLoading}>Signin</LoadingButton>
-    </Box>
+    <FormProvider {...methods}>
+      <Box component="form" onSubmit={methods.handleSubmit(signinHandler)}>
+        <FormField type="email" label="Email" name="email" />
+        <FormField type="password" label="Password" name="password" />
+        <LoadingButton isLoading={authStore.isLoading}>Signin</LoadingButton>
+      </Box>
+    </FormProvider>
   );
 };
 

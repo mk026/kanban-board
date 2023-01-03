@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Box } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
 
@@ -9,15 +9,12 @@ import {
   signupValidationSchema,
 } from "../../../validation/signupValidation";
 import { useStore } from "../../../hooks/useStore";
+import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
 const SignupForm: FC = () => {
   const { authStore } = useStore();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignupFormValues>({
+  const methods = useForm<SignupFormValues>({
     mode: "onBlur",
     resolver: yupResolver(signupValidationSchema),
   });
@@ -27,36 +24,19 @@ const SignupForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(signupHandler)}>
-      <TextField
-        label="Name"
-        {...register("name")}
-        error={!!errors.name}
-        helperText={errors.name?.message}
-      />
-      <TextField
-        type="email"
-        label="Email"
-        {...register("email")}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
-      <TextField
-        type="password"
-        label="Password"
-        {...register("password")}
-        error={!!errors.password}
-        helperText={errors.password?.message}
-      />
-      <TextField
-        type="password"
-        label="Confirm password"
-        {...register("confirmPassword")}
-        error={!!errors.confirmPassword}
-        helperText={errors.confirmPassword?.message}
-      />
-      <LoadingButton isLoading={authStore.isLoading}>Signup</LoadingButton>
-    </form>
+    <FormProvider {...methods}>
+      <Box component="form" onSubmit={methods.handleSubmit(signupHandler)}>
+        <FormField label="Name" name="name" />
+        <FormField type="email" label="Email" name="email" />
+        <FormField type="password" label="Password" name="password" />
+        <FormField
+          type="password"
+          label="Confirm password"
+          name="confirmPassword"
+        />
+        <LoadingButton isLoading={authStore.isLoading}>Signup</LoadingButton>
+      </Box>
+    </FormProvider>
   );
 };
 
