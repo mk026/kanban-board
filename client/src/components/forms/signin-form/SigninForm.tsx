@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Button, CircularProgress, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
@@ -9,6 +9,7 @@ import {
   signinValidationSchema,
 } from "../../../validation/signinValidation";
 import { useStore } from "../../../hooks/useStore";
+import LoadingButton from "../../loading-button/LoadingButton";
 
 const SigninForm: FC = () => {
   const { authStore } = useStore();
@@ -41,17 +42,7 @@ const SigninForm: FC = () => {
         error={!!errors.password}
         helperText={errors.password?.message}
       />
-      <Button
-        type="submit"
-        disabled={authStore.isLoading}
-        endIcon={
-          authStore.isLoading && (
-            <CircularProgress size="1rem" color="inherit" />
-          )
-        }
-      >
-        Submit
-      </Button>
+      <LoadingButton isLoading={authStore.isLoading}>Signin</LoadingButton>
     </Box>
   );
 };
