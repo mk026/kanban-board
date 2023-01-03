@@ -2,7 +2,6 @@ import { FC } from "react";
 import {
   Box,
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -19,6 +18,7 @@ import {
 } from "../../../validation/boardSectionValidation";
 import { useStore } from "../../../hooks/useStore";
 import { BoardSection } from "../../../store/board-section/BoardSection";
+import LoadingButton from "../../loading-button/LoadingButton";
 
 interface EditBoardSectionFormProps {
   boardSection: BoardSection;
@@ -62,17 +62,9 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            type="submit"
-            disabled={boardSectionStore.isLoading}
-            endIcon={
-              boardSectionStore.isLoading && (
-                <CircularProgress size="1rem" color="inherit" />
-              )
-            }
-          >
-            Submit
-          </Button>
+          <LoadingButton isLoading={boardSectionStore.isLoading}>
+            Save
+          </LoadingButton>
           <Button type="button" onClick={onClose}>
             Close
           </Button>

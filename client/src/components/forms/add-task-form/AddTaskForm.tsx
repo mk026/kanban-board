@@ -1,11 +1,5 @@
 import { FC } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Collapse,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Collapse, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -15,6 +9,7 @@ import {
 } from "../../../validation/taskValidation";
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import { useStore } from "../../../hooks/useStore";
+import LoadingButton from "../../loading-button/LoadingButton";
 
 interface AddTaskFormProps {
   boardSection: BoardSection;
@@ -57,15 +52,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
           error={!!errors.description}
           helperText={errors.description?.message}
         />
-        <Button
-          type="submit"
-          disabled={isLoading}
-          endIcon={
-            isLoading && <CircularProgress size="1rem" color="inherit" />
-          }
-        >
-          Submit
-        </Button>
+        <LoadingButton isLoading={isLoading}>Save</LoadingButton>
         <Button type="button" onClick={onClose}>
           Close
         </Button>

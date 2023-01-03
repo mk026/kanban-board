@@ -2,7 +2,6 @@ import { FC } from "react";
 import {
   Box,
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -19,6 +18,7 @@ import {
 } from "../../../validation/boardValidation";
 import { Board } from "../../../store/board/Board";
 import { useStore } from "../../../hooks/useStore";
+import LoadingButton from "../../loading-button/LoadingButton";
 
 interface EditBoardFormProps {
   board: Board;
@@ -66,15 +66,7 @@ const EditBoardForm: FC<EditBoardFormProps> = ({ board }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            endIcon={
-              isLoading && <CircularProgress size="1rem" color="inherit" />
-            }
-          >
-            Submit
-          </Button>
+          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
           <Button type="button" onClick={closeFormHandler}>
             Close
           </Button>

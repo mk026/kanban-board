@@ -2,7 +2,6 @@ import { FC } from "react";
 import {
   Box,
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -18,6 +17,7 @@ import {
 } from "../../../validation/boardValidation";
 import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
+import LoadingButton from "../../loading-button/LoadingButton";
 
 const AddBoardForm: FC = () => {
   const { boardStore, uiStore } = useStore();
@@ -60,15 +60,7 @@ const AddBoardForm: FC = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            endIcon={
-              isLoading && <CircularProgress size="1rem" color="inherit" />
-            }
-          >
-            Submit
-          </Button>
+          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
           <Button type="button" onClick={closeFormHandler}>
             Close
           </Button>
