@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,6 +8,7 @@ import {
   updateProfileValidationSchema,
 } from "../../../validation/updateProfileValidation";
 import { useStore } from "../../../hooks/useStore";
+import LoadingButton from "../../loading-button/LoadingButton";
 
 const UpdateProfileForm: FC = () => {
   const { userStore } = useStore();
@@ -39,7 +40,7 @@ const UpdateProfileForm: FC = () => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <Button type="submit">Submit</Button>
+      <LoadingButton isLoading={userStore.isLoading}>Save</LoadingButton>
     </Box>
   );
 };
