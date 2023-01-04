@@ -20,6 +20,9 @@ export class Section {
   @Column()
   title: string;
 
+  @Column({ nullable: true })
+  description: string;
+
   @Column()
   order: number;
 
