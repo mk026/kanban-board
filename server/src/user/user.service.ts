@@ -37,7 +37,7 @@ export class UserService {
   }
 
   async createUser(signupCredentialsDto: SignupCredentialsDto) {
-    const foundUser = this.getUserByEmail(signupCredentialsDto.email);
+    const foundUser = await this.getUserByEmail(signupCredentialsDto.email);
     if (foundUser) {
       throw new ConflictException('Email already in use');
     }
