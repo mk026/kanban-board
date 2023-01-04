@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -13,6 +14,7 @@ import { User } from '../user/user.entity';
 import { Task } from '../task/task.entity';
 
 @Entity()
+@Unique(['order', 'board'])
 export class Section {
   @PrimaryGeneratedColumn()
   id: number;
