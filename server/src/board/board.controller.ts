@@ -26,6 +26,11 @@ export class BoardController {
     return this.boardService.getBoards(userId);
   }
 
+  @Get(':id')
+  getBoard(@AuthUser() userId: number, @Param('id', ParseIntPipe) id: number) {
+    return this.boardService.getBoard(id, userId);
+  }
+
   @Post()
   addBoard(@AuthUser() userId: number, @Body() createBoardDto: CreateBoardDto) {
     return this.boardService.addBoard(createBoardDto, userId);

@@ -16,6 +16,13 @@ export class BoardService {
     return this.boardRepository.findBy({ user: { id: userId } });
   }
 
+  getBoard(id: number, userId: number) {
+    return this.boardRepository.find({
+      where: { id, user: { id: userId } },
+      relations: { sections: true, tasks: true },
+    });
+  }
+
   async addBoard(createBoardDto: CreateBoardDto, userId: number) {
     const board = this.boardRepository.create({
       title: createBoardDto.title,
