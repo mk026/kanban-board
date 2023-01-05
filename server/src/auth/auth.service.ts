@@ -18,11 +18,7 @@ export class AuthService {
   async signup(
     signupCredentialsDto: SignupCredentialsDto,
   ): Promise<AuthResponse> {
-    const passwordHash = Hash.generateHash(signupCredentialsDto.password);
-    const user = await this.userService.createUser({
-      ...signupCredentialsDto,
-      password: passwordHash,
-    });
+    const user = await this.userService.createUser(signupCredentialsDto);
     const accessToken = this.generateToken(user.id);
     return {
       user: { name: user.name, email: user.email },
