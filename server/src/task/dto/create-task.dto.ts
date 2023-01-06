@@ -1,6 +1,6 @@
 import {
+  IsInt,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   MaxLength,
   MinLength,
@@ -13,16 +13,16 @@ export class CreateTaskDto {
   readonly title: string;
 
   @IsOptional()
+  @MinLength(1)
   @MaxLength(500)
   readonly description?: string;
 
-  @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
   readonly order: number;
 
-  @IsNotEmpty()
+  @IsInt()
   readonly boardId: number;
 
-  @IsNotEmpty()
+  @IsInt()
   readonly sectionId: number;
 }

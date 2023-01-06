@@ -1,6 +1,6 @@
 import {
+  IsInt,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   MaxLength,
   MinLength,
@@ -17,10 +17,9 @@ export class CreateSectionDto {
   @MaxLength(500)
   readonly description?: string;
 
-  @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
   readonly order: number;
 
-  @IsNotEmpty()
+  @IsInt()
   readonly boardId: number;
 }
