@@ -29,6 +29,10 @@ export const boardSectionRules = {
     min: 1,
     max: 100,
   },
+  description: {
+    min: 1,
+    max: 500,
+  },
 };
 
 export const taskRules = {

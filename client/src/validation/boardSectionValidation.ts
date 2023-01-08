@@ -4,6 +4,7 @@ import { boardSectionRules } from "./rules";
 
 export interface BoardSectionFormValues {
   title: string;
+  description?: string;
 }
 
 export const boardSectionValidationSchema = yup.object({
@@ -12,4 +13,9 @@ export const boardSectionValidationSchema = yup.object({
     .min(boardSectionRules.title.min)
     .max(boardSectionRules.title.max)
     .required(),
+  description: yup
+    .string()
+    .min(boardSectionRules.description.min)
+    .max(boardSectionRules.description.max)
+    .optional(),
 });
