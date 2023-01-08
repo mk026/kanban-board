@@ -51,7 +51,8 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
           onSubmit={methods.handleSubmit(addBoardSectionHandler)}
         >
           <DialogContent>
-            <FormField label="Section title" name="title" />
+            <FormField label="Title" name="title" />
+            <FormField label="Description" name="description" />
           </DialogContent>
           <DialogActions>
             <LoadingButton isLoading={boardSectionStore.isLoading}>
