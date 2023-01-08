@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Board } from './board.entity';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { GetBoardsDto } from './dto/get-boards.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Injectable()
@@ -12,8 +14,12 @@ export class BoardService {
     private readonly boardRepository: Repository<Board>,
   ) {}
 
-  getBoards(userId: number) {
-    return this.boardRepository.findBy({ user: { id: userId } });
+  getBoards(getBoardsDto: GetBoardsDto, userId: number) {
+    return this.boardRepository.find({
+      where: { user: { id: userId } },
+      skip: getBoardsDto.skip,
+      take: getBoardsDto.take,
+    });
   }
 
   getBoard(id: number, userId: number) {

@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 
@@ -14,6 +15,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from '../common/decorators/auth-user.decorator';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { GetBoardsDto } from './dto/get-boards.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Controller('boards')
@@ -22,8 +24,8 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Get()
-  getBoards(@AuthUser() userId: number) {
-    return this.boardService.getBoards(userId);
+  getBoards(@AuthUser() userId: number, @Query() getBoardsDto: GetBoardsDto) {
+    return this.boardService.getBoards(getBoardsDto, userId);
   }
 
   @Get(':id')
