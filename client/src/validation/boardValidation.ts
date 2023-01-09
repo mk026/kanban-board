@@ -4,7 +4,7 @@ import { boardRules } from "./rules";
 
 export interface BoardFormValues {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export const boardValidationSchema = yup.object({
