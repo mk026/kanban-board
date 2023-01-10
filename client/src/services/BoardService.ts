@@ -10,6 +10,10 @@ export default class BoardService {
     return authApi.get(ApiEndpoints.BOARDS);
   }
 
+  static getBoard(id: number): Promise<AxiosResponse<BoardDto>> {
+    return authApi.get(`${ApiEndpoints.BOARDS}/${id}`);
+  }
+
   static addBoard(data: CreateBoardDto): Promise<AxiosResponse<BoardDto>> {
     return authApi.post(ApiEndpoints.BOARDS, data);
   }
