@@ -13,20 +13,22 @@ const BoardPage: FC = () => {
   const { id } = useParams<"id">();
   const { boardStore } = useStore();
 
-  const board = boardStore.getBoardById(Number(id))!;
-
   useEffect(() => {
-    if (board) {
-      board.fetchBoardContent();
-    }
-  }, [board]);
+    boardStore.fetchActiveBoard(Number(id))!;
+  }, [boardStore, id]);
+
+  if (!boardStore.activeBoard) {
+    return <p>Loading Board...</p>;
+  }
 
   return (
     <Container>
-      <Typography>BoardPage for board {board?.title}</Typography>
-      <BoardControls board={board} />
-      <AddBoardSectionForm board={board!} />
-      <EditBoardForm board={board!} />
+      <Typography>
+        BoardPage for board {boardStore.activeBoard.title}
+      </Typography>
+      <BoardControls board={boardStore.activeBoard} />
+      <AddBoardSectionForm board={boardStore.activeBoard!} />
+      <EditBoardForm board={boardStore.activeBoard!} />
       <BoardSectionsList />
     </Container>
   );
