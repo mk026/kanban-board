@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
@@ -16,8 +16,9 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   const [addTaskFormIsActive, setAddTaskFormIsActive] = useState(false);
   const [editSectionFormIsActive, setEditSectionFormIsActive] = useState(false);
 
-  const { title } = boardSection;
-  const tasks = boardSection.getTasks();
+  useEffect(() => {
+    boardSection.fetchTasks();
+  }, [boardSection]);
 
   const toggleAddTaskFormHandler = () =>
     setAddTaskFormIsActive((prev) => !prev);
@@ -27,13 +28,13 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
 
   return (
     <Card>
-      <Typography>{title}</Typography>
+      <Typography>{boardSection.title}</Typography>
       <BoardSectionControls
         onAddTask={toggleAddTaskFormHandler}
         onEditSection={toggleEditSectionFormHandler}
         onDeleteSection={removeBoardSectionHandler}
       />
-      <TasksList tasks={tasks} boardSection={boardSection} />
+      <TasksList tasks={boardSection.tasks} boardSection={boardSection} />
       <AddTaskForm
         open={addTaskFormIsActive}
         onClose={toggleAddTaskFormHandler}

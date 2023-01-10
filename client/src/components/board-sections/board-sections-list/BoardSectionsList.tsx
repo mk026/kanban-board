@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
@@ -6,15 +6,19 @@ import { useStore } from "../../../hooks/useStore";
 import BoardSectionItem from "../board-section-item/BoardSectionItem";
 
 const BoardSectionsList: FC = () => {
-  const { boardSectionStore } = useStore();
+  const { boardStore } = useStore();
 
-  if (boardSectionStore.isLoading) {
-    return <p>Loading...</p>;
+  useEffect(() => {
+    boardStore.activeBoard.fetchBoardSections();
+  }, [boardStore]);
+
+  if (boardStore.isLoading) {
+    return <p>Loading Sections...</p>;
   }
 
   return (
     <Stack direction="row" spacing={10}>
-      {boardSectionStore.boardSections.map((boardSection) => (
+      {boardStore.activeBoard.boardSections.map((boardSection) => (
         <BoardSectionItem key={boardSection.id} boardSection={boardSection} />
       ))}
     </Stack>
