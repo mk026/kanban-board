@@ -18,6 +18,7 @@ export class TaskService {
     return this.taskRepository.find({
       where: {
         board: { id: getTasksDto.boardId },
+        section: { id: getTasksDto.sectionId },
         user: { id: userId },
       },
     });
