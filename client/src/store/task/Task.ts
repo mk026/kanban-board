@@ -1,8 +1,7 @@
 import { makeAutoObservable } from "mobx";
-// import { BoardSection } from "../board-section/BoardSection";
+import { BoardSection } from "../board-section/BoardSection";
 
 import { TaskDto } from "./dto/TaskDto";
-import { TaskStore } from "./TaskStore";
 
 export class Task {
   id: number = 0;
@@ -11,10 +10,12 @@ export class Task {
   order: number;
   title: string;
   description: string;
-  store: TaskStore;
+  boardSection: BoardSection;
+  isLoading: boolean = false;
+  error: unknown = null;
 
   constructor(
-    store: TaskStore,
+    boardSection: BoardSection,
     { id, boardId, sectionId, order, title, description }: TaskDto
   ) {
     makeAutoObservable(this);
@@ -24,11 +25,11 @@ export class Task {
     this.order = order;
     this.title = title;
     this.description = description;
-    this.store = store;
+    this.boardSection = boardSection;
   }
 
   move(targetTask: Task, insertAfter: boolean) {
-    const originSectionTasks = this.store.getTasksForSection(this.sectionId);
+    const originSectionTasks = this.boardSection.tasks;
     const isSameSection = this.sectionId === targetTask.sectionId;
     const isMovingDown = this.order < targetTask.order;
     if (isSameSection) {
@@ -58,9 +59,12 @@ export class Task {
         this.order = targetOrder;
       }
     } else {
-      const targetSectionTasks = this.store.getTasksForSection(
-        targetTask.sectionId
-      );
+      // const targetSectionTasks = this.store.getTasksForSection(
+      //   targetTask.sectionId
+      // );
+      const targetSectionTasks = this.boardSection.board.boardSections.find(
+        (section) => section.id === targetTask.sectionId
+      )!.tasks;
       const targetOrder = insertAfter ? targetTask.order + 1 : targetTask.order;
       originSectionTasks.forEach((task) => {
         if (task.order >= this.order) {
@@ -78,6 +82,6 @@ export class Task {
   }
 
   remove() {
-    this.store.deleteTask(this.id);
+    this.boardSection.deleteTask(this.id);
   }
 }
