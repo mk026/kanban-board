@@ -9,6 +9,7 @@ import BoardService from "../../services/BoardService";
 export class BoardStore {
   rootStore: RootStore;
   boards: Board[] = [];
+  activeBoard: Board;
   isLoading: boolean = false;
   error: unknown = null;
 
@@ -26,6 +27,25 @@ export class BoardStore {
         data.forEach((boardDto) => {
           this.boards.push(new Board(this, boardDto));
         });
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = error;
+      });
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  async fetchActiveBoard(id: number) {
+    this.isLoading = true;
+    this.boards = [];
+    try {
+      const { data } = await BoardService.getBoard(id);
+      runInAction(() => {
+        this.activeBoard = new Board(this, data);
       });
     } catch (error) {
       runInAction(() => {
