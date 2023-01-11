@@ -1,8 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { ApiEndpoints, authApi } from "../api";
-import { UpdateUserDto, UserResponse } from "../types";
-import { UpdatePasswordFormValues } from "../validation/updatePasswordValidation";
+import { UpdatePasswordDto, UpdateUserDto, UserResponse } from "../types";
 
 export default class UserService {
   static updateUser(data: UpdateUserDto): Promise<AxiosResponse<UserResponse>> {
@@ -10,7 +9,7 @@ export default class UserService {
   }
 
   static updatePassword(
-    data: UpdatePasswordFormValues
+    data: UpdatePasswordDto
   ): Promise<AxiosResponse<UserResponse>> {
     return authApi.put(ApiEndpoints.PASSWORD_UPDATE, data);
   }

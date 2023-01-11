@@ -2,9 +2,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 
 import { RootStore } from "..";
 import { User } from "./User";
-import { UpdatePasswordFormValues } from "../../validation/updatePasswordValidation";
 import UserService from "../../services/UserService";
-import { UpdateUserDto, UserResponse } from "../../types";
+import { UpdatePasswordDto, UpdateUserDto, UserResponse } from "../../types";
 
 export class UserStore {
   rootStore: RootStore;
@@ -41,7 +40,7 @@ export class UserStore {
     }
   }
 
-  async updatePassword(updatePasswordValues: UpdatePasswordFormValues) {
+  async updatePassword(updatePasswordValues: UpdatePasswordDto) {
     this.isLoading = true;
     try {
       await UserService.updatePassword(updatePasswordValues);
