@@ -1,11 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 
-import { BoardSectionDto } from "./dto/BoardSectionDto";
 import { Board } from "../board/Board";
 import { Task } from "../task/Task";
 import TaskService from "../../services/TaskService";
-import { CreateTaskDto } from "../task/dto/CreateTaskDto";
-import { UpdateTaskDto } from "../task/dto/UpdateTaskDto";
+import {
+  BoardSectionResponse,
+  CreateTaskDto,
+  UpdateTaskDto,
+} from "../../types";
 
 export class BoardSection {
   id: number;
@@ -17,7 +19,10 @@ export class BoardSection {
   board: Board;
   tasks: Task[] = [];
 
-  constructor(board: Board, { id, boardId, order, title }: BoardSectionDto) {
+  constructor(
+    board: Board,
+    { id, boardId, order, title }: BoardSectionResponse
+  ) {
     makeAutoObservable(this);
     this.id = id;
     this.boardId = boardId;

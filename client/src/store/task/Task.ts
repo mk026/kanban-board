@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { BoardSection } from "../board-section/BoardSection";
+import { TaskResponse } from "../../types";
 
-import { TaskDto } from "./dto/TaskDto";
+import { BoardSection } from "../board-section/BoardSection";
 
 export class Task {
   id: number = 0;
@@ -16,7 +16,7 @@ export class Task {
 
   constructor(
     boardSection: BoardSection,
-    { id, boardId, sectionId, order, title, description }: TaskDto
+    { id, boardId, sectionId, order, title, description }: TaskResponse
   ) {
     makeAutoObservable(this);
     this.id = id;

@@ -1,11 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 
 import { BoardStore } from "./BoardStore";
-import { BoardDto } from "./dto/BoardDto";
 import { BoardSection } from "../board-section/BoardSection";
 import BoardSectionService from "../../services/BoardSectionService";
-import { CreateBoardSectionDto } from "../board-section/dto/CreateBoardSectionDto";
-import { UpdateBoardSectionDto } from "../board-section/dto/UpdateBoardSectionDto";
+import {
+  BoardResponse,
+  CreateBoardSectionDto,
+  UpdateBoardSectionDto,
+} from "../../types";
 
 export class Board {
   id: number = 0;
@@ -14,7 +16,7 @@ export class Board {
   boardSections: BoardSection[] = [];
   store: BoardStore;
 
-  constructor(store: BoardStore, { id, title, description }: BoardDto) {
+  constructor(store: BoardStore, { id, title, description }: BoardResponse) {
     makeAutoObservable(this);
     this.store = store;
     this.id = id;

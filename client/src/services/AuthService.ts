@@ -1,14 +1,9 @@
 import { AxiosResponse } from "axios";
 
 import { api, ApiEndpoints, authApi } from "../api";
-import { UserDto } from "../store/user/dto/UserDto";
+import { AuthResponse } from "../types";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
-
-export interface AuthResponse {
-  user: UserDto;
-  token: string;
-}
 
 export default class AuthService {
   static tokenKey = "token";

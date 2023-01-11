@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
-import { UserDto } from "./dto/UserDto";
 import { UserStore } from "./UserStore";
+import { UserResponse } from "../../types";
 
 export class User {
   id: number;
@@ -9,7 +9,7 @@ export class User {
   email: string;
   store: UserStore;
 
-  constructor(store: UserStore, { id, name, email }: UserDto) {
+  constructor(store: UserStore, { id, name, email }: UserResponse) {
     makeAutoObservable(this);
     this.id = id;
     this.store = store;

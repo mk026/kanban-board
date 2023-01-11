@@ -2,10 +2,9 @@ import { makeAutoObservable, runInAction } from "mobx";
 
 import { RootStore } from "..";
 import { User } from "./User";
-import { UserDto } from "./dto/UserDto";
-import { UpdateUserDto } from "./dto/UpdateUserDto";
 import { UpdatePasswordFormValues } from "../../validation/updatePasswordValidation";
 import UserService from "../../services/UserService";
+import { UpdateUserDto, UserResponse } from "../../types";
 
 export class UserStore {
   rootStore: RootStore;
@@ -18,7 +17,7 @@ export class UserStore {
     this.rootStore = rootStore;
   }
 
-  setUser(userDto: UserDto) {
+  setUser(userDto: UserResponse) {
     this.user = new User(this, userDto);
   }
 
