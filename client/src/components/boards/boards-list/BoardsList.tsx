@@ -1,25 +1,19 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Container, List } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import BoardItem from "../board-item/BoardItem";
-import { useStore } from "../../../hooks/useStore";
+import { Board } from "../../../store/board/Board";
 
-const BoardsList: FC = () => {
-  const { boardStore } = useStore();
+interface BoardsListProps {
+  boards: Board[];
+}
 
-  useEffect(() => {
-    boardStore.fetchBoards();
-  }, [boardStore]);
-
-  if (boardStore.isLoading) {
-    return <p>Loading...</p>;
-  }
-
+const BoardsList: FC<BoardsListProps> = ({ boards }) => {
   return (
     <Container>
       <List>
-        {boardStore.boards.map((board) => (
+        {boards.map((board) => (
           <BoardItem key={board.id} board={board} />
         ))}
       </List>
