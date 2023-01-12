@@ -3,5 +3,5 @@ export interface CreateTaskDto {
   sectionId: number;
   order: number;
   title: string;
-  description: string;
+  description?: string;
 }
