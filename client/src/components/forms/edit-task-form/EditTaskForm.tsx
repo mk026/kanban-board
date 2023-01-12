@@ -9,8 +9,8 @@ import {
   taskValidationSchema,
 } from "../../../validation/taskValidation";
 import { Task } from "../../../store/task/Task";
-import FormField from "../../form-field/FormField";
-import LoadingButton from "../../loading-button/LoadingButton";
+import FormField from "../../common/form-field/FormField";
+import LoadingButton from "../../common/loading-button/LoadingButton";
 
 interface EditTaskFormProps {
   task: Task;

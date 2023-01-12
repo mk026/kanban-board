@@ -17,8 +17,8 @@ import {
 } from "../../../validation/boardValidation";
 import { Board } from "../../../store/board/Board";
 import { useStore } from "../../../hooks/useStore";
-import FormField from "../../form-field/FormField";
-import LoadingButton from "../../loading-button/LoadingButton";
+import FormField from "../../common/form-field/FormField";
+import LoadingButton from "../../common/loading-button/LoadingButton";
 
 interface EditBoardFormProps {
   board: Board;

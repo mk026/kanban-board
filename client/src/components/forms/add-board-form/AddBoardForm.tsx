@@ -16,8 +16,8 @@ import {
 } from "../../../validation/boardValidation";
 import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
-import FormField from "../../form-field/FormField";
-import LoadingButton from "../../loading-button/LoadingButton";
+import FormField from "../../common/form-field/FormField";
+import LoadingButton from "../../common/loading-button/LoadingButton";
 
 const AddBoardForm: FC = () => {
   const { boardStore, uiStore } = useStore();
