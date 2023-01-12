@@ -8,6 +8,9 @@ import App from "./App";
 import StoreProvider from "./context/StoreContext";
 
 import "./styles/index.scss";
+import { validateConfig } from "./validation/configValidation";
+
+validateConfig();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
