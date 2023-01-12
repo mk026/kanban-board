@@ -31,7 +31,7 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
   open,
   onClose,
 }) => {
-  const { boardSectionStore } = useStore();
+  const { boardStore } = useStore();
   const methods = useForm<BoardSectionFormValues>({
     mode: "onBlur",
     defaultValues: { title: boardSection.title },
@@ -39,7 +39,10 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
   });
 
   const editBoardSectionHandler = async (values: BoardSectionFormValues) => {
-    await boardSectionStore.updateBoardSection({ ...boardSection, ...values });
+    await boardStore.activeBoard.updateBoardSection({
+      ...boardSection,
+      ...values,
+    });
     methods.reset();
     onClose();
   };
@@ -56,7 +59,7 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
             <FormField label="Section title" name="title" />
           </DialogContent>
           <DialogActions>
-            <LoadingButton isLoading={boardSectionStore.isLoading}>
+            <LoadingButton isLoading={boardSection.isLoading}>
               Save
             </LoadingButton>
             <Button type="button" onClick={onClose}>

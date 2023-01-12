@@ -25,7 +25,7 @@ interface AddBoardSectionFormProps {
 }
 
 const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
-  const { boardSectionStore, uiStore } = useStore();
+  const { boardStore, uiStore } = useStore();
   const methods = useForm<BoardSectionFormValues>({
     mode: "onBlur",
     resolver: yupResolver(boardSectionValidationSchema),
@@ -34,7 +34,11 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
   const closeFormHandler = () => uiStore.toggleAddBoardSectionForm();
 
   const addBoardSectionHandler = async (values: BoardSectionFormValues) => {
-    await board.addBoardSection(values);
+    await board.createBoardSection({
+      ...values,
+      boardId: board.id,
+      order: boardStore.activeBoard.newSectionOrder,
+    });
     methods.reset();
     closeFormHandler();
   };
@@ -55,9 +59,7 @@ const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
             <FormField label="Description" name="description" />
           </DialogContent>
           <DialogActions>
-            <LoadingButton isLoading={boardSectionStore.isLoading}>
-              Save
-            </LoadingButton>
+            <LoadingButton isLoading={boardStore.isLoading}>Save</LoadingButton>
             <Button type="button" onClick={closeFormHandler}>
               Close
             </Button>

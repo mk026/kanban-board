@@ -9,7 +9,6 @@ import {
   taskValidationSchema,
 } from "../../../validation/taskValidation";
 import { Task } from "../../../store/task/Task";
-import { useStore } from "../../../hooks/useStore";
 import FormField from "../../form-field/FormField";
 import LoadingButton from "../../loading-button/LoadingButton";
 
@@ -20,7 +19,6 @@ interface EditTaskFormProps {
 }
 
 const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
-  const { taskStore } = useStore();
   const methods = useForm<TaskFormValues>({
     mode: "onBlur",
     defaultValues: { title: task.title, description: task.description },
@@ -28,7 +26,7 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
   });
 
   const editTaskHandler = async (values: TaskFormValues) => {
-    await taskStore.updateTask({ ...task, ...values });
+    await task.boardSection.updateTask({ ...task, ...values });
     methods.reset();
     onClose();
   };
@@ -39,7 +37,7 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
         <Box component="form" onSubmit={methods.handleSubmit(editTaskHandler)}>
           <FormField label="Task title" name="title" />
           <FormField label="Task description" name="description" />
-          <LoadingButton isLoading={taskStore.isLoading}>Save</LoadingButton>
+          <LoadingButton isLoading={task.isLoading}>Save</LoadingButton>
           <Button type="button" onClick={onClose}>
             Close
           </Button>
