@@ -1,20 +1,21 @@
 import { AxiosResponse } from "axios";
 
-import { ApiEndpoints, authApi } from "../api";
+import { authApi } from "../api";
+import { config } from "../config";
 import { UpdatePasswordDto, UpdateUserDto, UserResponse } from "../types";
 
 export default class UserService {
   static updateUser(data: UpdateUserDto): Promise<AxiosResponse<UserResponse>> {
-    return authApi.put(ApiEndpoints.USERS, data);
+    return authApi.put(config.usersUrl, data);
   }
 
   static updatePassword(
     data: UpdatePasswordDto
   ): Promise<AxiosResponse<UserResponse>> {
-    return authApi.put(ApiEndpoints.PASSWORD_UPDATE, data);
+    return authApi.put(config.passwordUpdateUrl, data);
   }
 
   static deleteUser(id: number): Promise<AxiosResponse<UserResponse>> {
-    return authApi.delete(`${ApiEndpoints.USERS}/${id}`);
+    return authApi.delete(`${config.usersUrl}/${id}`);
   }
 }

@@ -1,22 +1,23 @@
 import { AxiosResponse } from "axios";
 
-import { ApiEndpoints, authApi } from "../api";
+import { authApi } from "../api";
+import { config } from "../config";
 import { CreateTaskDto, TaskResponse, UpdateTaskDto } from "../types";
 
 export default class TaskService {
   static getTasks(boardId: number): Promise<AxiosResponse<TaskResponse[]>> {
-    return authApi.get(ApiEndpoints.TASKS, { params: { boardId } });
+    return authApi.get(config.tasksUrl, { params: { boardId } });
   }
 
   static addTask(data: CreateTaskDto): Promise<AxiosResponse<TaskResponse>> {
-    return authApi.post(ApiEndpoints.TASKS, data);
+    return authApi.post(config.tasksUrl, data);
   }
 
   static updateTask(data: UpdateTaskDto): Promise<AxiosResponse<TaskResponse>> {
-    return authApi.put(ApiEndpoints.TASKS, data);
+    return authApi.put(config.tasksUrl, data);
   }
 
   static deleteTask(id: number): Promise<AxiosResponse<TaskResponse>> {
-    return authApi.delete(`${ApiEndpoints.TASKS}/${id}`);
+    return authApi.delete(`${config.tasksUrl}/${id}`);
   }
 }

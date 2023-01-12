@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 
-import { api, ApiEndpoints, authApi } from "../api";
+import { api, authApi } from "../api";
+import { config } from "../config";
 import { AuthResponse } from "../types";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
@@ -9,11 +10,11 @@ export default class AuthService {
   static tokenKey = "token";
 
   static signup(data: SignupFormValues): Promise<AxiosResponse<AuthResponse>> {
-    return api.post(ApiEndpoints.SIGNUP, data);
+    return api.post(config.signupUrl, data);
   }
 
   static signin(data: SigninFormValues): Promise<AxiosResponse<AuthResponse>> {
-    return api.post(ApiEndpoints.SIGNIN, data);
+    return api.post(config.signinUrl, data);
   }
 
   static getStoredToken() {
@@ -29,6 +30,6 @@ export default class AuthService {
   }
 
   static checkAuth(): Promise<AxiosResponse<AuthResponse>> {
-    return authApi.get(ApiEndpoints.CHECK_AUTH);
+    return authApi.get(config.checkAuthUrl);
   }
 }

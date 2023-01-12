@@ -1,23 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 
+import { config } from "../config";
 import AuthService from "../services/AuthService";
 
-export const BASE_URL = "http://localhost:8080";
+export const api = axios.create({ baseURL: config.baseUrl });
 
-export enum ApiEndpoints {
-  SIGNUP = "/signup",
-  SIGNIN = "/signin",
-  CHECK_AUTH = "/check_auth",
-  USERS = "/users",
-  PASSWORD_UPDATE = "/users/password",
-  BOARDS = "/boards",
-  BOARD_SECTIONS = "/sections",
-  TASKS = "/tasks",
-}
-
-export const api = axios.create({ baseURL: BASE_URL });
-
-export const authApi = axios.create({ baseURL: BASE_URL });
+export const authApi = axios.create({ baseURL: config.baseUrl });
 
 const authInterceptor = (config: AxiosRequestConfig) => {
   config.headers!.Authorization = `Bearer ${AuthService.getStoredToken()}`;

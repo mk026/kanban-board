@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 
-import { ApiEndpoints, authApi } from "../api";
+import { authApi } from "../api";
+import { config } from "../config";
 import {
   BoardSectionResponse,
   CreateBoardSectionDto,
@@ -11,24 +12,24 @@ export default class BoardSectionService {
   static getBoardSections(
     boardId: number
   ): Promise<AxiosResponse<BoardSectionResponse[]>> {
-    return authApi.get(ApiEndpoints.BOARD_SECTIONS, { params: { boardId } });
+    return authApi.get(config.boardSectionsUrl, { params: { boardId } });
   }
 
   static addBoardSection(
     data: CreateBoardSectionDto
   ): Promise<AxiosResponse<BoardSectionResponse>> {
-    return authApi.post(ApiEndpoints.BOARD_SECTIONS, data);
+    return authApi.post(config.boardSectionsUrl, data);
   }
 
   static updateBoardSection(
     data: UpdateBoardSectionDto
   ): Promise<AxiosResponse<BoardSectionResponse>> {
-    return authApi.put(ApiEndpoints.BOARD_SECTIONS, data);
+    return authApi.put(config.boardSectionsUrl, data);
   }
 
   static deleteBoardSection(
     id: number
   ): Promise<AxiosResponse<BoardSectionResponse>> {
-    return authApi.delete(`${ApiEndpoints.BOARD_SECTIONS}/${id}`);
+    return authApi.delete(`${config.boardSectionsUrl}/${id}`);
   }
 }

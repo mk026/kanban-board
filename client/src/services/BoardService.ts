@@ -1,28 +1,29 @@
 import { AxiosResponse } from "axios";
 
-import { ApiEndpoints, authApi } from "../api";
+import { authApi } from "../api";
+import { config } from "../config";
 import { BoardResponse, CreateBoardDto, UpdateBoardDto } from "../types";
 
 export default class BoardService {
   static getBoards(): Promise<AxiosResponse<BoardResponse[]>> {
-    return authApi.get(ApiEndpoints.BOARDS);
+    return authApi.get(config.boardsUrl);
   }
 
   static getBoard(id: number): Promise<AxiosResponse<BoardResponse>> {
-    return authApi.get(`${ApiEndpoints.BOARDS}/${id}`);
+    return authApi.get(`${config.boardsUrl}/${id}`);
   }
 
   static addBoard(data: CreateBoardDto): Promise<AxiosResponse<BoardResponse>> {
-    return authApi.post(ApiEndpoints.BOARDS, data);
+    return authApi.post(config.boardsUrl, data);
   }
 
   static updateBoard(
     data: UpdateBoardDto
   ): Promise<AxiosResponse<BoardResponse>> {
-    return authApi.put(ApiEndpoints.BOARDS, data);
+    return authApi.put(config.boardsUrl, data);
   }
 
   static deleteBoard(id: number): Promise<AxiosResponse<BoardResponse>> {
-    return authApi.delete(`${ApiEndpoints.BOARDS}/${id}`);
+    return authApi.delete(`${config.boardsUrl}/${id}`);
   }
 }
