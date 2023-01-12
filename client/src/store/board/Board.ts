@@ -24,6 +24,10 @@ export class Board {
     this.description = description;
   }
 
+  get newSectionOrder() {
+    return this.boardSections[this.boardSections.length - 1].order + 1;
+  }
+
   async fetchBoardSections() {
     this.store.isLoading = true;
     this.boardSections = [];

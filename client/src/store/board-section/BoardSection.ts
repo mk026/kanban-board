@@ -31,6 +31,10 @@ export class BoardSection {
     this.board = board;
   }
 
+  get newTaskOrder() {
+    return this.tasks[this.tasks.length - 1].order + 1;
+  }
+
   async fetchTasks() {
     this.board.store.isLoading = true;
     this.tasks = [];
