@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { Container, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
-import BoardSectionsList from "../../components/board-sections/board-sections-list/BoardSectionsList";
-import AddBoardSectionForm from "../../components/forms/add-board-section-form/AddBoardSectionForm";
-import EditBoardForm from "../../components/forms/edit-board-form/EditBoardForm";
 import { useStore } from "../../hooks/useStore";
-import BoardControls from "../../components/boards/board-controls/BoardControls";
+import BoardSectionsList from "../../components/board-sections/board-sections-list";
+import AddBoardSectionForm from "../../components/forms/add-board-section-form";
+import EditBoardForm from "../../components/forms/edit-board-form";
+import BoardControls from "../../components/boards/board-controls";
 
 const BoardPage: FC = () => {
   const { id } = useParams<"id">();

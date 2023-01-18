@@ -1,10 +1,10 @@
 import { FC, useEffect } from "react";
 import { Typography } from "@mui/material";
 
-import BoardsListControls from "../../components/boards/boards-list-controls/BoardsListControls";
-import BoardsList from "../../components/boards/boards-list/BoardsList";
-import AddBoardForm from "../../components/forms/add-board-form/AddBoardForm";
 import { useStore } from "../../hooks/useStore";
+import BoardsListControls from "../../components/boards/boards-list-controls";
+import BoardsList from "../../components/boards/boards-list";
+import AddBoardForm from "../../components/forms/add-board-form";
 
 const BoardsPage: FC = () => {
   const { boardStore } = useStore();

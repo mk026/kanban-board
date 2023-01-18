@@ -1,7 +1,8 @@
-import { Button } from "@mui/material";
 import { FC, useState } from "react";
-import SigninForm from "../../components/forms/signin-form/SigninForm";
-import SignupForm from "../../components/forms/signup-form/SignupForm";
+import { Button } from "@mui/material";
+
+import SigninForm from "../../components/forms/signin-form";
+import SignupForm from "../../components/forms/signup-form";
 
 const AuthPage: FC = () => {
   const [isSignin, setIsSignin] = useState(false);
