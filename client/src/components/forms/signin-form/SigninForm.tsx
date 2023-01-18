@@ -9,8 +9,8 @@ import {
   signinValidationSchema,
 } from "../../../validation/signinValidation";
 import { useStore } from "../../../hooks/useStore";
-import FormField from "../../common/form-field/FormField";
-import LoadingButton from "../../common/loading-button/LoadingButton";
+import FormField from "../../common/form-field";
+import LoadingButton from "../../common/loading-button";
 
 const SigninForm: FC = () => {
   const { authStore } = useStore();

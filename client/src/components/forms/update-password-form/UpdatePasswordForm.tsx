@@ -9,8 +9,8 @@ import {
   updatePasswordValidationSchema,
 } from "../../../validation/updatePasswordValidation";
 import { useStore } from "../../../hooks/useStore";
-import FormField from "../../common/form-field/FormField";
-import LoadingButton from "../../common/loading-button/LoadingButton";
+import FormField from "../../common/form-field";
+import LoadingButton from "../../common/loading-button";
 
 const UpdatePasswordForm: FC = () => {
   const { userStore } = useStore();

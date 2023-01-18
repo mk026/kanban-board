@@ -3,9 +3,9 @@ import { Button, Card, Collapse, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { Task } from "../../../store/task/Task";
-import EditTaskForm from "../../forms/edit-task-form/EditTaskForm";
-import TaskPlaceholder from "../task-placeholder/TaskPlaceholder";
 import { useTaskDnD } from "../../../hooks/useTaskDnD";
+import EditTaskForm from "../../forms/edit-task-form";
+import TaskPlaceholder from "../task-placeholder";
 
 export interface TaskItemProps {
   task: Task;

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Container, List } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
-import BoardItem from "../board-item/BoardItem";
+import BoardItem from "../board-item";
 import { Board } from "../../../store/board/Board";
 
 interface BoardsListProps {

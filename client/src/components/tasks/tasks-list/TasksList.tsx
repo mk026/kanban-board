@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useDrop } from "react-dnd";
 
-import TaskItem from "../task-item/TaskItem";
+import TaskItem from "../task-item";
 import { Task } from "../../../store/task/Task";
 import { BoardSection } from "../../../store/board-section/BoardSection";
 

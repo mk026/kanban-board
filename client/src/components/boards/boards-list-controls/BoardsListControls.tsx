@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Button, Stack } from "@mui/material";
+
 import { useStore } from "../../../hooks/useStore";
 
 const BoardsListControls: FC = () => {

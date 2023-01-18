@@ -1,6 +1,7 @@
 import { Tab, Tabs } from "@mui/material";
 import { FC } from "react";
 import { NavLink, useLocation, useMatch } from "react-router-dom";
+
 import { Paths } from "../../routes";
 
 const Navbar: FC = () => {

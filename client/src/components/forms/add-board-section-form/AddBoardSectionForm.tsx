@@ -17,8 +17,8 @@ import {
 import { Board } from "../../../store/board/Board";
 import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
-import FormField from "../../common/form-field/FormField";
-import LoadingButton from "../../common/loading-button/LoadingButton";
+import FormField from "../../common/form-field";
+import LoadingButton from "../../common/loading-button";
 
 interface AddBoardSectionFormProps {
   board: Board;

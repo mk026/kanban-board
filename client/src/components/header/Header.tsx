@@ -5,7 +5,7 @@ import { FC } from "react";
 
 import { useStore } from "../../hooks/useStore";
 import { Paths } from "../../routes";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../navbar";
 
 const Header: FC = () => {
   const { authStore } = useStore();

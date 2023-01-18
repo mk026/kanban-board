@@ -3,10 +3,10 @@ import { Card, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { BoardSection } from "../../../store/board-section/BoardSection";
-import TasksList from "../../tasks/tasks-list/TasksList";
-import AddTaskForm from "../../forms/add-task-form/AddTaskForm";
-import BoardSectionControls from "../board-section-controls/BoardSectionControls";
-import EditBoardSectionForm from "../../forms/edit-board-section-form/EditBoardSectionForm";
+import TasksList from "../../tasks/tasks-list";
+import AddTaskForm from "../../forms/add-task-form";
+import BoardSectionControls from "../board-section-controls";
+import EditBoardSectionForm from "../../forms/edit-board-section-form";
 
 interface BoardSectionItemProps {
   boardSection: BoardSection;

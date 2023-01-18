@@ -8,8 +8,8 @@ import {
   taskValidationSchema,
 } from "../../../validation/taskValidation";
 import { BoardSection } from "../../../store/board-section/BoardSection";
-import FormField from "../../common/form-field/FormField";
-import LoadingButton from "../../common/loading-button/LoadingButton";
+import FormField from "../../common/form-field";
+import LoadingButton from "../../common/loading-button";
 
 interface AddTaskFormProps {
   boardSection: BoardSection;

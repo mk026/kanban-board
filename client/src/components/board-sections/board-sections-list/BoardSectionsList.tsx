@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "../../../hooks/useStore";
-import BoardSectionItem from "../board-section-item/BoardSectionItem";
+import BoardSectionItem from "../board-section-item";
 
 const BoardSectionsList: FC = () => {
   const { boardStore } = useStore();
