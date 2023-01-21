@@ -2,10 +2,8 @@ import * as yup from "yup";
 
 import { taskRules } from "./rules";
 
-export interface TaskFormValues {
-  title: string;
-  description?: string;
-}
+export interface TaskFormValues
+  extends yup.InferType<typeof taskValidationSchema> {}
 
 export const taskValidationSchema = yup.object({
   title: yup

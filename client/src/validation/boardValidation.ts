@@ -2,10 +2,8 @@ import * as yup from "yup";
 
 import { boardRules } from "./rules";
 
-export interface BoardFormValues {
-  title: string;
-  description?: string;
-}
+export interface BoardFormValues
+  extends yup.InferType<typeof boardValidationSchema> {}
 
 export const boardValidationSchema = yup.object({
   title: yup
