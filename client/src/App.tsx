@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import Layout from "./components/layout/Layout";
-import AppRouter from "./components/routing/app-router/AppRouter";
+import Layout from "./components/layout";
+import AppRouter from "./components/routing/app-router";
 import { useStore } from "./hooks/useStore";
 
 function App() {
