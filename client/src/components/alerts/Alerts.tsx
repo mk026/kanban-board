@@ -8,7 +8,7 @@ const Alerts: FC = () => {
   const { uiStore } = useStore();
 
   return (
-    <List>
+    <List data-testid="alerts-list">
       {uiStore.alerts.map((alert) => (
         <Alert
           key={alert.id}
