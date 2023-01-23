@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 
 import { api, authApi } from "../api";
 import { config } from "../config";
-import { AuthResponse } from "../types";
+import { AuthResponse } from "../types/authTypes";
 import { SigninFormValues } from "../validation/signinValidation";
 import { SignupFormValues } from "../validation/signupValidation";
 

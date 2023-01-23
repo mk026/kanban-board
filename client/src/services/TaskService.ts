@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 
 import { authApi } from "../api";
 import { config } from "../config";
-import { CreateTaskDto, TaskResponse, UpdateTaskDto } from "../types";
+import { CreateTaskDto, TaskResponse, UpdateTaskDto } from "../types/taskTypes";
 
 export default class TaskService {
   static getTasks(boardId: number): Promise<AxiosResponse<TaskResponse[]>> {

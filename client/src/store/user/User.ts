@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 import { UserStore } from "./UserStore";
-import { UserResponse } from "../../types";
+import { UserResponse } from "../../types/userTypes";
 
 export class User {
   id: number;

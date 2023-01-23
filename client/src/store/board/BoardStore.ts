@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { RootStore } from "..";
 import { Board } from "./Board";
 import BoardService from "../../services/BoardService";
-import { CreateBoardDto, UpdateBoardDto } from "../../types";
+import { CreateBoardDto, UpdateBoardDto } from "../../types/boardTypes";
 
 export class BoardStore {
   rootStore: RootStore;

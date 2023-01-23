@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { TaskResponse } from "../../types";
 
+import { TaskResponse } from "../../types/taskTypes";
 import { BoardSection } from "../board-section/BoardSection";
 
 export class Task {

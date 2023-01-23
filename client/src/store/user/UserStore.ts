@@ -3,7 +3,11 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { RootStore } from "..";
 import { User } from "./User";
 import UserService from "../../services/UserService";
-import { UpdatePasswordDto, UpdateUserDto, UserResponse } from "../../types";
+import {
+  UpdatePasswordDto,
+  UpdateUserDto,
+  UserResponse,
+} from "../../types/userTypes";
 
 export class UserStore {
   rootStore: RootStore;

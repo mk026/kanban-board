@@ -2,7 +2,11 @@ import { AxiosResponse } from "axios";
 
 import { authApi } from "../api";
 import { config } from "../config";
-import { BoardResponse, CreateBoardDto, UpdateBoardDto } from "../types";
+import {
+  BoardResponse,
+  CreateBoardDto,
+  UpdateBoardDto,
+} from "../types/boardTypes";
 
 export default class BoardService {
   static getBoards(): Promise<AxiosResponse<BoardResponse[]>> {

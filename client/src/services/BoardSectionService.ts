@@ -6,7 +6,7 @@ import {
   BoardSectionResponse,
   CreateBoardSectionDto,
   UpdateBoardSectionDto,
-} from "../types";
+} from "../types/boardSectionTypes";
 
 export default class BoardSectionService {
   static getBoardSections(

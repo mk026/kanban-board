@@ -3,11 +3,11 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { BoardStore } from "./BoardStore";
 import { BoardSection } from "../board-section/BoardSection";
 import BoardSectionService from "../../services/BoardSectionService";
+import { BoardResponse } from "../../types/boardTypes";
 import {
-  BoardResponse,
   CreateBoardSectionDto,
   UpdateBoardSectionDto,
-} from "../../types";
+} from "../../types/boardSectionTypes";
 
 export class Board {
   id: number = 0;

@@ -2,7 +2,11 @@ import { AxiosResponse } from "axios";
 
 import { authApi } from "../api";
 import { config } from "../config";
-import { UpdatePasswordDto, UpdateUserDto, UserResponse } from "../types";
+import {
+  UpdatePasswordDto,
+  UpdateUserDto,
+  UserResponse,
+} from "../types/userTypes";
 
 export default class UserService {
   static updateUser(data: UpdateUserDto): Promise<AxiosResponse<UserResponse>> {

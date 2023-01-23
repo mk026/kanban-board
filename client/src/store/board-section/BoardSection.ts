@@ -3,11 +3,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { Board } from "../board/Board";
 import { Task } from "../task/Task";
 import TaskService from "../../services/TaskService";
-import {
-  BoardSectionResponse,
-  CreateTaskDto,
-  UpdateTaskDto,
-} from "../../types";
+import { BoardSectionResponse } from "../../types/boardSectionTypes";
+import { CreateTaskDto, UpdateTaskDto } from "../../types/taskTypes";
 
 export class BoardSection {
   id: number;

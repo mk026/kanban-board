@@ -1,4 +1,4 @@
-import { UserResponse } from "../user/UserResponse";
+import { UserResponse } from "./userTypes";
 
 export interface AuthResponse {
   user: UserResponse;
