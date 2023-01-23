@@ -15,6 +15,7 @@ const Header: FC = () => {
       component="header"
       position="sticky"
       sx={{ backgroundColor: "darkgray" }}
+      data-testid="header"
     >
       <Box sx={{ padding: "1rem" }}>
         <Navbar />
