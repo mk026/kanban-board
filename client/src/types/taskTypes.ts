@@ -4,7 +4,7 @@ export interface TaskResponse {
   sectionId: number;
   order: number;
   title: string;
-  description: string;
+  description?: string;
 }
 
 export interface CreateTaskDto {
