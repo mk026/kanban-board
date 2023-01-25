@@ -22,9 +22,10 @@ export default class BoardSectionService {
   }
 
   static updateBoardSection(
+    id: number,
     data: UpdateBoardSectionDto
   ): Promise<AxiosResponse<BoardSectionResponse>> {
-    return authApi.put(config.boardSectionsUrl, data);
+    return authApi.put(`${config.boardSectionsUrl}/${id}`, data);
   }
 
   static deleteBoardSection(

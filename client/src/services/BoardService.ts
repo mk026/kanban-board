@@ -22,9 +22,10 @@ export default class BoardService {
   }
 
   static updateBoard(
+    id: number,
     data: UpdateBoardDto
   ): Promise<AxiosResponse<BoardResponse>> {
-    return authApi.put(config.boardsUrl, data);
+    return authApi.put(`${config.boardsUrl}/${id}`, data);
   }
 
   static deleteBoard(id: number): Promise<AxiosResponse<BoardResponse>> {
