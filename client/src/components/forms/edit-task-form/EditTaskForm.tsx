@@ -26,7 +26,7 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
   });
 
   const editTaskHandler = async (values: TaskFormValues) => {
-    await task.boardSection.updateTask({ ...task, ...values });
+    await task.boardSection.updateTask(task.id, values);
     methods.reset();
     onClose();
   };
