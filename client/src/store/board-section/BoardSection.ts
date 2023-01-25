@@ -83,10 +83,10 @@ export class BoardSection {
     }
   }
 
-  async updateTask(updateTaskDto: UpdateTaskDto) {
+  async updateTask(id: number, updateTaskDto: UpdateTaskDto) {
     this.isLoading = true;
     try {
-      const { data } = await TaskService.updateTask(updateTaskDto);
+      const { data } = await TaskService.updateTask(id, updateTaskDto);
       const updatedTask = new Task(this, data);
       runInAction(() => {
         this.tasks = this.tasks.map((task) =>

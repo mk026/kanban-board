@@ -9,7 +9,7 @@ export class Task {
   sectionId: number;
   order: number;
   title: string;
-  description: string;
+  description?: string;
   boardSection: BoardSection;
   isLoading: boolean = false;
   error: unknown = null;

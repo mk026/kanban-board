@@ -87,10 +87,10 @@ export class BoardStore {
     }
   }
 
-  async updateBoard(updateBoardDto: UpdateBoardDto) {
+  async updateBoard(id: number, updateBoardDto: UpdateBoardDto) {
     this.isLoading = true;
     try {
-      const { data } = await BoardService.updateBoard(updateBoardDto);
+      const { data } = await BoardService.updateBoard(id, updateBoardDto);
       const updatedBoard = new Board(this, data);
       runInAction(() => {
         this.boards = this.boards.map((board) =>

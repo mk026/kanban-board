@@ -12,7 +12,7 @@ import {
 export class Board {
   id: number = 0;
   title: string;
-  description: string;
+  description?: string;
   boardSections: BoardSection[] = [];
   store: BoardStore;
 
@@ -81,10 +81,14 @@ export class Board {
     }
   }
 
-  async updateBoardSection(updateBoardSectionDto: UpdateBoardSectionDto) {
+  async updateBoardSection(
+    id: number,
+    updateBoardSectionDto: UpdateBoardSectionDto
+  ) {
     this.store.isLoading = true;
     try {
       const { data } = await BoardSectionService.updateBoardSection(
+        id,
         updateBoardSectionDto
       );
       const updatedBoardSection = new BoardSection(this, data);
