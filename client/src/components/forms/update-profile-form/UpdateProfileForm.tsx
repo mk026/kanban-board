@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { Box } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
@@ -10,6 +9,7 @@ import {
 import { useStore } from "../../../hooks/useStore";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
+import Form from "../../common/form/Form";
 
 const UpdateProfileForm: FC = () => {
   const { userStore } = useStore();
@@ -23,17 +23,15 @@ const UpdateProfileForm: FC = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <Box
-        component="form"
-        onSubmit={methods.handleSubmit(updateProfileHandler)}
-      >
-        <FormField label="Name" name="name" />
-        <FormField label="About yourself" name="bio" multiline />
-        <FormField type="email" label="Email" name="email" />
-        <LoadingButton isLoading={userStore.isLoading}>Save</LoadingButton>
-      </Box>
-    </FormProvider>
+    <Form
+      formMethods={methods}
+      onSubmit={methods.handleSubmit(updateProfileHandler)}
+    >
+      <FormField label="Name" name="name" />
+      <FormField label="About yourself" name="bio" multiline />
+      <FormField type="email" label="Email" name="email" />
+      <LoadingButton isLoading={userStore.isLoading}>Save</LoadingButton>
+    </Form>
   );
 };
 
