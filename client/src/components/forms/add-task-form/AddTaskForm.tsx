@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Box, Button, Collapse } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { Button, Collapse } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
@@ -10,6 +10,7 @@ import {
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
+import Form from "../../common/form";
 
 interface AddTaskFormProps {
   boardSection: BoardSection;
@@ -36,16 +37,17 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ boardSection, open, onClose }) => {
 
   return (
     <Collapse in={open}>
-      <FormProvider {...methods}>
-        <Box component="form" onSubmit={methods.handleSubmit(addTaskHandler)}>
-          <FormField label="Task title" name="title" />
-          <FormField label="Task description" name="description" />
-          <LoadingButton isLoading={boardSection.isLoading}>Save</LoadingButton>
-          <Button type="button" onClick={onClose}>
-            Close
-          </Button>
-        </Box>
-      </FormProvider>
+      <Form
+        formMethods={methods}
+        onSubmit={methods.handleSubmit(addTaskHandler)}
+      >
+        <FormField label="Task title" name="title" />
+        <FormField label="Task description" name="description" />
+        <LoadingButton isLoading={boardSection.isLoading}>Save</LoadingButton>
+        <Button type="button" onClick={onClose}>
+          Close
+        </Button>
+      </Form>
     </Collapse>
   );
 };

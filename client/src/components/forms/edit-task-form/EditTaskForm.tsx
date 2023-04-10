@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Box, Button, Collapse } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { Button, Collapse } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
 
@@ -11,6 +11,7 @@ import {
 import { Task } from "../../../store/task/Task";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
+import Form from "../../common/form";
 
 interface EditTaskFormProps {
   task: Task;
@@ -33,16 +34,17 @@ const EditTaskForm: FC<EditTaskFormProps> = ({ task, open, onClose }) => {
 
   return (
     <Collapse in={open}>
-      <FormProvider {...methods}>
-        <Box component="form" onSubmit={methods.handleSubmit(editTaskHandler)}>
-          <FormField label="Task title" name="title" />
-          <FormField label="Task description" name="description" />
-          <LoadingButton isLoading={task.isLoading}>Save</LoadingButton>
-          <Button type="button" onClick={onClose}>
-            Close
-          </Button>
-        </Box>
-      </FormProvider>
+      <Form
+        formMethods={methods}
+        onSubmit={methods.handleSubmit(editTaskHandler)}
+      >
+        <FormField label="Task title" name="title" />
+        <FormField label="Task description" name="description" />
+        <LoadingButton isLoading={task.isLoading}>Save</LoadingButton>
+        <Button type="button" onClick={onClose}>
+          Close
+        </Button>
+      </Form>
     </Collapse>
   );
 };

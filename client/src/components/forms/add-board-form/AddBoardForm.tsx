@@ -1,13 +1,12 @@
 import { FC } from "react";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
@@ -18,6 +17,7 @@ import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
+import Form from "../../common/form";
 
 const AddBoardForm: FC = () => {
   const { boardStore, uiStore } = useStore();
@@ -39,20 +39,21 @@ const AddBoardForm: FC = () => {
   return (
     <Dialog open={uiStore.addBoardFormIsActive} onClose={closeFormHandler}>
       <DialogTitle>Add new board</DialogTitle>
-      <FormProvider {...methods}>
-        <Box component="form" onSubmit={methods.handleSubmit(addBoardHandler)}>
-          <DialogContent>
-            <FormField label="Board title" name="title" />
-            <FormField label="Board description" name="description" />
-          </DialogContent>
-          <DialogActions>
-            <LoadingButton isLoading={isLoading}>Save</LoadingButton>
-            <Button type="button" onClick={closeFormHandler}>
-              Close
-            </Button>
-          </DialogActions>
-        </Box>
-      </FormProvider>
+      <Form
+        formMethods={methods}
+        onSubmit={methods.handleSubmit(addBoardHandler)}
+      >
+        <DialogContent>
+          <FormField label="Board title" name="title" />
+          <FormField label="Board description" name="description" />
+        </DialogContent>
+        <DialogActions>
+          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
+          <Button type="button" onClick={closeFormHandler}>
+            Close
+          </Button>
+        </DialogActions>
+      </Form>
     </Dialog>
   );
 };

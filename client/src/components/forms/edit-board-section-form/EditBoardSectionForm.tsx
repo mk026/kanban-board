@@ -1,13 +1,12 @@
 import { FC } from "react";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { observer } from "mobx-react-lite";
 
@@ -19,6 +18,7 @@ import { useStore } from "../../../hooks/useStore";
 import { BoardSection } from "../../../store/board-section/BoardSection";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
+import Form from "../../common/form";
 
 interface EditBoardSectionFormProps {
   boardSection: BoardSection;
@@ -47,24 +47,20 @@ const EditBoardSectionForm: FC<EditBoardSectionFormProps> = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit section</DialogTitle>
-      <FormProvider {...methods}>
-        <Box
-          component="form"
-          onSubmit={methods.handleSubmit(editBoardSectionHandler)}
-        >
-          <DialogContent>
-            <FormField label="Section title" name="title" />
-          </DialogContent>
-          <DialogActions>
-            <LoadingButton isLoading={boardSection.isLoading}>
-              Save
-            </LoadingButton>
-            <Button type="button" onClick={onClose}>
-              Close
-            </Button>
-          </DialogActions>
-        </Box>
-      </FormProvider>
+      <Form
+        formMethods={methods}
+        onSubmit={methods.handleSubmit(editBoardSectionHandler)}
+      >
+        <DialogContent>
+          <FormField label="Section title" name="title" />
+        </DialogContent>
+        <DialogActions>
+          <LoadingButton isLoading={boardSection.isLoading}>Save</LoadingButton>
+          <Button type="button" onClick={onClose}>
+            Close
+          </Button>
+        </DialogActions>
+      </Form>
     </Dialog>
   );
 };
