@@ -6,16 +6,10 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-import {
-  BoardSectionFormValues,
-  boardSectionValidationSchema,
-} from "../../../validation/boardSectionValidation";
-import { Board } from "../../../store/board/Board";
-import { useStore } from "../../../hooks/useStore";
 import { observer } from "mobx-react-lite";
+
+import { Board } from "../../../store/board/Board";
+import { useAddBoardSectionForm } from "../../../hooks/useAddBoardSectionForm";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
 import Form from "../../common/form";
@@ -25,41 +19,20 @@ interface AddBoardSectionFormProps {
 }
 
 const AddBoardSectionForm: FC<AddBoardSectionFormProps> = ({ board }) => {
-  const { boardStore, uiStore } = useStore();
-  const methods = useForm<BoardSectionFormValues>({
-    mode: "onBlur",
-    resolver: yupResolver(boardSectionValidationSchema),
-  });
-
-  const closeFormHandler = () => uiStore.toggleAddBoardSectionForm();
-
-  const addBoardSectionHandler = async (values: BoardSectionFormValues) => {
-    await board.createBoardSection({
-      ...values,
-      boardId: board.id,
-      order: boardStore.activeBoard.newSectionOrder,
-    });
-    methods.reset();
-    closeFormHandler();
-  };
+  const { formMethods, onSubmit, isLoading, isOpen, onClose } =
+    useAddBoardSectionForm(board);
 
   return (
-    <Dialog
-      open={uiStore.addBoardSectionFormIsActive}
-      onClose={closeFormHandler}
-    >
+    <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>Add new section</DialogTitle>
-      <Form
-        formMethods={methods}
-        onSubmit={methods.handleSubmit(addBoardSectionHandler)}
-      >
+      <Form formMethods={formMethods} onSubmit={onSubmit}>
         <DialogContent>
           <FormField label="Title" name="title" />
           <FormField label="Description" name="description" />
         </DialogContent>
         <DialogActions>
-          <LoadingButton isLoading={boardStore.isLoading}>Save</LoadingButton>
-          <Button type="button" onClick={closeFormHandler}>
+          <LoadingButton isLoading={isLoading}>Save</LoadingButton>
+          <Button type="button" onClick={onClose}>
             Close
           </Button>
         </DialogActions>
