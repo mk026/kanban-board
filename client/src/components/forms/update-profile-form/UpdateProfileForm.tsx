@@ -1,36 +1,19 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 
-import {
-  UpdateProfileFormValues,
-  updateProfileValidationSchema,
-} from "../../../validation/updateProfileValidation";
-import { useStore } from "../../../hooks/useStore";
+import { useUpdateProfileForm } from "../../../hooks/useUpdateProfileForm";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
 import Form from "../../common/form/Form";
 
 const UpdateProfileForm: FC = () => {
-  const { userStore } = useStore();
-  const methods = useForm<UpdateProfileFormValues>({
-    mode: "onBlur",
-    resolver: yupResolver(updateProfileValidationSchema),
-  });
-
-  const updateProfileHandler = (values: UpdateProfileFormValues) => {
-    userStore.updateUser(values);
-  };
+  const { formMethods, onSubmit, isLoading } = useUpdateProfileForm();
 
   return (
-    <Form
-      formMethods={methods}
-      onSubmit={methods.handleSubmit(updateProfileHandler)}
-    >
+    <Form formMethods={formMethods} onSubmit={onSubmit}>
       <FormField label="Name" name="name" />
       <FormField label="About yourself" name="bio" multiline />
       <FormField type="email" label="Email" name="email" />
-      <LoadingButton isLoading={userStore.isLoading}>Save</LoadingButton>
+      <LoadingButton isLoading={isLoading}>Save</LoadingButton>
     </Form>
   );
 };
