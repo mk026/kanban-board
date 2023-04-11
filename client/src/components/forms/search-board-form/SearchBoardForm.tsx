@@ -1,20 +1,15 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
 
+import { useSearchBoardForm } from "../../../hooks/useSearchBoardForm";
 import FormField from "../../common/form-field";
 import LoadingButton from "../../common/loading-button";
 import Form from "../../common/form";
 
 const SearchBoardForm: FC = () => {
-  const methods = useForm<{ title: string }>();
-
-  const searchBoardHandler = (data: { title: string }) => console.log(data);
+  const { formMethods, onSubmit } = useSearchBoardForm();
 
   return (
-    <Form
-      formMethods={methods}
-      onSubmit={methods.handleSubmit(searchBoardHandler)}
-    >
+    <Form formMethods={formMethods} onSubmit={onSubmit}>
       <FormField label="Board Title" name="title" />
       <LoadingButton isLoading={false}>Search</LoadingButton>
     </Form>
