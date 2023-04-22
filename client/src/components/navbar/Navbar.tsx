@@ -28,12 +28,6 @@ const Navbar: FC = () => {
         component={NavLink}
         to={Paths.PROFILE_PATH}
       />
-      <Tab
-        label="Auth"
-        value={Paths.AUTH_PATH}
-        component={NavLink}
-        to={Paths.AUTH_PATH}
-      />
     </Tabs>
   );
 };
