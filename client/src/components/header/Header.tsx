@@ -5,6 +5,7 @@ import { FC } from "react";
 import { useStore } from "../../hooks/useStore";
 import Navbar from "../navbar";
 import AuthLinks from "../auth-links";
+import AppTitle from "../app-title";
 
 const Header: FC = () => {
   const { authStore } = useStore();
@@ -17,6 +18,7 @@ const Header: FC = () => {
       data-testid="header"
     >
       <Box sx={{ padding: "1rem" }}>
+        <AppTitle />
         {authStore.isAuth ? <Navbar /> : <AuthLinks />}
       </Box>
     </AppBar>
