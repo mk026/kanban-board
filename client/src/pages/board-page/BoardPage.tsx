@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "../../hooks/useStore";
@@ -8,6 +8,7 @@ import BoardSectionsList from "../../components/board-sections/board-sections-li
 import AddBoardSectionForm from "../../components/forms/add-board-section-form";
 import EditBoardForm from "../../components/forms/edit-board-form";
 import BoardControls from "../../components/boards/board-controls";
+import PageTitle from "../../components/page-title";
 
 const BoardPage: FC = () => {
   const { id } = useParams<"id">();
@@ -23,9 +24,7 @@ const BoardPage: FC = () => {
 
   return (
     <Container>
-      <Typography>
-        BoardPage for board {boardStore.activeBoard.title}
-      </Typography>
+      <PageTitle>BoardPage for board {boardStore.activeBoard.title}</PageTitle>
       <BoardControls board={boardStore.activeBoard} />
       <AddBoardSectionForm board={boardStore.activeBoard!} />
       <EditBoardForm board={boardStore.activeBoard!} />

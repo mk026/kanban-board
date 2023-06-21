@@ -1,7 +1,9 @@
 import { FC } from "react";
 
+import PageTitle from "../../components/page-title";
+
 const NotFoundPage: FC = () => {
-  return <div>Page not found</div>;
+  return <PageTitle>Page not found</PageTitle>;
 };
 
 export default NotFoundPage;

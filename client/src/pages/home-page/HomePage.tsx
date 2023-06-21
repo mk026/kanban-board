@@ -1,13 +1,14 @@
 import { FC } from "react";
 
 import AppInfo from "../../components/app-info";
+import PageTitle from "../../components/page-title";
 
 const HomePage: FC = () => {
   return (
-    <div>
-      <p>HomePage</p>
+    <>
+      <PageTitle>HomePage</PageTitle>
       <AppInfo />
-    </div>
+    </>
   );
 };
 

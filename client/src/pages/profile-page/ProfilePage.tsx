@@ -1,15 +1,15 @@
-import { Typography } from "@mui/material";
 import { FC } from "react";
 
 import UpdateProfileForm from "../../components/forms/update-profile-form";
 import { useStore } from "../../hooks/useStore";
+import PageTitle from "../../components/page-title";
 
 const ProfilePage: FC = () => {
   const { userStore } = useStore();
 
   return (
     <>
-      <Typography>Profile of {userStore.user?.name}</Typography>
+      <PageTitle>Profile of {userStore.user?.name}</PageTitle>
       <UpdateProfileForm />
     </>
   );

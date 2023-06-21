@@ -1,7 +1,9 @@
 import { FC } from "react";
 
+import PageTitle from "../../components/page-title";
+
 const SettingsPage: FC = () => {
-  return <div>SettingsPage</div>;
+  return <PageTitle>SettingsPage</PageTitle>;
 };
 
 export default SettingsPage;
