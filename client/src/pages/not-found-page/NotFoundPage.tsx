@@ -1,9 +1,15 @@
 import { FC } from "react";
 
 import PageTitle from "../../components/page-title";
+import NotFoundMessage from "../../components/not-found-message";
 
 const NotFoundPage: FC = () => {
-  return <PageTitle>Page not found</PageTitle>;
+  return (
+    <>
+      <PageTitle>Page not found</PageTitle>
+      <NotFoundMessage />
+    </>
+  );
 };
 
 export default NotFoundPage;
