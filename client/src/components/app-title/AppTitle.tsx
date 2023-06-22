@@ -6,7 +6,7 @@ import { Paths } from "../../routes";
 
 const AppTitle: FC = () => {
   return (
-    <Typography component={Link} to={Paths.HOME_PATH}>
+    <Typography variant="h1" component={Link} to={Paths.HOME_PATH}>
       React Kanban Board
     </Typography>
   );
