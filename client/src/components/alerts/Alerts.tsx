@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { Alert, AlertTitle, List } from "@mui/material";
+import { List } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "../../hooks/useStore";
+import AlertItem from "../alert-item/AlertItem";
 
 const Alerts: FC = () => {
   const { uiStore } = useStore();
@@ -10,14 +11,7 @@ const Alerts: FC = () => {
   return (
     <List data-testid="alerts-list">
       {uiStore.alerts.map((alert) => (
-        <Alert
-          key={alert.id}
-          severity={alert.severity}
-          onClose={() => uiStore.removeAlert(alert.id)}
-        >
-          <AlertTitle>{alert.title}</AlertTitle>
-          {alert.message}
-        </Alert>
+        <AlertItem alert={alert} />
       ))}
     </List>
   );
