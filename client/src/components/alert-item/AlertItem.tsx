@@ -14,7 +14,6 @@ const AlertItem: FC<AlertItemProps> = ({ alert }) => {
 
   return (
     <Alert
-      key={alert.id}
       severity={alert.severity}
       onClose={() => uiStore.removeAlert(alert.id)}
     >

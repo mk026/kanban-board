@@ -11,7 +11,7 @@ const Alerts: FC = () => {
   return (
     <List data-testid="alerts-list">
       {uiStore.alerts.map((alert) => (
-        <AlertItem alert={alert} />
+        <AlertItem key={alert.id} alert={alert} />
       ))}
     </List>
   );
