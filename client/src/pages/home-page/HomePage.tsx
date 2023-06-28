@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import AppInfo from "../../components/app-info";
-import PageTitle from "../../components/page-title";
+import PageTitle from "../../components/common/page-title";
 
 const HomePage: FC = () => {
   return (

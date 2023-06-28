@@ -8,7 +8,7 @@ import BoardSectionsList from "../../components/board-sections/board-sections-li
 import AddBoardSectionForm from "../../components/forms/add-board-section-form";
 import EditBoardForm from "../../components/forms/edit-board-form";
 import BoardControls from "../../components/boards/board-controls";
-import PageTitle from "../../components/page-title";
+import PageTitle from "../../components/common/page-title";
 
 const BoardPage: FC = () => {
   const { id } = useParams<"id">();

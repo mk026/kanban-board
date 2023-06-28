@@ -4,7 +4,7 @@ import { useStore } from "../../hooks/useStore";
 import BoardsListControls from "../../components/boards/boards-list-controls";
 import BoardsList from "../../components/boards/boards-list";
 import AddBoardForm from "../../components/forms/add-board-form";
-import PageTitle from "../../components/page-title";
+import PageTitle from "../../components/common/page-title";
 
 const BoardsPage: FC = () => {
   const { boardStore } = useStore();
