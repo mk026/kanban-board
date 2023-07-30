@@ -4,12 +4,14 @@ import { NavLink, useLocation, useMatch } from "react-router-dom";
 
 import { Paths } from "../../routes";
 
+import classes from "./Navbar.module.scss";
+
 const Navbar: FC = () => {
   const { pathname } = useLocation();
   const boardMatch = useMatch(Paths.BOARD_PATH);
 
   return (
-    <Tabs component="nav" value={pathname}>
+    <Tabs component="nav" value={pathname} className={classes.navbar}>
       <Tab
         label="Home"
         value={Paths.HOME_PATH}
