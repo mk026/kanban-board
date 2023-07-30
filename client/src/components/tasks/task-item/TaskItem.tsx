@@ -7,6 +7,8 @@ import { useTaskDnD } from "../../../hooks/useTaskDnD";
 import EditTaskForm from "../../forms/edit-task-form";
 import TaskPlaceholder from "../task-placeholder";
 
+import classes from "./TaskItem.module.scss";
+
 export interface TaskItemProps {
   task: Task;
 }
@@ -24,7 +26,7 @@ const TaskItem: FC<TaskItemProps> = ({ task }) => {
   }
 
   return (
-    <div ref={dndRef}>
+    <div ref={dndRef} className={classes.item}>
       <TaskPlaceholder open={isOver && isHoveringOnTop} />
       <Collapse in={!isEditing}>
         <Card variant="outlined" ref={taskRef} sx={{ cursor: "move" }}>
