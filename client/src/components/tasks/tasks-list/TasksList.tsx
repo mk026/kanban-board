@@ -7,6 +7,8 @@ import TaskItem from "../task-item";
 import { Task } from "../../../store/task/Task";
 import { BoardSection } from "../../../store/board-section/BoardSection";
 
+import classes from "./TasksList.module.scss";
+
 interface TasksListProps {
   tasks: Task[];
   boardSection: BoardSection;
@@ -20,10 +22,7 @@ const TasksList: FC<TasksListProps> = ({ tasks, boardSection }) => {
 
   if (tasks.length === 0) {
     return (
-      <Box
-        ref={drop}
-        sx={{ width: "100%", minHeight: "3rem", padding: "1rem" }}
-      >
+      <Box ref={drop} className={classes.fallback}>
         <Typography>No tasks</Typography>
       </Box>
     );
