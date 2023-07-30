@@ -7,16 +7,13 @@ import Navbar from "../navbar";
 import AuthLinks from "../auth-links";
 import AppTitle from "../app-title";
 
+import classes from "./Header.module.scss";
+
 const Header: FC = () => {
   const { authStore } = useStore();
 
   return (
-    <AppBar
-      component="header"
-      position="sticky"
-      sx={{ backgroundColor: "darkgray" }}
-      data-testid="header"
-    >
+    <AppBar component="header" className={classes.header} data-testid="header">
       <Box sx={{ padding: "1rem" }}>
         <AppTitle />
         {authStore.isAuth ? <Navbar /> : <AuthLinks />}
