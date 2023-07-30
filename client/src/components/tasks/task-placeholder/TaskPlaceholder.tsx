@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Box, Collapse } from "@mui/material";
 
+import classes from "./TaskPlaceholder.module.scss";
+
 interface TaskPlaceholderProps {
   open: boolean;
 }
@@ -8,7 +10,7 @@ interface TaskPlaceholderProps {
 const TaskPlaceholder: FC<TaskPlaceholderProps> = ({ open }) => {
   return (
     <Collapse in={open}>
-      <Box sx={{ height: "150px", backgroundColor: "#6c6c6c" }} />
+      <Box className={classes.placeholder} />
     </Collapse>
   );
 };
