@@ -4,6 +4,8 @@ import { Button, Stack } from "@mui/material";
 import { Board } from "../../../store/board/Board";
 import { useStore } from "../../../hooks/useStore";
 
+import classes from "./BoardControls.module.scss";
+
 interface BoardControlsProps {
   board: Board;
 }
@@ -19,7 +21,7 @@ const BoardControls: FC<BoardControlsProps> = ({ board }) => {
   const removeBoardHandler = () => board.remove();
 
   return (
-    <Stack direction="row">
+    <Stack direction="row" className={classes.controls}>
       <Button onClick={toggleAddBoardSectionFormHandler}>Add Section</Button>
       <Button onClick={toggleEditBoardFormHandler}>Edit Board</Button>
       <Button onClick={removeBoardHandler}>Delete Board</Button>
