@@ -8,6 +8,8 @@ import AddTaskForm from "../../forms/add-task-form";
 import BoardSectionControls from "../board-section-controls";
 import EditBoardSectionForm from "../../forms/edit-board-section-form";
 
+import classes from "./BoardSectionItem.module.scss";
+
 interface BoardSectionItemProps {
   boardSection: BoardSection;
 }
@@ -27,7 +29,7 @@ const BoardSectionItem: FC<BoardSectionItemProps> = ({ boardSection }) => {
   const removeBoardSectionHandler = () => boardSection.remove();
 
   return (
-    <Card>
+    <Card className={classes.section}>
       <Typography>{boardSection.title}</Typography>
       <BoardSectionControls
         onAddTask={toggleAddTaskFormHandler}
