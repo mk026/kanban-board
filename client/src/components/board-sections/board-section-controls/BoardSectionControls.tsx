@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Button, Stack } from "@mui/material";
 
+import classes from "./BoardSectionControls.module.scss";
+
 interface BoardSectionControlsProps {
   onAddTask: () => void;
   onEditSection: () => void;
@@ -13,7 +15,7 @@ const BoardSectionControls: FC<BoardSectionControlsProps> = ({
   onDeleteSection,
 }) => {
   return (
-    <Stack direction="row">
+    <Stack direction="row" className={classes.controls}>
       <Button onClick={onAddTask}>Add Task</Button>
       <Button onClick={onEditSection}>Edit</Button>
       <Button onClick={onDeleteSection}>Delete</Button>
